@@ -8,7 +8,7 @@ l = 15;
 
 % Message vector of Log-Likelihood ratios
 % Originally [1 0* 0 1 0 1 0 1] *=flipped
-x = [-1,1,1,-1,1,-1,1,-1];
+x = [-1,-1,1,-1,1,-1,1,-1];
 
 % "Parity Check Matrix" or graph connections
 % Rows = Each Check node
