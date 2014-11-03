@@ -1,8 +1,8 @@
 % Belief Propogation Iteration Function
 
-function y = BP_iterate(x,H,l)
+function [y,iterations] = BP_iterate(x,H,l)
 
-global iterator;
+iterations = l;
 
 % x = Input LLR vector
 % H = Graph connection matrix/Parity Check Matrix
@@ -64,7 +64,7 @@ for iter = 0:l
     %Test to see if we should break execution at this iteration
     % Values of y either +/- Inf? -> Break
     if isnan(range(abs(y)))
-        iterator = iter;
+        iterations = iter;
         return
     end
     
