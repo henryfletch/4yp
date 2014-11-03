@@ -20,7 +20,7 @@ for SNR = 0:0.1:5
     fprintf('SNR =%6.2f',SNR);
     fprintf('\n');
     tic
-    parfor i = 1:100
+    parfor i = 1:500
         [biterrs(i),errRatio(i),iterations(i)] = ldpc_BER_AWGN(G,H,l,SNR);
     end
     toc
