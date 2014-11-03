@@ -20,11 +20,11 @@ for SNR = 0:0.1:5
     fprintf('SNR =%6.2f',SNR);
     fprintf('\n');
     tic
-    parfor i = 1:50
-        [~,~,iterations(i)] = ldpc_BER_AWGN(G,H,l,SNR);
+    parfor i = 1:100
+        [biterrs(i),errRatio(i),iterations(i)] = ldpc_BER_AWGN(G,H,l,SNR);
     end
     toc
-    I = [I;SNR,mean(iterations)];
+    I = [I;SNR,mean(iterations),mean(biterrs),mean(errRatio)];
     %save('output.mat','Z');
 end
 
