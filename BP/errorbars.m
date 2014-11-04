@@ -1,8 +1,10 @@
 function p = errorbars(type,r,n)
 
 if strcmp(type,'pos')
-    p = (r/n)*exp(2*sqrt((n-r)/(r*n)));
+    p = (r./n).*exp(2.*sqrt((n-r)./(r.*n)));
+elseif strcmp(type,'neg')
+    p = (r./n).*exp(-2.*sqrt((n-r)./(r.*n)));
 else
-    p = (r/n)*exp(-2*sqrt((n-r)/(r*n)));
+    error('Incorrect input argument!');
 end
 end
