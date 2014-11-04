@@ -30,6 +30,6 @@ for SNR = 0:0.1:5
 end
 
 %Now, perform the error bar bit
-I = addErrorBars(I);
+I_new = addErrorBars(I);
 
 
