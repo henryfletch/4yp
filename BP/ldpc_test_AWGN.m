@@ -4,11 +4,11 @@ clear
 close
 
 % "Parity Check Matrix" or graph connections
-H = load('../LDPC data/Rate0.5/H-96-48.mat');
+H = load('../LDPC data/Rate0.5/H-1008-504.mat');
 H = H.H; %Dodgy work-around!
 
 % "Generator Matrix"
-G = load('../LDPC data/Rate0.5/G-96-48.mat');
+G = load('../LDPC data/Rate0.5/G-1008-504.mat');
 G = G.G; %Dodgy work-around!
 
 % Belief Propogation Iterations
@@ -16,16 +16,15 @@ l = 100;
 
 % Loop to go over all values of SNR, as well as perform multiple iterations
 I = [];
-for SNR = 0:0.1:5
+for SNR = 0:0.1:3
     fprintf('SNR =%6.2f',SNR);
     fprintf('\n');
     tic
-    parfor i = 1:500
-        [biterrs(i),errRatio(i),iterations(i)] = ldpc_BER_AWGN(G,H,l,SNR);
+    parfor i = 1:200
+        [~,errRatio(i),iterations(i)] = ldpc_BER_AWGN(G,H,l,SNR);
     end
     toc
-    I = [I;SNR,mean(iterations),mean(biterrs),mean(errRatio)];
-    %save('output.mat','Z');
+    I = [I;SNR,mean(iterations),mean(errRatio)];
 end
 
 
