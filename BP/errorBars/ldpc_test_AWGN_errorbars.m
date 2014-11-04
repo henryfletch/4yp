@@ -15,7 +15,7 @@ G = G.G; %Dodgy work-around!
 l = 100; %MAX value
 monteCarlo = 500; %Parfor
 
-% Loop to go over all values of SNR, as well as perform multiple iterations
+% Loop to go over all values of SNR, as well as perform MC simulations
 I = [];
 for SNR = 0:0.1:5
     fprintf('SNR =%6.2f',SNR);
@@ -27,7 +27,9 @@ for SNR = 0:0.1:5
     toc
     blockFailures = nnz(biterrs); 
     I = [I;SNR,monteCarlo,mean(iterations),blockFailures,mean(errRatio)];
-    %save('output.mat','Z');
 end
+
+%Now, perform the error bar bit
+I = addErrorBars(I);
 
 
