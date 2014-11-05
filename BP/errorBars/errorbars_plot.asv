@@ -1,9 +1,0 @@
-errorData = load('errorbars-data2.mat');
-I = errorData.I;
-
-x = I(:,1) - 3;
-y = I(:,8); % BLOCK ERROR PROBABILITY NOT BER!
-u = I(:,6);
-l = I(:,7);
-
-semilogy(
