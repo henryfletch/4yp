@@ -1,7 +1,7 @@
 % Belief Propogation
 % Message Node Function
 
-function y = BP_messageNode(m_JI,j,i,j_max)
+function y = BP_messageNode_vec(m_JI,j,i,j_max)
 
 % Inputs: m_JI is the m(j,i) matrix, the messages from the CHK node to the
 % MSG node from the previous operation.
