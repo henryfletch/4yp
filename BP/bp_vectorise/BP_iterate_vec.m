@@ -9,6 +9,9 @@ iterations = l;
 % l = # Iterations
 % y = Output LLR vector
 
+%i = Message Nodes;
+%j = Check Nodes;
+
 % Need to calculate number of CHK and MSG nodes from H
 [j_max,i_max] = size(H);
 
@@ -20,16 +23,15 @@ for iter = 0:l
     % All Message nodes:
     for i = 1:i_max
         % At each Message node:
-        h = H(:,i);
-        h = h';% Row vector of connections to check nodes
+        h = H(:,i);% Column vector of connections to check nodes
         
         % Message sent down each branch from MSG to CHK:
-        for j = 1:j_max
-            if h(j) == 1 % i.e. if MSG i is connected to check j
+        %for j = 1:j_max
+            %if h(j) == 1 % i.e. if MSG i is connected to check j
                 if iter == 0 % on initial iteration:
-                    m_IJ(i,j) = x(i); % Message sent = initial conditions
+                    m_IJ(i,:) = x(i); % Message sent = initial conditions
                 else % subsequently:
-                    m_IJ(i,j) = m_IJ(i,j) + BP_messageNode_vec(m_JI,j,i,j_max);
+                    m_IJ(i,:) = m_IJ(i,:) + h.*m_JI(:,i)) - ;
                 end
             else
                 m_IJ(i,j) = 0;
