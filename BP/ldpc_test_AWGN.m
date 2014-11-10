@@ -21,9 +21,9 @@ for SNR = 0:1:7
     fprintf('\n');
     tic;
     parfor i = 1:300
-        i = 1;SNR=5;[~,errRatio(i),iterations(i)] = ldpc_BER_AWGN(G,H,l,SNR);
+        [~,errRatio(i),iterations(i)] = ldpc_BER_AWGN(G,H,l,SNR);
     end
     toc
     I = [I;SNR,mean(iterations),mean(errRatio)];
 end
-toc
+
