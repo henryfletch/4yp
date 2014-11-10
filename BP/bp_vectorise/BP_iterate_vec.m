@@ -25,52 +25,45 @@ for iter = 0:l
         % At each Message node:
         h = H(:,i);% Column vector of connections to check nodes
         
-        % Message sent down each branch from MSG to CHK:
-        %for j = 1:j_max
-            %if h(j) == 1 % i.e. if MSG i is connected to check j
-                if iter == 0 % on initial iteration:
-                    m_IJ(i,:) = x(i); % Message sent = initial conditions
-                else % subsequently:
-                    m_IJ(i,:) = m_IJ(i,:) + h.*m_JI(:,i)) - ;
-                end
-            else
-                m_IJ(i,j) = 0;
-            end
+        % Message sent down each branch from MSG to CHK:j
+        if iter == 0 % on initial iteration:
+            m_IJ(i,:) = x(i); % Message sent = initial conditions
+        else % subsequently:
+            w = h.*m_JI(:,i);
+            m_IJ(i,:) = m_IJ(i,:) + sum(w) - w';
+            clear w;
         end
     end
     
     %All Check nodes:
     for j = 1:j_max
         % At each Check node:
-        h = H(j,:); % Row vector of connections to that node
+        h = H(j,:);
+        h = h';
         
-       % Message sent down each branch:
-       for i = 1:i_max
-           if h(i) == 1 % i.e. if Check j is connected to Message node i
-               m_JI(j,i) = 2*atanh(BP_checkNode_vec(m_IJ,i,j,i_max));
-           else
-               m_JI(j,i) = 0;
-           end
-       end
+        % Message sent down each branch:
+        w = h.*m_IJ(:,j);
+        [row,~,v] = find(w); % v is non-zero elements
+        m_JI(j,row) = 2*atanh(prod(tanh(v./2))./(tanh(v./2)));
+        clear w v;
     end
-    
-    %Get current variable node values
-    for i = 1:i_max
-        sum = 0;
-        for j = 1:j_max
-            sum = sum + m_JI(j,i);
-        end
-        y(i) = x(i) + sum;
-    end
-    
-    %Test to see if we should break execution at this iteration
-    % Values of y either +/- Inf? -> Break
-    if isnan(range(abs(y)))
-        iterations = iter;
-        return
-    end
-    
+
+
+%Get current variable node values
+sumVector = sum(m_JI);
+y = x + sumVector;
+
+%Test to see if we should break execution at this iteration
+% Values of y either +/- Inf? -> Break
+if isnan(range(abs(y)))
+    iterations = iter;
+    return
 end
+
+end
+
+end
+
 
 
 
