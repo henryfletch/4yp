@@ -1,24 +1,14 @@
-% Polar test function
-% Generates G, a generator matrix for polar coding
-% One input: n (integer)
-% n is essentially the dimension of the generator matrix
+function G = polarGen(n,k)
 
-function G = polarGen(n)
+% n = block length
+% k = message bits
 
-F = [1, 0; 1, 1];
-f = F;
+% Extract block length and convert
+n_power = log2(n);
 
-if n == 1
-    G = F;
-    return
+%Construct the 'hadamard' matrix
+hadamardMatrix = hadamardGen(n_power);
+
+%Extract the rows from the hadamard matrix
+G = hadamardMatrix(n-k+1:n,:);
 end
-
-for i = 1:(n-1)
-    F = kron(F,f);
-end
-
-G = F;
-
-end
-
-    
