@@ -43,15 +43,31 @@ for iter = 0:l
         % At each Check node:
         h = H(j,:); % Row vector of connections to that node
         
-       % Message sent down each branch:
-       for i = 1:i_max
-           if h(i) == 1 % i.e. if Check j is connected to Message node i
-               m_JI(j,i) = 2*atanh(BP_checkNode(m_IJ,i,j,i_max));
-           else
-               m_JI(j,i) = 0;
-           end
-       end
+        % Message sent down each branch:
+        for i = 1:i_max
+            if h(i) == 1 % i.e. if Check j is connected to Message node i
+                m_JI(j,i) = 2*atanh(BP_checkNode(m_IJ,i,j,i_max));
+            else
+                m_JI(j,i) = 0;
+            end
+        end
     end
+    
+    %%% OLD CODE ENDS %%%
+    
+    %     %All Check nodes:
+    %     for j = 1:j_max
+    %         % At each Check node:
+    %         h = H(j,:);
+    %         h = h';
+    %
+    %         % Message sent down each branch:
+    %         w = h.*m_IJ(:,j);
+    %         [row,~,v] = find(w); % v is non-zero elements
+    %         m_JI(j,row) = 2*atanh(prod(tanh(v./2))./(tanh(v./2)));
+    %         clear w v;
+    %     end
+    %
     
     %Get current variable node values
     sumVector = sum(m_JI);
@@ -64,23 +80,7 @@ for iter = 0:l
         return
     end
     
-    %%% OLD CODE ENDS %%%
     
-    
-%     %All Check nodes:
-%     for j = 1:j_max
-%         % At each Check node:
-%         h = H(j,:);
-%         h = h';
-%         
-%         % Message sent down each branch:
-%         w = h.*m_IJ(:,j);
-%         [row,~,v] = find(w); % v is non-zero elements
-%         m_JI(j,row) = 2*atanh(prod(tanh(v./2))./(tanh(v./2)));
-%         clear w v;
-%     end
-% 
-
 end
 
 end
