@@ -30,6 +30,8 @@ for iter = 0:l
             m_IJ(i,find(h)) = x(i); % Message sent = initial conditions
         else % subsequently:
             w = m_JI(:,i);
+            %inter = h'*sum(w);
+            %inter(isnan(inter)) = 0; %Fixes NaN Overflow error with Inf
             m_IJ(i,:) = m_IJ(i,:) + h'*sum(w) - w';
         end
     end
@@ -52,17 +54,12 @@ for iter = 0:l
     end
     
     %Get current variable node values
-    for i = 1:i_max
-        y_sum = 0;
-        for j = 1:j_max
-            y_sum = y_sum + m_JI(j,i);
-        end
-        y(i) = x(i) + y_sum;
-    end
+    sumVector = sum(m_JI);
+    y = x + sumVector;
     
     %Test to see if we should break execution at this iteration
     % Values of y either +/- Inf? -> Break
-    if isnan(range(abs(y)))
+    if  any(abs(y) == inf)
         iterations = iter;
         return
     end
@@ -83,18 +80,7 @@ for iter = 0:l
 %         clear w v;
 %     end
 % 
-% 
-% %Get current variable node values
-% sumVector = sum(m_JI);
-% y = x + sumVector;
-% 
-% %Test to see if we should break execution at this iteration
-% % Values of y either +/- Inf? -> Break
-% if isnan(range(abs(y)))
-%     iterations = iter;
-%     return
-% end
-% 
+
 end
 
 end
