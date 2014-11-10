@@ -1,7 +1,7 @@
 % Belief Propogation
 % Check Node Function
 
-function y = BP_checkNode_vec(m_IJ,i,j,i_max)
+function y = BP_checkNode(m_IJ,i,j,i_max)
 
 % Inputs: m is the m(i,j) matrix: the messages from the MSG node to
 % the CHK node from the previous operation. 

@@ -9,6 +9,9 @@ iterations = l;
 % l = # Iterations
 % y = Output LLR vector
 
+%i = Message Nodes;
+%j = Check Nodes;
+
 % Need to calculate number of CHK and MSG nodes from H
 [j_max,i_max] = size(H);
 
@@ -20,22 +23,20 @@ for iter = 0:l
     % All Message nodes:
     for i = 1:i_max
         % At each Message node:
-        h = H(:,i);
-        h = h';% Row vector of connections to check nodes
+        h = H(:,i);% Column vector of connections to check nodes
         
-        % Message sent down each branch from MSG to CHK:
-        for j = 1:j_max
-            if h(j) == 1 % i.e. if MSG i is connected to check j
-                if iter == 0 % on initial iteration:
-                    m_IJ(i,j) = x(i); % Message sent = initial conditions
-                else % subsequently:
-                    m_IJ(i,j) = m_IJ(i,j) + BP_messageNode(m_JI,j,i,j_max);
-                end
-            else
-                m_IJ(i,j) = 0;
-            end
+        % Message sent down each branch from MSG to CHK:j
+        if iter == 0 % on initial iteration:
+            m_IJ(i,find(h)) = x(i); % Message sent = initial conditions
+        else % subsequently:
+            w = m_JI(:,i);
+            %inter = h'*sum(w);
+            %inter(isnan(inter)) = 0; %Fixes NaN Overflow error with Inf
+            m_IJ(i,:) = m_IJ(i,:) + h'*sum(w) - w';
         end
     end
+    
+    %%%%%%% OLD CODE START %%%%%%%
     
     %All Check nodes:
     for j = 1:j_max
@@ -58,12 +59,32 @@ for iter = 0:l
     
     %Test to see if we should break execution at this iteration
     % Values of y either +/- Inf? -> Break
-    if  all(abs(y) == inf)
+    if  any(abs(y) == inf)
         iterations = iter;
         return
     end
     
+    %%% OLD CODE ENDS %%%
+    
+    
+%     %All Check nodes:
+%     for j = 1:j_max
+%         % At each Check node:
+%         h = H(j,:);
+%         h = h';
+%         
+%         % Message sent down each branch:
+%         w = h.*m_IJ(:,j);
+%         [row,~,v] = find(w); % v is non-zero elements
+%         m_JI(j,row) = 2*atanh(prod(tanh(v./2))./(tanh(v./2)));
+%         clear w v;
+%     end
+% 
+
 end
+
+end
+
 
 
 
