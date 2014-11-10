@@ -30,44 +30,41 @@ for iter = 0:l
             m_IJ(i,find(h)) = x(i); % Message sent = initial conditions
         else % subsequently:
             w = m_JI(:,i);
-            %inter = h'*sum(w);
-            %inter(isnan(inter)) = 0; %Fixes NaN Overflow error with Inf
             m_IJ(i,:) = m_IJ(i,:) + h'*sum(w) - w';
         end
     end
     
-    %%%%%%% OLD CODE START %%%%%%%
+%     %%%%%%% OLD CODE START %%%%%%%
+%     
+%     %All Check nodes:
+%     for j = 1:j_max
+%         % At each Check node:
+%         h = H(j,:); % Row vector of connections to that node
+%         
+%         % Message sent down each branch:
+%         for i = 1:i_max
+%             if h(i) == 1 % i.e. if Check j is connected to Message node i
+%                 m_JI(j,i) = 2*atanh(BP_checkNode(m_IJ,i,j,i_max));
+%             else
+%                 m_JI(j,i) = 0;
+%             end
+%         end
+%     end
+%     
+%     %%%%%%%% OLD CODE ENDS %%%%%%%%
     
     %All Check nodes:
     for j = 1:j_max
         % At each Check node:
-        h = H(j,:); % Row vector of connections to that node
+        %h = H(j,:);
+        %h = h';
         
         % Message sent down each branch:
-        for i = 1:i_max
-            if h(i) == 1 % i.e. if Check j is connected to Message node i
-                m_JI(j,i) = 2*atanh(BP_checkNode(m_IJ,i,j,i_max));
-            else
-                m_JI(j,i) = 0;
-            end
-        end
+        w = m_IJ(:,j);
+        [row,~,v] = find(w); % v is non-zero elements
+        m_JI(j,row) = 2*atanh(prod(tanh(v./2))./(tanh(v./2)));
     end
     
-    %%% OLD CODE ENDS %%%
-    
-    %     %All Check nodes:
-    %     for j = 1:j_max
-    %         % At each Check node:
-    %         h = H(j,:);
-    %         h = h';
-    %
-    %         % Message sent down each branch:
-    %         w = h.*m_IJ(:,j);
-    %         [row,~,v] = find(w); % v is non-zero elements
-    %         m_JI(j,row) = 2*atanh(prod(tanh(v./2))./(tanh(v./2)));
-    %         clear w v;
-    %     end
-    %
     
     %Get current variable node values
     sumVector = sum(m_JI);
