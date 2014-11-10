@@ -2,7 +2,7 @@
 % rate p, and then decodes using Belief Propogation (iterations l), and
 % finally displays BER.
 
-function [biterr_num,biterr_ratio] = ldpc_BER_BSC(G,H,l,p)
+function [biterr_num,biterr_ratio,iterations] = ldpc_BER_BSC(G,H,l,p)
 
 % Input vector
 [rows,~] = size(G);
@@ -25,7 +25,7 @@ for i = 1:length(x)
 end
 
 % Belief Propogation Stage
-y = BP_iterate(x,H,l);
+[y,iterations] = BP_iterate(x,H,l);
 
 %Convert from LLR to Binary
 for i = 1:length(y)

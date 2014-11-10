@@ -5,6 +5,9 @@ function G = polarGen(n,k)
 
 % Extract block length and convert
 n_power = log2(n);
+if nnz(mod(n_power,1))
+    error('N (Block length) must be powers of 2!');
+end
 
 %Construct the 'hadamard' matrix
 hadamardMatrix = hadamardGen(n_power);
