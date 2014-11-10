@@ -31,7 +31,6 @@ for iter = 0:l
         else % subsequently:
             w = m_JI(:,i);
             m_IJ(i,:) = m_IJ(i,:) + h'*sum(w) - w';
-            clear w;
         end
     end
     
@@ -54,11 +53,11 @@ for iter = 0:l
     
     %Get current variable node values
     for i = 1:i_max
-        eval = 0;
+        y_sum = 0;
         for j = 1:j_max
-            eval = eval + m_JI(j,i);
+            y_sum = y_sum + m_JI(j,i);
         end
-        y(i) = x(i) + eval;
+        y(i) = x(i) + y_sum;
     end
     
     %Test to see if we should break execution at this iteration

@@ -54,11 +54,11 @@ for iter = 0:l
     
     %Get current variable node values
     for i = 1:i_max
-        sum = 0;
+        y_sum = 0;
         for j = 1:j_max
-            sum = sum + m_JI(j,i);
+            y_sum = y_sum + m_JI(j,i);
         end
-        y(i) = x(i) + sum;
+        y(i) = x(i) + y_sum;
     end
     
     %Test to see if we should break execution at this iteration
