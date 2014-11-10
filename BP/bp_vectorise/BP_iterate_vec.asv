@@ -27,9 +27,9 @@ for iter = 0:l
         
         % Message sent down each branch from MSG to CHK:j
         if iter == 0 % on initial iteration:
-            m_IJ(i,find(h)) = x(i); % Message sent = initial conditions
+            m_IJ(i,find(h)) = x(find(h)); % Message sent = initial conditions
         else % subsequently:
-            w = m_JI(:,i);
+            w = h.*m_JI(:,i);
             m_IJ(i,:) = m_IJ(i,:) + h'*sum(w) - w';
             clear w;
         end
