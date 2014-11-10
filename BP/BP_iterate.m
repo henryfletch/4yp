@@ -52,18 +52,22 @@ for iter = 0:l
        end
     end
     
-    %Get current variable node values
-    for i = 1:i_max
-        y_sum = 0;
-        for j = 1:j_max
-            y_sum = y_sum + m_JI(j,i);
-        end
-        y(i) = x(i) + y_sum;
-    end
+%     %Get current variable node values
+%     for i = 1:i_max
+%         y_sum = 0;
+%         for j = 1:j_max
+%             y_sum = y_sum + m_JI(j,i);
+%         end
+%         y(i) = x(i) + y_sum;
+%     end
+
+%Get current variable node values
+sumVector = sum(m_JI);
+y = x + sumVector;
     
     %Test to see if we should break execution at this iteration
     % Values of y either +/- Inf? -> Break
-    if isnan(range(abs(y)))
+    if (all(y) == inf || -inf)
         iterations = iter;
         return
     end
