@@ -22,7 +22,7 @@ for i = 1:length(x)
 end
 
 %AWGN
-x = 4*awgn(x,SNR);
+x = awgn(x,SNR);
 
 % Belief Propogation Stage
 [y,iterations] = BP_iterate(x,H,l);

@@ -3,17 +3,17 @@ clear
 %Input Data, Z
 U = load('./SavedGraphData/AWGN-uncoded-0to6dB.mat'); %Uncoded
 %Z = load('./SavedGraphData/0.5-1008-504-AWGN-3.mat'); %1008x504 LDPC
-Z2 = load('./SavedGraphData/0.5-96-48-AWGN-upto5.43.mat'); %96x48 LDPC
-Z3 = load('./SavedGraphData/0.5-9972-4986-AWGN.mat'); %Irregular 9972x4986
-Z4 = load('./SavedGraphData/0.5-1008-504-AWGN-5.mat'); %1008x504 LDPC (CORRECTED!)
+Z2 = load('./SavedGraphData/0.5-96-48-AWGN-3.mat'); %96x48 LDPC
+Z3 = load('./SavedGraphData/0.5-9972-4986-AWGN-2.mat'); %Irregular 9972x4986
+Z4 = load('./SavedGraphData/0.5-1008-504-AWGN-6.mat'); %1008x504 LDPC (CORRECTED!)
 
 %Extract x and y
 %x = Z.Z(:,1) - 3;
 %y = smooth(Z.Z(:,2));
-x_2 = Z2.Z(:,1) - 3;
-y_2 = smooth(Z2.Z(:,2));
-x_3 = Z3.Z(:,1) - 3;
-y_3 = Z3.Z(:,2);
+x_2 = Z2.I(:,1) - 3;
+y_2 = Z2.I(:,3);
+x_3 = Z3.I(:,1) - 3;
+y_3 = Z3.I(:,3);
 x_4 = Z4.I(:,1) - 3;
 y_4 = Z4.I(:,3);
 x_unenc = U.U(:,1) - 3;
