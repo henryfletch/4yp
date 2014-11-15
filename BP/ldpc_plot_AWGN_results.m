@@ -16,7 +16,7 @@ y_2 = smooth(Z2.Z(:,2));
 %y_3 = Z3.Z(:,2);
 x_unenc = U.U(:,1) - 3;
 y_unenc = U.U(:,2);
-x_results = R.EbNo_bit_ep(:,1) - R.x; %SNR correction: MacKay is non-zero SNR
+x_results = R.EbNo_bit_ep(:,1)- R.x; %SNR correction: MacKay is non-zero SNR
 y_results = R.EbNo_bit_ep(:,2);
 
 %Semilog Plots

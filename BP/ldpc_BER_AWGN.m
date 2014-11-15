@@ -22,7 +22,7 @@ for i = 1:length(x)
 end
 
 %AWGN
-x = awgn(x,SNR);
+x = 4*awgn(x,SNR); % I HAVE NO IDEA WHY THERE IS A 4 HERE! (It is to correct something dodgy)
 
 % Belief Propogation Stage
 [y,iterations] = BP_iterate(x,H,l);

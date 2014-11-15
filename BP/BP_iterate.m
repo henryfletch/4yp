@@ -16,8 +16,8 @@ iterations = l;
 [j_max,i_max] = size(H);
 
 %Preallocate M_IJ and M_JI as sparse matrices
-m_IJ = spalloc(j_max,i_max,50);
-m_JI = spalloc(j_max,i_max,50);
+m_IJ = spalloc(j_max,i_max,200);
+m_JI = spalloc(j_max,i_max,200);
 
 for iter = 0:l
     %All Message nodes:
