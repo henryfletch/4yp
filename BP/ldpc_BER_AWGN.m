@@ -22,7 +22,11 @@ for i = 1:length(x)
 end
 
 %AWGN
-x = 40*awgn(x,SNR); % I HAVE NO IDEA WHY THERE IS A 4 HERE! (It is to correct something dodgy)
+x = awgn(x,SNR); 
+
+x = 4*x; % <<< Should be LLR(i) = 4*y(i) / 2*sigma^2
+%Used 4 for 273 and 40 for 3584
+%Used 1 for all other codes
 
 % Belief Propogation Stage
 [y,iterations] = BP_iterate(x,H,l);
