@@ -24,9 +24,9 @@ y_2 = Z2.I(:,3);
 %y_3 = Z3.I(:,3);
 x_4 = Z4.I(:,1) - 3;
 y_4 = Z4.I(:,3);
-xr1 = R.EbNodB;
+xr1 = R.EbNodB - R.x;
 yr1 = R.bit_ep;
-xr2 = R2.EbNodB;
+xr2 = R2.EbNodB - R2.x;
 yr2 = R2.bit_ep;
 
 %Semilog Plots
