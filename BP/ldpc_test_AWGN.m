@@ -4,12 +4,12 @@ clear
 close
 
 % "Parity Check Matrix" or graph connections
-H = load('../LDPC data/Rate0.7/H-0.7-273-192.mat');
+H = load('../LDPC data/Rate0.876/H-3584-3140.mat');
 %H = load('../Polar data/H-128-64-polar.mat');
 H = sparse(H.H); %Dodgy work-around!
 
 % "Generator Matrix"
-G = load('../LDPC data/Rate0.7/G-0.7-273-192.mat');
+G = load('../LDPC data/Rate0.876/G-3584-3141-v2.mat');
 %G = load('../Polar data/G-128-64-polar.mat');
 G = sparse(G.G); %Dodgy work-around!
 
@@ -18,11 +18,11 @@ l = 150;
 
 % Loop to go over all values of SNR, as well as perform multiple iterations
 I = [];
-for SNR = 2:0.5:7
+for SNR = 0:3
     fprintf('SNR =%6.2f',SNR);
     fprintf('\n');
     tic;
-    parfor i = 1:1000
+    parfor i = 1:100
         [~,errRatio(i),iterations(i)] = ldpc_BER_AWGN(G,H,l,SNR);
     end
     toc
