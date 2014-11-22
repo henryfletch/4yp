@@ -34,8 +34,20 @@ for iter = 0:l
         end
     end
     
-    m_IJ_2 = m_IJ'; %Transpose: Memory access is then much quicker!
     
+%%%%Slower test code below%%
+%     if iter == 0
+%         for i = 1:i_max
+%             h = H(:,i);
+%             m_IJ(find(h),i) = x(i);
+%         end
+%     else
+%         B = repmat(sum(m_JI),j_max,1);
+%         m_IJ = m_IJ + B.*H - m_JI;
+%     end
+    
+
+    m_IJ_2 = m_IJ'; %Transpose: Memory access is then much quicker!
     %All Check nodes:
     for j = 1:j_max
         % At each Check node:
@@ -52,7 +64,7 @@ for iter = 0:l
     sumVector = sum(m_JI);
     y = x + sumVector;
     
-    %First stop check:
+    %First check: Test to see if we should break execution at this iteration
     % Values of y either +/- Inf? -> Break
     % Cannot resume if any value saturates to infinity anyway
     if  any(abs(y) == inf)
@@ -64,17 +76,15 @@ for iter = 0:l
     %Hard Decision:
     for i = 1:length(y)
         if y(i) > 0
-            y2(i) = 0;
+            y(i) = 0;
         else
-            y2(i) = 1;
+            y(i) = 1;
         end
     end
     %Parity Check:
-    test = sum(mod(y2*H',2));
-    if test == 0
-        iterations = iter;
-        return
-    end
+    test = sum(mod(y*H',2))
+    
+  
     
 end
 
