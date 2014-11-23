@@ -24,7 +24,7 @@ end
 %AWGN
 x = awgn(x,SNR); 
 
-%x = 3*x; % <<< Should be LLR(i) = 4*y(i) / 2*sigma^2
+x = 10*x; % <<< Should be LLR(i) = 4*y(i) / 2*sigma^2
 %Used 4 for 273 and 40 for 3584
 %Used 1 for all other codes
 

@@ -18,11 +18,11 @@ l = 1000;
 
 % Loop to go over all values of SNR, as well as perform multiple iterations
 I = [];
-for SNR = 0:0.5:7
+for SNR = 7:0.5:8
     fprintf('SNR =%6.2f',SNR);
     fprintf('\n');
     tic;
-    for i = 1:500
+    parfor i = 1:500000
         [~,errRatio(i),iterations(i)] = ldpc_BER_AWGN(G,H,l,SNR);
     end
     toc
