@@ -18,10 +18,10 @@ l = 50;
 
 % Loop to go over all values of SNR, as well as perform multiple iterations
 I = [];
-for SNR = 6:0.5:7.5
+for SNR = 7.8
     fprintf('SNR =%6.2f',SNR);
     fprintf('\n');
-    N = floor(5*SNR^(3));
+    N = 100000;
     tic;
     parfor_progress(N);
     parfor i = 1:N
