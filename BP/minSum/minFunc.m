@@ -7,11 +7,8 @@ function y = minFunc(v)
 % index.
 
 n = length(v);
-y = zeros(n,1);
-for i = 1:n
-    vtemp=v;
-    vtemp(i) = inf;
-    y(i) = min(abs(vtemp));
-end
+A = repmat(v,1,n);
+A(eye(n)==1)=inf;
+y = min(abs(A))';
 
 end
