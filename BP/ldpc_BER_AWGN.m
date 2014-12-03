@@ -5,7 +5,7 @@
 function [biterr_num,biterr_ratio,iterations] = ldpc_BER_AWGN(G,H,l,sigma2)
 
 % Input vector
-[rows,~] = size(G);
+[rows,cols] = size(G);
 x = randi([0,1],1,rows);
 
 %Encode
@@ -22,8 +22,8 @@ for i = 1:length(x)
 end
 
 %AWGN Channel
-n = sqrt(sigma2)*randn(1,rows); % Noise vector
-x = x + n;
+n = sqrt(sigma2)*randn(1,cols); % Noise vector
+x = 2*(x + n);
 
 % Belief Propogation Stage
 [y,iterations] = BP_iterate(x,H,l);
