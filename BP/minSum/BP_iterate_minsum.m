@@ -1,7 +1,7 @@
 % Belief Propogation Iteration Function
 % Modified: 28/11 for MinSum
 
-function [y,iterations] = BP_iterate_minsum(x,H,l)
+function [y,iterations] = BP_iterate_minsum(x,H,l,convergFactor)
 
 iterations = l;
 
@@ -46,7 +46,7 @@ for iter = 0:l
         % Message sent down each branch:
         w = m_IJ_2(:,j);
         [row,~,v] = find(w); % v is non-zero elements i.e. incoming msgs
-        m_JI(j,row) = 0.8*(prod(sign(v))./sign(v)).*minFunc(v);
+        m_JI(j,row) = convergFactor*(prod(sign(v))./sign(v)).*minFunc(v);
     end
     
     %Get current variable node values
