@@ -1,8 +1,8 @@
-% Function: Takes input vector x, encodes using G, performs AWGN to given SNR,
+% Function: Takes input vector x, encodes using G, performs AWGN with Sigma2,
 % and then decodes using Belief Propogation (iterations l),
 % finally displays BER.
 
-function [biterr_num,biterr_ratio,iterations] = ldpc_BER_AWGN(G,H,l,SNR)
+function [biterr_num,biterr_ratio,iterations] = ldpc_BER_AWGN(G,H,l,sigma2)
 
 % Input vector
 [rows,~] = size(G);
@@ -21,12 +21,9 @@ for i = 1:length(x)
     end
 end
 
-%AWGN
-x = awgn(x,SNR); 
-
-%x = 10*x; % <<< Should be LLR(i) = 4*y(i) / 2*sigma^2
-%Used 4 for 273 and 40 for 3584
-%Used 1 for all other codes
+%AWGN Channel
+n = sqrt(sigma2)*randn(1,rows); % Noise vector
+x = x + n;
 
 % Belief Propogation Stage
 [y,iterations] = BP_iterate(x,H,l);
