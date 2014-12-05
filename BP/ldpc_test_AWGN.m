@@ -13,7 +13,7 @@ G = sparse(G.G); %Dodgy work-around!
 % Belief Propogation Iterations
 l = 50;
 % MC Simulation Iterations
-N = 10^3;
+N = 2000;
 
 % Modulation Rate
 Rm = 1; %Always 1 for BPSK
@@ -32,13 +32,13 @@ for EbNo = 0:1:6
     %Parfor Loop
     parfor_progress(N);
     parfor i = 1:N
-        [bitErrs(i),errRatio(i),iterations(i)] = ldpc_BER_AWGN(G,H,l,sigma2);
+        [~,errRatio(i),iterations(i)] = ldpc_BER_AWGN(G,H,l,sigma2);
         parfor_progress;
     end
     parfor_progress(0);
     toc;
     %Output Matrix
-    newRatio = sum(bitErrs)/(N*n);
-    I = [I;EbNo,mean(iterations),mean(errRatio),newRatio];
+
+    I = [I;EbNo,mean(iterations),mean(errRatio)];
 end
 

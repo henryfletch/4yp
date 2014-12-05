@@ -23,7 +23,7 @@ end
 
 %AWGN Channel
 n = sqrt(sigma2)*randn(1,cols); % Noise vector
-x = 2*(x + n);
+x = x + n;
 
 % Belief Propogation Stage
 [y,iterations] = BP_iterate(x,H,l);
