@@ -10,10 +10,11 @@ H = sparse(H.H); %Dodgy work-around!
 G = load('../LDPC data/Rate0.5/G-96-48-v2.mat');
 G = sparse(G.G); %Dodgy work-around!
 
+
 % Belief Propogation Iterations
-l = 50;
+l = 100;
 % MC Simulation Iterations
-N = 2000;
+N = 1000;
 
 % Modulation Rate
 Rm = 1; %Always 1 for BPSK
@@ -38,7 +39,6 @@ for EbNo = 0:1:6
     parfor_progress(0);
     toc;
     %Output Matrix
-
     I = [I;EbNo,mean(iterations),mean(errRatio)];
 end
 
