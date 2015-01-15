@@ -1,20 +1,30 @@
-% LDPC Graphing Run Script
+% LDPC Monte-Carlo Run Script
 clear
 close
+addpath('./minSum');
 
-% "Parity Check Matrix" or graph connections
+%%%% SETTINGS %%%%
+
+% Parity Check Matrix (H)
 H = load('../LDPC data/Rate0.5/H-96-48-v2.mat');
-H = sparse(H.H); %Dodgy work-around!
-
-% "Generator Matrix"
+% Generator Matrix (G)
 G = load('../LDPC data/Rate0.5/G-96-48-v2.mat');
-G = sparse(G.G); %Dodgy work-around!
 
+% Algorithm type: 'sp' = Sum Product, 'ms' = Min Sum
+algoType = 'sp';
 
-% Belief Propogation Iterations
-l = 100;
-% MC Simulation Iterations
-N = 1000;
+% Belief Propogation Max Iterations
+l = 120;
+% MC Simulation Runs
+N = 10000;
+
+% EbNo Range
+EbNoRange = 0:0.2:5;
+
+%%%%%%%%%%%%%%%%%%
+
+H = sparse(H.H);
+G = sparse(G.G);
 
 % Modulation Rate
 Rm = 1; %Always 1 for BPSK
@@ -24,7 +34,7 @@ Rc = m/n;
 
 % Loop to go over all values of EbNo, as well as perform MC Simulation
 I = [];
-for EbNo = 0:1:6
+for EbNo = EbNoRange
     fprintf('SNR =%6.2f',EbNo);
     fprintf('\n');
     tic;

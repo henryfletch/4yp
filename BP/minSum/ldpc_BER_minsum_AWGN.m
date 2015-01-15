@@ -2,10 +2,10 @@
 % and then decodes using Belief Propogation (iterations l),
 % finally displays BER.
 
-function [biterr_num,biterr_ratio,iterations] = ldpc_BER_minsum_AWGN(G,H,l,SNR,convergFactor)
+function [biterr_num,biterr_ratio,iterations] = ldpc_BER_minsum_AWGN(G,H,l,sigma2,convergFactor)
 
 % Input vector
-[rows,~] = size(G);
+[rows,cols] = size(G);
 x = randi([0,1],1,rows);
 
 %Encode
@@ -21,8 +21,9 @@ for i = 1:length(x)
     end
 end
 
-%AWGN
-x = awgn(x,SNR); 
+%AWGN Channel
+n = sqrt(sigma2)*randn(1,cols); % Noise vector
+x = x + n;
 
 % Belief Propogation Stage
 [y,iterations] = BP_iterate_minsum(x,H,l,convergFactor);

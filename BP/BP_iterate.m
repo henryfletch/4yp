@@ -49,8 +49,8 @@ for iter = 0:l
     end
     
     % NEW! Clipping function
-    m_JI((m_JI) > 100)=100; 
-    m_JI((m_JI) < -100)=-100;
+    m_JI((m_JI) > 500)=499; 
+    m_JI((m_JI) < -500)=-499;
     
     %Get current variable node values
     sumVector = sum(m_JI);

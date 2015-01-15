@@ -49,6 +49,10 @@ for iter = 0:l
         m_JI(j,row) = convergFactor*(prod(sign(v))./sign(v)).*minFunc(v);
     end
     
+    % NEW! Clipping function
+    m_JI((m_JI) > 500)=499; 
+    m_JI((m_JI) < -500)=-499;
+    
     %Get current variable node values
     sumVector = sum(m_JI);
     y = x + sumVector;
@@ -56,10 +60,10 @@ for iter = 0:l
     %First stop check:
     % Values of y either +/- Inf? -> Break
     % Cannot resume if any value saturates to infinity anyway
-    if  any(abs(y) == inf)
-        iterations = iter;
-        return
-    end
+    %if  any(abs(y) == inf)
+    %    iterations = iter;
+    %    return
+    %end
     
     %Second stop check: Is a valid codeword? i.e. y*H' == 0
     %Hard Decision:
