@@ -2,7 +2,7 @@
 % and then decodes using Belief Propogation (iterations l),
 % finally displays BER.
 
-function [biterr_num,biterr_ratio,iterations] = ldpc_BER_AWGN(G,H,l,sigma2)
+function [biterr_num,biterr_ratio,iterations] = ldpc_BER_AWGN(G,H,l,sigma2,~)
 
 % Input vector
 [rows,cols] = size(G);
