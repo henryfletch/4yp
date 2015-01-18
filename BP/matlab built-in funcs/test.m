@@ -2,8 +2,8 @@ clear
 close
 
 I = [];
-for EbNo = -4:0.5:2
-    parfor i = 1:1000
+for EbNo = -4:0.5:3
+    parfor i = 1:10000
         
     hEnc = comm.LDPCEncoder;
     hMod = comm.PSKModulator(2, 'BitInput',true);
