@@ -8,29 +8,31 @@ Rc = 1/2;
 %DVB-S2 Parity check matrix
 H = dvbs2ldpc(Rc);
 
-% MC Simulation Iterations
-N = 10;
+% Belief Propogation Max Iterations
+l = 50;
+% MC Simulation Runs
+N = 8;
 
 % Modulation Rate
 Rm = 1; %Always 1 for BPSK
 
 % Loop to go over all values of EbNo, as well as perform MC Simulation
 I = [];
-for EbNo = -3:1:6
+for EbNo = 0:0.5:5.
     fprintf('SNR =%6.2f',EbNo);
     fprintf('\n');
     tic;
     % Noise Variance Extraction
     sigma2 = getVariance(EbNo,Rc,Rm);
     %Parfor Loop
-    %parfor_progress(N);
+    parfor_progress(N);
     parfor i = 1:N
         [~,errRatio(i),iterations(i)] = ldpc_BER_AWGN(H,l,sigma2);
-    %parfor_progress;
+    parfor_progress;
     end
-    %parfor_prohress(0);
+    parfor_progress(0);
     toc;
     %Output Matrix
-    I = [I;EbNo-10*log10(1/Rc),mean(iterations),mean(errRatio)];
+    I = [I;EbNo,mean(iterations),mean(errRatio)];
 end
 
