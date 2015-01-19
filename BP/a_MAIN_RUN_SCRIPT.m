@@ -42,7 +42,7 @@ for EbNo = EbNoRange
     %Parfor Loop9
     parfor_progress(N);
     parfor i = 1:N
-        [~,errRatio(i),iterations(i)] = ldpc_BER_minsum_AWGN(G,H,l,sigma2,convergFactor);
+        [~,errRatio(i),iterations(i)] = ldpc_BER_AWGN(G,H,l,sigma2,convergFactor);
         parfor_progress;
     end
     parfor_progress(0);

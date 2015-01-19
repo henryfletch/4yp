@@ -2,14 +2,13 @@
 % and then decodes using Belief Propogation (iterations l),
 % finally displays BER.
 
-function [biterr_num,biterr_ratio,iterations] = ldpc_BER_AWGN(G,H,l,sigma2,~)
+function [biterr_num,biterr_ratio,iterations] = ldpc_BER_AWGN(H,l,sigma2)
 
 % Input vector
-[rows,cols] = size(G);
-x = randi([0,1],1,rows);
+x = randi([0,1],1,32400);
 
 %Encode
-x = mod(x*G,2);
+x = bp_encoder(x,H);
 x_encoded = x;
 
 %BPSK -> bin0 -> +1 and bin1 -> -1
