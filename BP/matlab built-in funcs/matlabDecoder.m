@@ -3,7 +3,7 @@ close
 
 I = [];
 for EbNo = -4:0.5:3
-    parfor i = 1:10000
+    parfor i = 1:
         
     hEnc = comm.LDPCEncoder;
     hMod = comm.PSKModulator(2, 'BitInput',true);

@@ -5,7 +5,7 @@
 function [biterr_num,biterr_ratio,iterations] = ldpc_BER_AWGN(H,l,sigma2)
 
 % Input vector
-x = randi([0,1],1,32400);
+x = randi([0,1],1,64800-6480);
 
 %Encode
 x = bp_encoder(x,H);

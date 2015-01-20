@@ -3,22 +3,22 @@ clear
 close
 
 %Code Rate
-Rc = 1/2;
+Rc = 9/10;
 
 %DVB-S2 Parity check matrix
 H = dvbs2ldpc(Rc);
 
 % Belief Propogation Max Iterations
-l = 50;
+l = 80;
 % MC Simulation Runs
-N = 8;
+N = 1000;
 
 % Modulation Rate
 Rm = 1; %Always 1 for BPSK
 
 % Loop to go over all values of EbNo, as well as perform MC Simulation
 I = [];
-for EbNo = 0:0.5:5.5
+for EbNo = 10.5:0.5:12.5
     fprintf('SNR =%6.2f',EbNo);
     fprintf('\n');
     tic;
