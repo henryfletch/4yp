@@ -26,7 +26,7 @@ n = sqrt(sigma2)*randn(1,64800); % Noise vector
 x = x + n;
 
 % Belief Propogation Stage
-[y,iterations] = BP_iterate(x,H,l);
+[y,iterations] = BP_iterate_minsum(x,H,l);
 
 %Convert from LLR to Binary
 for i = 1:length(y)
