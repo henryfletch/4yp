@@ -2,11 +2,11 @@ clear
 close
 
 H = dvbs2ldpc(0.9);
-N = 1000;
+N = 5000;
 
 I = [];
 tic
-for EbNo = 3
+for EbNo = 2.5:0.1:4
     
     hEnc = comm.LDPCEncoder(H);
     hMod = comm.PSKModulator(2, 'BitInput',true);
