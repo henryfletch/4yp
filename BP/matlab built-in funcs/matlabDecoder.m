@@ -3,8 +3,9 @@ close
 
 H = dvbs2ldpc(0.9);
 N = 50;
-I = [];
 
+I = [];
+tic
 for EbNo = 3
     
     hEnc = comm.LDPCEncoder(H);
@@ -19,7 +20,7 @@ for EbNo = 3
     
     parfor_progress(N);
     parfor i = 1:N
-        data           = logical(randi([0 1], 64800-6480, 1));
+        data           = logical(randi([0 1], 58320, 1));
         encodedData    = step(hEnc, data);
         modSignal      = step(hMod, encodedData);
         receivedSignal = step(hChan, modSignal);
@@ -33,3 +34,4 @@ for EbNo = 3
     I = [I; EbNo, mean(bitErr)];
     parfor_progress(0);
 end
+toc
