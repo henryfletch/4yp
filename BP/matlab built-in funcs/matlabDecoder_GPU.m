@@ -3,9 +3,10 @@ close
 
 I = [];
 tic
-for EbNo = -3:0.1:2;
+for EbNo = 2:0.1:3
+    display(EbNo)
     
-    parfor i = 1:2000
+    parfor i = 1:10000
         hEnc = comm.LDPCEncoder;
         hMod = comm.PSKModulator(2, 'BitInput',true);
         hChan = comm.AWGNChannel(...
