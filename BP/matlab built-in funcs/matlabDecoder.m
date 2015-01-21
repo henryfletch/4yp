@@ -2,7 +2,7 @@ clear
 close
 
 H = dvbs2ldpc(0.9);
-N = 50;
+N = 1000;
 
 I = [];
 tic
@@ -15,7 +15,8 @@ for EbNo = 3
     hDemod = comm.PSKDemodulator(2, 'BitOutput',true,...
         'DecisionMethod','Approximate log-likelihood ratio', ...
         'Variance', 1/10^(hChan.SNR/10));
-    hDec = comm.LDPCDecoder(H);
+    hDec = comm.LDPCDecoder('ParityCheckMatrix',H,'IterationTerminationCondition',...
+        'Parity check satisfied');
     hError = comm.ErrorRate;
     
     parfor_progress(N);
