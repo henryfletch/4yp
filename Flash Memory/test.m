@@ -4,11 +4,11 @@ clear
 close
 
 x = -5:0.0001:5;
-N = 50000;
+N = 1000;
 Verased = 1.4;
 Vp = 2.6;
 deltaVp = 0.25;
-time = 10e8;
+time = 10e5;
 
 yErased = normpdf(x,1.4,0.35);
 yProgrammed = mem_programState(x,Vp,deltaVp);
