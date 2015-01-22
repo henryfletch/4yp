@@ -4,9 +4,9 @@ clear
 close
 
 x = -5:0.0001:5;
-N = 10000;
+N = 20000;
 Verased = 1.4;
-Vp = 2.6;
+VpList = [2.6,3.4,4.2];
 deltaVp = 0.25;
 timeYrs = 10;
 
@@ -14,6 +14,8 @@ time = timeYrs*265*24*3600;
 
 %Erased State
 yErased = normpdf(x,Verased,0.35);
+
+for Vp = VpList
 
 %Initial Programmed State Vp
 yProgrammed = mem_programState(x,Vp,deltaVp);
@@ -53,3 +55,4 @@ plot(x,yErased)
 axis([0 5 0 10])
 title('t=0,N=0');
 
+end

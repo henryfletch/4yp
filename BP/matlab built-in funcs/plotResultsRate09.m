@@ -28,4 +28,4 @@ ylabel('Bit Error Probability');
 title('AWGN Channel - Performance Curves');
 lgnd = legend([uncoded matlab my]); % coded1 coded3]);
 set(lgnd,'FontSize',12,'Location','SouthWest');
-axis([-6 6 10e-9 1])
+axis([-6 6 10e-10 1])
