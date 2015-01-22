@@ -11,14 +11,14 @@ H = dvbs2ldpc(Rc);
 % Belief Propogation Max Iterations
 l = 50;
 % MC Simulation Runs
-N = 10;
+N = 20000;
 
 % Modulation Rate
 Rm = 1; %Always 1 for BPSK
 
 % Loop to go over all values of EbNo, as well as perform MC Simulation
 I = [];
-for EbNo = 0:1:7
+for EbNo = 5.11
     fprintf('SNR =%6.2f',EbNo);
     fprintf('\n');
     tic;
