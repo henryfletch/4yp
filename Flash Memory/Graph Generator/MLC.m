@@ -4,7 +4,7 @@ clear
 close
 
 x = -5:0.0001:5;
-N = 20000;
+N = 10000;
 Verased = 1.4;
 VpList = [2.6,3.4,4.2];
 deltaVp = 0.25;
