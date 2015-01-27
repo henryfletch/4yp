@@ -1,12 +1,12 @@
 clear
 addpath('./Random Generators');
 
-for Vp = [2.6]
+for N = 100:1000:10000
 
 % System Parameters
-N = 100;
-tYrs = 1;
+tYrs = 5;
 t = tYrs*365*24*3600;
+Vp = 2.8;
 Verased = 1.4;
 deltaVp = 0.25;
 
@@ -36,8 +36,11 @@ VtP = V0 + RTN + retention;
 VtE = Ve + RTN;
 
 histogram(VtP,200,'DisplayStyle','stairs');
+[numberP,edgesP] = histcounts(VtP);
 hold on;
 
 end
 histogram(VtE,200,'DisplayStyle','stairs');
+[numberE,edgesE] = histcounts(VtE);
 
+midpoint = getMidpoint(numberP,edgesP,numberE,edgesE);

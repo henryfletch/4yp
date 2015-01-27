@@ -19,10 +19,7 @@ retentionData.t0 = 3600;
 length = 64000;
 data = randi([0,1],1,length);
 
-for i = 1:length
-    b = data(i);
-    y(i) = memoryGetVoltage(b,SystemParams,retentionData);
-end
+y = memoryGetVoltage(data,SystemParams,retentionData);
 
 histogram(y,100);
 toc
