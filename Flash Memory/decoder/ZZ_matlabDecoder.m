@@ -24,31 +24,29 @@ Rc = 9/10;
 %DVB-S2 Parity check matrix
 H = dvbs2ldpc(Rc);
 
-% Belief Propogation Max Iterations
-l = 50;
 % MC Simulation Runs
-mc_iters = 2000;
-
-% Modulation Rate
-Rm = 1; %Always 1 for BPSK
+mc_iters = 1000;
 
 % Loop to go over all values of EbNo, as well as perform MC Simulation
 I = [];
-for N = 4500
+for N = 0:500:10000
     fprintf('N =%6.2f',N);
     fprintf('\n');
+    hEnc = comm.LDPCEncoder(H);
+    hDec = comm.LDPCDecoder('ParityCheckMatrix',H,'IterationTerminationCondition',...
+        'Parity check satisfied','OutputValue','Whole codeword');
+    hError = comm.ErrorRate;
     tic;
     SystemParams.N = N;
     voltageHardDecision = 2.6;%decisionFunc(N);
     %Parfor Loop
     parfor_progress(mc_iters);
     parfor i = 1:mc_iters
-        [~,errRatio(i),iterations(i)] = ldpc_BER_memoryN_coded(Rc,H,l,SystemParams,retentionData,voltageHardDecision);
-    parfor_progress;
+        errRatio(i) = ZZ_ldpc_BER_memoryN_coded(Rc,hEnc,hDec,hError,SystemParams,retentionData,voltageHardDecision);
+        parfor_progress;
     end
     parfor_progress(0);
     toc;
     %Output Matrix
-    I = [I;N,mean(iterations),mean(errRatio)];
+    I = [I;N,mean(errRatio)];
 end
-

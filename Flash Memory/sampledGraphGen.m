@@ -37,14 +37,14 @@ retention= gen_gaussian(mu_d,sigma_d,samples);
 VtP = V0 + RTN + retention;
 VtE = Ve + RTN;
 
-%histogram(VtP,200,'DisplayStyle','stairs');
-[numberP,edgesP] = histcounts(VtP);
-%hold on;
+histogram(VtP,200,'DisplayStyle','stairs');
+%[numberP,edgesP] = histcounts(VtP);
+hold on;
 
-%histogram(VtE,200,'DisplayStyle','stairs');
-[numberE,edgesE] = histcounts(VtE);
+histogram(VtE,200,'DisplayStyle','stairs');
+%[numberE,edgesE] = histcounts(VtE);
 
-midpoint = getMidpoint(numberP,edgesP,numberE,edgesE);
+%midpoint = getMidpoint(numberP,edgesP,numberE,edgesE);
 
-Y = [Y;N,midpoint];
+%Y = [Y;N,midpoint];
 end
