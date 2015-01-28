@@ -11,7 +11,6 @@ SystemParams.tYrs = 5;
 SystemParams.Verased = 1.4;
 SystemParams.Vp = 2.8;
 SystemParams.deltaVp = 0.25;
-voltageHardDecision = 2.6;
 
 % Retention Parameters
 retentionData.Ks = 0.38;
@@ -40,6 +39,7 @@ for N = 0:2000:20000
     fprintf('\n');
     tic;
     SystemParams.N = N;
+    voltageHardDecision = decisionFunc(N);
     %Parfor Loop
     parfor_progress(mc_iters);
     parfor i = 1:mc_iters
