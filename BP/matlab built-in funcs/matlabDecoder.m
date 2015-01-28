@@ -19,8 +19,8 @@ for EbNo = 3
         'Parity check satisfied');
     hError = comm.ErrorRate;
     
-    parfor_progress(N);
-    parfor i = 1:N
+    %parfor_progress(N);
+    for i = 1:N
         data           = logical(randi([0 1], 58320, 1));
         encodedData    = step(hEnc, data);
         modSignal      = step(hMod, encodedData);
@@ -29,10 +29,10 @@ for EbNo = 3
         receivedBits   = step(hDec, demodSignal);
         errorStats     = step(hError, data, receivedBits);
         bitErr(i) = errorStats(1); 
-        parfor_progress;
+        %parfor_progress;
     end
     
     I = [I; EbNo, mean(bitErr)];
-    parfor_progress(0);
+    %parfor_progress(0);
 end
 toc

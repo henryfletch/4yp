@@ -19,7 +19,7 @@ retentionData.Km = 4e-6;
 retentionData.t0 = 3600;
 
 %Code Rate
-Rc = 9/10;
+Rc = 1/4;
 
 %DVB-S2 Parity check matrix
 H = dvbs2ldpc(Rc);
@@ -29,7 +29,7 @@ mc_iters = 1000;
 
 % Loop to go over all values of EbNo, as well as perform MC Simulation
 I = [];
-for N = 0:500:10000
+for N = 0:1000:10000
     fprintf('N =%6.2f',N);
     fprintf('\n');
     hEnc = comm.LDPCEncoder(H);
