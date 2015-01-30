@@ -25,10 +25,20 @@ end
 n = sqrt(sigma2)*randn(1,cols); % Noise vector
 x = x + n;
 
+%Calculate LLR
+x = (2*x)/sigma2;
+
 % Belief Propogation Stage
-[y,iters] = BP_iterate_matlab(x,H,l);
-iterations = iters;
-y=y';
+[y,iterations] = BP_iterate(x,H,l);
+
+%Convert from LLR to Binary
+for i = 1:length(y)
+    if y(i) > 0
+        y(i) = 0;
+    else
+        y(i) = 1;
+    end
+end
 
 [biterr_num,biterr_ratio] = biterr(x_encoded,y);
 

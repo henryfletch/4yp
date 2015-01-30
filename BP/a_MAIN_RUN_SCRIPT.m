@@ -11,14 +11,14 @@ H = load('../LDPC data/Rate0.5/H-96-48-v2.mat');
 G = load('../LDPC data/Rate0.5/G-96-48-v2.mat');
 
 % Belief Propogation Max Iterations
-l = 120;
+l = 50;
 % MC Simulation Runs
-N = 10000;
+N = 100;
 % MinSum Convergence Factor
 convergFactor = 0.7;
 
 % EbNo Range
-EbNoRange = 0:0.2:5;
+EbNoRange = 0:1:5;
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
@@ -39,13 +39,13 @@ for EbNo = EbNoRange
     tic;
     % Noise Variance Extraction
     sigma2 = getVariance(EbNo,Rc,Rm);
-    %Parfor Loop9
-    parfor_progress(N);
-    parfor i = 1:N
-        [~,errRatio(i),iterations(i)] = ldpc_BER_AWGN(G,H,l,sigma2,convergFactor);
-        parfor_progress;
+    %Parfor Loop
+    %parfor_progress(N);
+    for i = 1:N
+        [~,errRatio(i),iterations(i)] = ldpc_BER_AWGN(G,H,l,sigma2);
+        %parfor_progress;
     end
-    parfor_progress(0);
+    %parfor_progress(0);
     toc;
     %Output Matrix
     I = [I;EbNo,mean(iterations),mean(errRatio)];
