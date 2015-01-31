@@ -1,7 +1,15 @@
+function ZZ_run_sim(varargin)
+if isstr(varargin{1})
+    N = str2double(varargin{1});
+else
+    N = varargin{1};
+end
+
+[~,randomID] = strtok(tempname,'_');
+filename = strcat(varargin{2},randomID,'.txt');
+
 % LDPC Graphing Run Script
 % FIXED t, VARIABLE N
-clear
-close
 
 addpath('../Random Generators');
 addpath('../.');
@@ -29,24 +37,19 @@ mc_iters = 10;
 
 % Loop to go over all values of EbNo, as well as perform MC Simulation
 I = [];
-for N = 0:500:10000
-    fprintf('N =%6.2f',N);
-    fprintf('\n');
     hEnc = comm.LDPCEncoder(H);
     hDec = comm.LDPCDecoder('ParityCheckMatrix',H,'IterationTerminationCondition',...
         'Parity check satisfied','OutputValue','Whole codeword');
     hError = comm.ErrorRate;
-    tic;
+
     SystemParams.N = N;
     voltageHardDecision = decisionFunc(N);
-    %Parfor Loop
-    parfor_progress(mc_iters);
-    parfor i = 1:mc_iters
+    %for Loop
+    for i = 1:mc_iters
         errRatio(i) = ZZ_ldpc_BER_memoryN_coded(Rc,hEnc,hDec,hError,SystemParams,retentionData,voltageHardDecision);
-        parfor_progress;
     end
-    parfor_progress(0);
-    toc;
-    %Output Matrix
-    I = [I;N,mean(errRatio)];
+
+fid=fopen(filename,'a+');
+fprintf(fid,'%e\n',mean(errRatio));
+
 end
