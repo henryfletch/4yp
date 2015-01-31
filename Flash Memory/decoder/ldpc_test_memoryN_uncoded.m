@@ -27,19 +27,19 @@ H = dvbs2ldpc(Rc);
 % Belief Propogation Max Iterations
 l = 50;
 % MC Simulation Runs
-mc_iters = 200;
+mc_iters = 1000;
 
 % Modulation Rate
 Rm = 1; %Always 1 for BPSK
 
 % Loop to go over all values of EbNo, as well as perform MC Simulation
 I = [];
-for N = 0:500:20000
+for N = 0:500:10000
     fprintf('N =%6.2f',N);
     fprintf('\n');
     tic;
     SystemParams.N = N;
-    voltageHardDecision = 2.6;%decisionFunc(N);
+    voltageHardDecision = decisionFunc(N);
     %Parfor Loop
     parfor_progress(mc_iters);
     parfor i = 1:mc_iters

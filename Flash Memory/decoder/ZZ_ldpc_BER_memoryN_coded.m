@@ -15,7 +15,7 @@ y = memoryGetVoltage(encodedData,SystemParams,retentionData);
 y=y';
 
 % HARD DECISION process on Cell Voltage
-% > vHardDecision, then binary 1 (LLR -1), otherwise binary 0 (LLR +1)
+% > vHardDecision, then binary 1 (LLR -50), otherwise binary 0 (LLR +50)
 for i = 1:length(y)
     if y(i) > voltageHardDecision
         y(i) = -50;
@@ -27,7 +27,7 @@ end
 % Belief Propogation Stage
 receivedBits = step(hDec, y);
 receivedBits = +receivedBits;
-% Iterates on LLR, outputs LLR
+% Iterates on LLR, outputs binary 1,0
 
 
 errorStats = step(hError, encodedData, receivedBits);

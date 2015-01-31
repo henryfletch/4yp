@@ -6,11 +6,20 @@ function y = decisionFunc(N)
 % Verased = 1.4;
 % deltaVp = 0.25;
 
-a = 0.1697;
-b = -0.0004547;
-c = 2.625;
-d = -4.273e-06;
+a = 0.1566;
+b = -0.0005279;
+c = 2.638;
+d = -4.999e-06;
 
-y = a*exp(b*N) + c*exp(d*N);
+y1 = a*exp(b*N) + c*exp(d*N);
+
+% Same data, linear fit instead:
+
+m = -1.72e-05;
+c = 2.699;
+
+y2 = m*N + c;
+
+y = min(y1,y2);
 
 end
