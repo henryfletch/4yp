@@ -9,7 +9,7 @@ for i = EbNoRange
     names = {d.name};
     L = length(names);
     R = zeros(1,L);
-    for j = 1:L
+    parfor j = 1:L
     R(j) = importdata(names{j});
     end
     [m,n] = size(R);
