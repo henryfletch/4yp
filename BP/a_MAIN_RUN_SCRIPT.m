@@ -13,17 +13,17 @@ G = load('../LDPC data/Rate0.5/G-96-48-v2.mat');
 % Belief Propogation Max Iterations
 l = 50;
 % MC Simulation Runs/Blocks
-N = 10000;
+N = 100000;
 % MinSum Convergence Factor
 convergFactor = 0.7;
 
 % EbNo Range
-EbNoRange = 5.8;
+EbNoRange = 6;
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-H = sparse(H.H);
-G = sparse(G.G);
+H = H.H;
+G = G.G;
 
 % Modulation Rate
 Rm = 1; %Always 1 for BPSK
@@ -42,7 +42,7 @@ for EbNo = EbNoRange
     %Parfor Loop
     parfor_progress(N);
     parfor i = 1:N
-        [~,errRatio(i),iterations(i)] = ldpc_BER_minsum_AWGN(G,H,l,sigma2,convergFactor);
+        [~,errRatio(i),iterations(i)] = ldpc_BER_AWGN(G,H,l,sigma2);
         parfor_progress;
     end
     parfor_progress(0);

@@ -29,7 +29,7 @@ x = x + n;
 x = (4*x)/sigma2;
 
 % Belief Propogation Stage
-[y,iterations] = BP_iterate(x,H,l);
+[y,iterations] = BP_iterate_mex(x,H,l);
 
 %Convert from LLR to Binary
 for i = 1:length(y)

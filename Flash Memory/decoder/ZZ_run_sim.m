@@ -5,14 +5,11 @@ else
     N = varargin{1};
 end
 
-[~,randomID] = strtok(tempname,'_');
-filename = strcat(varargin{2},randomID,'.txt');
-
 % LDPC Graphing Run Script
 % FIXED t, VARIABLE N
 
-addpath('../Random Generators');
-addpath('../.');
+%addpath('../Random Generators');
+%addpath('../.');
 
 % System Parameters
 SystemParams.tYrs = 5;
@@ -49,7 +46,7 @@ I = [];
         errRatio(i) = ZZ_ldpc_BER_memoryN_coded(Rc,hEnc,hDec,hError,SystemParams,retentionData,voltageHardDecision);
     end
 
-fid=fopen(filename,'a+');
+fid=fopen('output','a+');
 fprintf(fid,'%e\n',mean(errRatio));
 
 end

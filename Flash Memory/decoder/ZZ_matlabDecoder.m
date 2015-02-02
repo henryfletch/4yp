@@ -25,11 +25,11 @@ Rc = 9/10;
 H = dvbs2ldpc(Rc);
 
 % MC Simulation Runs
-mc_iters = 10;
+mc_iters = 10000;
 
 % Loop to go over all values of EbNo, as well as perform MC Simulation
 I = [];
-for N = 0:500:10000
+for N = 0:500:1500
     fprintf('N =%6.2f',N);
     fprintf('\n');
     hEnc = comm.LDPCEncoder(H);
@@ -40,12 +40,9 @@ for N = 0:500:10000
     SystemParams.N = N;
     voltageHardDecision = decisionFunc(N);
     %Parfor Loop
-    parfor_progress(mc_iters);
-    parfor i = 1:mc_iters
+    for i = 1:mc_iters
         errRatio(i) = ZZ_ldpc_BER_memoryN_coded(Rc,hEnc,hDec,hError,SystemParams,retentionData,voltageHardDecision);
-        parfor_progress;
     end
-    parfor_progress(0);
     toc;
     %Output Matrix
     I = [I;N,mean(errRatio)];
