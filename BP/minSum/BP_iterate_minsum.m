@@ -32,7 +32,7 @@ for iter = 0:l
             m_IJ(find(h),i) = x(i); % Message sent = initial conditions
         else % subsequently:
             w = m_JI(:,i);
-            m_IJ(:,i) = m_IJ(:,i) + h*sum(w) - w;
+            m_IJ(:,i) = h*x(i) + h*sum(w) - w;
         end
     end
     

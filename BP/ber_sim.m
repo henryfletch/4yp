@@ -39,7 +39,7 @@ sigma2 = getVariance(EbNo,Rc,Rm);
 
 for i = 1:1000
 %Run the decoder
-[~,errRatio(i),~] = ldpc_BER_minsum_AWGN(G,H,l,sigma2,convergFactor);
+[~,errRatio(i),~] = ldpc_BER_AWGN(G,H,l,sigma2);
 end
 
 fid=fopen(filename,'a+');

@@ -14,10 +14,11 @@ iterations = l;
 
 % Need to calculate number of CHK and MSG nodes from H
 [j_max,i_max] = size(H);
+nonzeros = nnz(H);
 
 %Preallocate M_IJ and M_JI as sparse matrices
-m_IJ = spalloc(j_max,i_max,200);
-m_JI = spalloc(j_max,i_max,200);
+m_IJ = spalloc(j_max,i_max,nonzeros);
+m_JI = spalloc(j_max,i_max,nonzeros);
 
 for iter = 0:l
     %All Message nodes:
@@ -30,7 +31,7 @@ for iter = 0:l
             m_IJ(find(h),i) = x(i); % Message sent = initial conditions
         else % subsequently:
             w = m_JI(:,i);
-            m_IJ(:,i) = h*x(i) + h*sum(w) - w; % m_IJ(:,i)
+            m_IJ(:,i) = h*x(i) + h*sum(w) - w;
         end
     end
     
