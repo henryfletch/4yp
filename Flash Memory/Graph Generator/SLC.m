@@ -4,11 +4,11 @@ clear
 close
 
 x = -5:0.0001:5;
-N = 20000;
+N = 1000;
 Verased = 1.4;
 Vp = 2.6;
 deltaVp = 0.25;
-timeYrs = 10;
+timeYrs = 50;
 
 time = timeYrs*265*24*3600;
 

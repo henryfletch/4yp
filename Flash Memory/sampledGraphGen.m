@@ -3,7 +3,7 @@ addpath('./Random Generators');
 
 Y = [];
 
-for N = 1:1000:20000
+for N = 1
 
 % System Parameters
 tYrs = 5;
@@ -13,7 +13,7 @@ Verased = 1.4;
 deltaVp = 0.25;
 
 % Simulation Parameters
-samples = 10e7;
+samples = 10e6;
 
 % Initial Erased state
 Ve = gen_gaussian(Verased,0.35,samples);
@@ -37,14 +37,14 @@ retention= gen_gaussian(mu_d,sigma_d,samples);
 VtP = V0 + RTN + retention;
 VtE = Ve + RTN;
 
-%histogram(VtP,1000,'DisplayStyle','stairs');
-[numberP,edgesP] = histcounts(VtP,1000);
+histogram(VtP,1000,'DisplayStyle','stairs');
+%[numberP,edgesP] = histcounts(VtP,1000);
 hold on;
 
-%histogram(VtE,1000,'DisplayStyle','stairs');
-[numberE,edgesE] = histcounts(VtE,1000);
+histogram(VtE,1000,'DisplayStyle','stairs');
+%[numberE,edgesE] = histcounts(VtE,1000);
 
-midpoint = getMidpoint(numberP,edgesP,numberE,edgesE);
+%midpoint = getMidpoint(numberP,edgesP,numberE,edgesE);
 
-Y = [Y;N,midpoint];
+%Y = [Y;N,midpoint];
 end
