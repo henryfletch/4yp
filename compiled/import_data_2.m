@@ -1,15 +1,15 @@
-function I = import_data(EbNoRange)
+function I = import_data_2
 
 I = [];
 
-for i = EbNoRange
+for i = 0:0.5:7
     display(i);
-    value = strcat('minsum', num2str(i),'_*');
+    value = strcat('results', num2str(i),'_*');
     d = dir(value);
     names = {d.name};
     L = length(names);
     R = zeros(1,L);
-    parfor j = 1:L
+    for j = 1:L
     R(j) = importdata(names{j});
     end
     [m,n] = size(R);
