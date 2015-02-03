@@ -1,15 +1,13 @@
 function ZZ_run_sim(varargin)
-if isstr(varargin{1})
-    N = str2double(varargin{1});
-else
-    N = varargin{1};
-end
+
+N = varargin{1};
+
 
 % LDPC Graphing Run Script
 % FIXED t, VARIABLE N
 
-%addpath('../Random Generators');
-%addpath('../.');
+addpath('../Random Generators');
+addpath('../.');
 
 % System Parameters
 SystemParams.tYrs = 5;
@@ -27,13 +25,13 @@ retentionData.t0 = 3600;
 Rc = 9/10;
 
 %DVB-S2 Parity check matrix
-H = dvbs2ldpc(Rc);
+H = dvbs2ldpc(Rc,'outputFormat','indices');
 
 % MC Simulation Runs
 mc_iters = 10;
 
 % Loop to go over all values of EbNo, as well as perform MC Simulation
-I = [];
+
     hEnc = comm.LDPCEncoder(H);
     hDec = comm.LDPCDecoder('ParityCheckMatrix',H,'IterationTerminationCondition',...
         'Parity check satisfied','OutputValue','Whole codeword');
