@@ -12,12 +12,6 @@ SystemParams.Verased = 1.4;
 SystemParams.Vp = 2.8;
 SystemParams.deltaVp = 0.25;
 
-% Retention Parameters
-retentionData.Ks = 0.38;
-retentionData.Kd = 4e-4;
-retentionData.Km = 4e-6;
-retentionData.t0 = 3600;
-
 %Code Rate
 Rc = 9/10;
 
@@ -40,12 +34,12 @@ for N = 0
     SystemParams.N = N;
     voltageHardDecision = decisionFunc(N);
     %Parfor Loop
-    %parfor_progress(mc_iters);
-    for i = 1:mc_iters
-        errRatio(i) = ZZ_ldpc_BER_memoryN_coded(Rc,hEnc,hDec,hError,SystemParams,retentionData,voltageHardDecision);
-        %parfor_progress;
+    parfor_progress(mc_iters);
+    parfor i = 1:mc_iters
+        errRatio(i) = ZZ_ldpc_BER_memoryN_coded(Rc,hEnc,hDec,hError,SystemParams,voltageHardDecision);
+        parfor_progress;
     end
-    %parfor_progress(0);
+    parfor_progress(0);
     toc;
     %Output Matrix
     I = [I;N,mean(errRatio)];

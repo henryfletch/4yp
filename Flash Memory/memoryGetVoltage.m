@@ -10,7 +10,7 @@
 %   -deltaVp, programmed voltage step width
 % retentionData - Structure; retention process values
 
-function y = memoryGetVoltage(b,SystemParams,retentionData)
+function y = memoryGetVoltage(b,SystemParams)
 
 % Samples: Generate enough for all zero and all one case, i.e. length(b)
 samples = length(b);
@@ -24,7 +24,7 @@ RTN = gen_laplacian(lambda,samples);
 
 % Retention Process
 % retention will be a vector, size of length(b)
-[mu_d,sigma_d] = getRetentionParams(SystemParams.N,t,SystemParams.Vp,SystemParams.Verased,retentionData);
+[mu_d,sigma_d] = getRetentionParams(SystemParams.N,t,SystemParams.Vp,SystemParams.Verased);
 retention = gen_gaussian(mu_d,sigma_d,samples);
 
 % Programmed state (Vector)

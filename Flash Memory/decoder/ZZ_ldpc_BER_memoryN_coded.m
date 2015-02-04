@@ -2,7 +2,7 @@
 % and then decodes using Belief Propogation (iterations l),
 % finally displays BER.
 
-function error_ratio = ZZ_ldpc_BER_memoryN_coded(Rc,hEnc,hDec,hError,SystemParams,retentionData,voltageHardDecision)
+function error_ratio = ZZ_ldpc_BER_memoryN_coded(Rc,hEnc,hDec,hError,SystemParams,voltageHardDecision)
 
 % Input vector
 dataIn = randi([0,1],64800*Rc,1);
@@ -12,7 +12,9 @@ dataIn = randi([0,1],64800*Rc,1);
 encodedData = step(hEnc,dataIn);
 
 %Convert to a cell voltage level
-y = memoryGetVoltage(encodedData,SystemParams,retentionData);
+y = memoryGetVoltage(encodedData,SystemParams);
+%y = memoryGetVoltage_mex(encodedData,SystemParams.tYrs,SystemParams.Verased, ...
+%    SystemParams.Vp,SystemParams.deltaVp,SystemParams.N);
 
 % HARD DECISION process on Cell Voltage
 % > vHardDecision, then binary 1 (LLR -50), otherwise binary 0 (LLR +50)
