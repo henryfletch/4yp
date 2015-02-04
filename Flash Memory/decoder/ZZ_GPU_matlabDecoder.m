@@ -25,7 +25,7 @@ Rc = 9/10;
 H = dvbs2ldpc(Rc);
 
 % MC Simulation Runs
-mc_iters = 100;
+mc_iters = 10;
 
 % Loop to go over all values of EbNo, as well as perform MC Simulation
 I = [];
