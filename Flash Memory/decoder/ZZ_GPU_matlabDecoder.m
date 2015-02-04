@@ -40,7 +40,7 @@ for N = 0
     voltageHardDecision = decisionFunc(N);
     %Parfor Loop
     parfor i = 1:mc_iters
-        errRatio(i) = ZZ_GPU_ldpc_BER_memoryN_coded(Rc,hEnc,hDec,hError,SystemParams,retentionData,voltageHardDecision);
+        errRatio(i) = ZZ_ldpc_BER_memoryN_coded(Rc,hEnc,hDec,hError,SystemParams,retentionData,voltageHardDecision);
     end
     toc;
     %Output Matrix
