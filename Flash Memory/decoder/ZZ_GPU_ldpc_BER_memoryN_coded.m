@@ -4,31 +4,20 @@
 
 function error_ratio = ZZ_GPU_ldpc_BER_memoryN_coded(Rc,hEnc,hDec,hError,SystemParams,retentionData,voltageHardDecision)
 
-numBlocks = 10;
-
 % Input vector
-dataIn = randi([0,1],64800*Rc,numBlocks);
+dataIn = randi([0,1],64800*Rc,1);
 
 %Encode multiple blocks at same time
-for ii = 1:numBlocks
-    encodedData_matrix(:,ii) = step(hEnc, dataIn(:,ii));
-end
+
+encodedData = step(hEnc,dataIn);
 
 %Convert to a cell voltage level
-y = memoryGetVoltage(encodedData_matrix(:),SystemParams,retentionData);
+y = memoryGetVoltage(encodedData,SystemParams,retentionData);
 
 % HARD DECISION process on Cell Voltage
 % > vHardDecision, then binary 1 (LLR -50), otherwise binary 0 (LLR +50)
-y(y > voltageHardDecision) = -50;
 y(y <= voltageHardDecision) = 50;
-
-% for i = 1:length(y)
-%     if y(i) > voltageHardDecision
-%         y(i) = -50;
-%     else
-%         y(i) = 50;
-%     end
-% end
+y(y < 50) = -50;
 
 % Belief Propogation Stage
 receivedBits = step(hDec, y');
@@ -36,7 +25,7 @@ receivedBits = +receivedBits;
 % Iterates on LLR, outputs binary 1,0
 
 
-errorStats = step(hError, encodedData_matrix(:), receivedBits);
+errorStats = step(hError, encodedData, receivedBits);
 error_ratio = errorStats(1);
 
 
