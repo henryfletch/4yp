@@ -2,32 +2,21 @@
 % and then decodes using Belief Propogation (iterations l),
 % finally displays BER.
 
-function [biterr_num,biterr_ratio] = ldpc_BER_memoryN_uncoded(SystemParams,retentionData,voltageHardDecision)
+function [biterr_num,biterr_ratio] = ldpc_BER_memoryN_uncoded(SystemParams,voltageHardDecision)
 
 % Input vector
-dataIn = randi([0,1],1,64800-6480);
-
-% %Encode
-% x = bp_encoder(x,H);
-% x=x';
-% x_encoded = x;
+dataIn = randi([0,1],64800,1);
 
 %Convert to a cell voltage level
-y = memoryGetVoltage(dataIn,SystemParams,retentionData);
-
-% Belief Propogation Stage
-%[y,iterations] = BP_iterate_minsum(x,H,l);
+y = memoryGetVoltage(dataIn,SystemParams);
+%y = memoryGetVoltage_mex(encodedData,SystemParams.tYrs,SystemParams.Verased, ...
+%    SystemParams.Vp,SystemParams.deltaVp,SystemParams.N);
 
 % HARD DECISION process on Cell Voltage
-% > 2.5v, then binary 1, otherwise binary 0
-for i = 1:length(y)
-    if y(i) > voltageHardDecision
-        y(i) = 1;
-    else
-        y(i) = 0;
-    end
-end
+% > vHardDecision, then binary 1 (LLR -50), otherwise binary 0 (LLR +50)
+y(y <= voltageHardDecision) = 0;
+y(y > 0) = 1;
 
-[biterr_num,biterr_ratio] = biterr(dataIn,y);
+[biterr_num,biterr_ratio] = biterr(dataIn,y');
 
 end

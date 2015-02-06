@@ -3,7 +3,7 @@ addpath('./Random Generators');
 
 Y = [];
 
-for N = 1
+for N = 100000
 
 % System Parameters
 tYrs = 5;
@@ -26,22 +26,18 @@ lambda = 0.00025*N^0.5;
 RTN = gen_laplacian(lambda,samples);
 
 % Retention Process
-retentionStrut.Ks = 0.38;
-retentionStrut.Kd = 4e-4;
-retentionStrut.Km = 4e-6;
-retentionStrut.t0 = 3600;
-[mu_d,sigma_d] = getRetentionParams(N,t,Vp,Verased,retentionStrut);
+[mu_d,sigma_d] = getRetentionParams(N,t,Vp,Verased);
 retention= gen_gaussian(mu_d,sigma_d,samples);
 
 % Adding random variables
-VtP = V0 + RTN + retention;
+VtP = retention + V0 + RTN;
 VtE = Ve + RTN;
 
-histogram(VtP,1000,'DisplayStyle','stairs');
+histogram(VtP,1000,'DisplayStyle','stairs','Normalization','pdf');
 %[numberP,edgesP] = histcounts(VtP,1000);
 hold on;
 
-histogram(VtE,1000,'DisplayStyle','stairs');
+histogram(VtE,1000,'DisplayStyle','stairs','Normalization','pdf');
 %[numberE,edgesE] = histcounts(VtE,1000);
 
 %midpoint = getMidpoint(numberP,edgesP,numberE,edgesE);
