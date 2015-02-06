@@ -48,7 +48,7 @@ voltageHardDecision = decisionFunc(N);
 
 %for Loop
 for i = 1:mc_iters
-    errRatio(i) = ZZ_ldpc_BER_memoryN_coded(Rc,hEnc,hDec,SystemParams,voltageHardDecision);
+    errRatio(i) = ZZ_ldpc_BER_memoryN_coded_sim(Rc,hEnc,hDec,SystemParams,voltageHardDecision);
 end
 
 fid=fopen(filename,'a+');

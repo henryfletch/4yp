@@ -2,7 +2,7 @@
 % and then decodes using Belief Propogation (iterations l),
 % finally displays BER.
 
-function error_ratio = ZZ_ldpc_BER_memoryN_coded(Rc,hEnc,hDec,SystemParams,voltageHardDecision)
+function error_ratio = ZZ_ldpc_BER_memoryN_coded_sim(Rc,hEnc,hDec,SystemParams,voltageHardDecision)
 
 % Input vector
 dataIn = randi([0,1],1,64800*Rc);
