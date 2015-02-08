@@ -4,7 +4,7 @@ I = [];
 
 for i = EbNoRange
     display(i);
-    value = strcat('results', num2str(i),'_*');
+    value = strcat('memhard', num2str(i),'_*');
     d = dir(value);
     names = {d.name};
     L = length(names);
@@ -14,7 +14,7 @@ for i = EbNoRange
     end
     [m,n] = size(R);
     errRatio = sum(R(:))/(m*n);
-    I = [I;i/10,errRatio,m*n*1000];
+    I = [I;i,errRatio,m*n*1000];
 end
 
 
