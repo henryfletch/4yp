@@ -3,7 +3,9 @@ addpath('./Random Generators');
 
 Y = [];
 
-for N = 100000
+parfor iN = 1:200;
+
+N = iN*100;
 
 % System Parameters
 tYrs = 5;
@@ -33,14 +35,14 @@ retention= gen_gaussian(mu_d,sigma_d,samples);
 VtP = retention + V0 + RTN;
 VtE = Ve + RTN;
 
-histogram(VtP,1000,'DisplayStyle','stairs','Normalization','pdf');
-%[numberP,edgesP] = histcounts(VtP,1000);
+%histogram(VtP,1000,'DisplayStyle','stairs','Normalization','pdf');
+[numberP,edgesP] = histcounts(VtP,1000);
 hold on;
 
-histogram(VtE,1000,'DisplayStyle','stairs','Normalization','pdf');
-%[numberE,edgesE] = histcounts(VtE,1000);
+%histogram(VtE,1000,'DisplayStyle','stairs','Normalization','pdf');
+[numberE,edgesE] = histcounts(VtE,1000);
 
-%midpoint = getMidpoint(numberP,edgesP,numberE,edgesE);
+midpoint = getMidpoint(numberP,edgesP,numberE,edgesE);
 
-%Y = [Y;N,midpoint];
+Y(iN,:) = [N,midpoint];
 end

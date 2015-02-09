@@ -10,7 +10,7 @@ Vp = 2.6;
 deltaVp = 0.25;
 timeYrs = 50;
 
-time = timeYrs*265*24*3600;
+time = timeYrs*365*24*3600;
 
 %Erased State
 yErased = normpdf(x,Verased,0.35);

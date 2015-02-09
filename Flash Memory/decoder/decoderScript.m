@@ -19,11 +19,12 @@ Rc = 9/10;
 H = dvbs2ldpc(Rc);
 
 % MC Simulation Runs
-mc_iters = 500;
+mc_iters = 20000;
+l = 50;
 
 % Loop to go over all values of EbNo, as well as perform MC Simulation
 I = [];
-for N = 36000:500:39000
+for N = 0:500:6000
     fprintf('N =%6.2f',N);
     fprintf('\n');
     hEnc = comm.LDPCEncoder(H);

@@ -1,4 +1,4 @@
-function ZZ_run_sim(varargin)
+function run_sim(varargin)
 
 if isstr(varargin{1})
     N = str2double(varargin{1});
@@ -48,7 +48,7 @@ voltageHardDecision = decisionFunc(N);
 
 %for Loop
 for i = 1:mc_iters
-    errRatio(i) = ZZ_ldpc_BER_memoryN_coded_sim(Rc,hEnc,hDec,SystemParams,voltageHardDecision);
+    errRatio(i) = ldpc_BER_memoryN_coded_sim(Rc,hEnc,hDec,SystemParams,voltageHardDecision);
 end
 
 fid=fopen(filename,'a+');
