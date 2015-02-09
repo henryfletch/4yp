@@ -18,18 +18,18 @@ y = memoryGetVoltage(encodedData,SystemParams);
 
 % HARD DECISION process on Cell Voltage
 % > vHardDecision, then binary 1 (LLR -50), otherwise binary 0 (LLR +50)
-y(y <= voltageHardDecision) = 50;
-y(y < 50) = -50;
+%y(y <= voltageHardDecision) = 50;
+%y(y < 50) = -50;
 
 % SOFT DECISION -> Generate a LLR using gaussian approximation
 % L is the vector of log liklehood ratios
-%L = llr(y,SystemParams.Verased,0.35,SystemParams.Vp,0.2);
+%L = llr(y,SystemParams.Verased,0.35,SystemParams.Vp,0.2); %Gaussian
+L = llr_full(y,SystemParams.Verased,0.35,SystemParams); %Full
 
 % Belief Propogation Stage
-receivedBits = decode(hDec, y');
+receivedBits = decode(hDec, L');
 receivedBits = +receivedBits;
 % Iterates on LLR, outputs binary 1,0
-
 
 errorAmount = nnz(receivedBits - encodedData);
 error_ratio = errorAmount/64800;
