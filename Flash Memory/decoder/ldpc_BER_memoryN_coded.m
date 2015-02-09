@@ -2,42 +2,37 @@
 % and then decodes using Belief Propogation (iterations l),
 % finally displays BER.
 
-function [biterr_num,biterr_ratio,iterations] = ldpc_BER_memoryN_coded(Rc,H,l,SystemParams,retentionData,voltageHardDecision)
+function error_ratio = ldpc_BER_memoryN_coded(Rc,hEnc,hDec,hError,SystemParams,voltageHardDecision)
 
 % Input vector
-dataIn = randi([0,1],1,64800*Rc);
+dataIn = randi([0,1],64800*Rc,1);
 
-%Encode
-x = bp_encoder(dataIn,H);
-x=x';
-x_encoded = x;
+%Encode multiple blocks at same time
+
+encodedData = step(hEnc,dataIn);
 
 %Convert to a cell voltage level
-y = memoryGetVoltage(x,SystemParams,retentionData);
+y = memoryGetVoltage(encodedData,SystemParams);
+%y = memoryGetVoltage_mex(encodedData,SystemParams.tYrs,SystemParams.Verased, ...
+%    SystemParams.Vp,SystemParams.deltaVp,SystemParams.N);
 
 % HARD DECISION process on Cell Voltage
-% > vHardDecision, then binary 1 (LLR -1), otherwise binary 0 (LLR +1)
-for i = 1:length(y)
-    if y(i) > voltageHardDecision
-        y(i) = -10;
-    else
-        y(i) = 10;
-    end
-end
+% > vHardDecision, then binary 1 (LLR -50), otherwise binary 0 (LLR +50)
+% y(y <= voltageHardDecision) = 50;
+% y(y < 50) = -50;
+
+% SOFT DECISION -> Generate a LLR using gaussian approximation
+% L is the vector of log liklehood ratios
+L = llr(y,SystemParams.Verased,0.35,SystemParams.Vp,0.2);
 
 % Belief Propogation Stage
-[y,iterations] = BP_iterate_minsum(y,H,l);
-% Iterates on LLR, outputs LLR
+receivedBits = step(hDec, L');
+receivedBits = +receivedBits;
+% Iterates on LLR, outputs binary 1,0
 
-% HARD DECISION process on output LLR
-for i = 1:length(y)
-    if y(i) > 0
-        y(i) = 0;
-    else
-        y(i) = 1;
-    end
-end
 
-[biterr_num,biterr_ratio] = biterr(x_encoded,y);
+errorStats = step(hError, encodedData, receivedBits);
+error_ratio = errorStats(1);
+
 
 end

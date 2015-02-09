@@ -36,7 +36,7 @@ for N = 36000:500:39000
     %Parfor Loop
     parfor_progress(mc_iters);
     parfor i = 1:mc_iters
-        errRatio(i) = ZZ_ldpc_BER_memoryN_coded(Rc,hEnc,hDec,hError,SystemParams,voltageHardDecision);
+        errRatio(i) = ldpc_BER_memoryN_coded(Rc,hEnc,hDec,hError,SystemParams,voltageHardDecision);
         parfor_progress;
     end
     parfor_progress(0);

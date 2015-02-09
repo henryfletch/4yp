@@ -2,14 +2,14 @@
 % and then decodes using Belief Propogation (iterations l),
 % finally displays BER.
 
-function error_ratio = ZZ_ldpc_BER_memoryN_coded(Rc,hEnc,hDec,hError,SystemParams,voltageHardDecision)
+function error_ratio = ldpc_BER_memoryN_coded_sim(Rc,hEnc,hDec,SystemParams,voltageHardDecision)
 
 % Input vector
-dataIn = randi([0,1],64800*Rc,1);
+dataIn = randi([0,1],1,64800*Rc);
 
 %Encode multiple blocks at same time
 
-encodedData = step(hEnc,dataIn);
+encodedData = encode(hEnc,dataIn);
 
 %Convert to a cell voltage level
 y = memoryGetVoltage(encodedData,SystemParams);
@@ -18,21 +18,21 @@ y = memoryGetVoltage(encodedData,SystemParams);
 
 % HARD DECISION process on Cell Voltage
 % > vHardDecision, then binary 1 (LLR -50), otherwise binary 0 (LLR +50)
-% y(y <= voltageHardDecision) = 50;
-% y(y < 50) = -50;
+y(y <= voltageHardDecision) = 50;
+y(y < 50) = -50;
 
 % SOFT DECISION -> Generate a LLR using gaussian approximation
 % L is the vector of log liklehood ratios
-L = llr(y,SystemParams.Verased,0.35,SystemParams.Vp,0.2);
+%L = llr(y,SystemParams.Verased,0.35,SystemParams.Vp,0.2);
 
 % Belief Propogation Stage
-receivedBits = step(hDec, L');
+receivedBits = decode(hDec, y');
 receivedBits = +receivedBits;
 % Iterates on LLR, outputs binary 1,0
 
 
-errorStats = step(hError, encodedData, receivedBits);
-error_ratio = errorStats(1);
+errorAmount = nnz(receivedBits - encodedData);
+error_ratio = errorAmount/64800;
 
 
 end
