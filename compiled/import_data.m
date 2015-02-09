@@ -4,7 +4,7 @@ I = [];
 
 for i = EbNoRange
     display(i);
-    value = strcat('memhard', num2str(i),'_*');
+    value = strcat('memsoft', num2str(i),'_*');
     d = dir(value);
     names = {d.name};
     L = length(names);
