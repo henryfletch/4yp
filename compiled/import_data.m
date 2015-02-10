@@ -1,10 +1,10 @@
-function I = import_data(EbNoRange)
+function I = import_data(valueRange,textMask)
 
 I = [];
 
-for i = EbNoRange
+for i = valueRange
     display(i);
-    value = strcat('memsoft', num2str(i),'_*');
+    value = strcat(textMask, num2str(i),'_*');
     d = dir(value);
     names = {d.name};
     L = length(names);
