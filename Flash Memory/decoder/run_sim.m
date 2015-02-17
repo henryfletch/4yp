@@ -26,6 +26,7 @@ SystemParams.tYrs = 5;
 SystemParams.Verased = 1.4;
 SystemParams.Vp = 2.8;
 SystemParams.deltaVp = 0.25;
+SystemParams.tSecs = SystemParams.tYrs*365*24*3600;
 
 %Code Rate
 Rc = 9/10;

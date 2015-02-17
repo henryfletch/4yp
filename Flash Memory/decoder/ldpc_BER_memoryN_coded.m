@@ -26,8 +26,9 @@ y = memoryGetVoltage(encodedData',SystemParams);
 [mu_d,sigma_d] = getRetentionParams(SystemParams.N,SystemParams.tSecs,SystemParams.Vp,SystemParams.Verased);
 total_mu = ((2*SystemParams.Vp+SystemParams.deltaVp)/2) + mu_d;
 total_sigma2 = ((SystemParams.deltaVp^2)/12) + sigma_d^2;
-L = llr(y,SystemParams.Verased,0.35,total_mu,sqrt(total_sigma2));
-%L = llr_full(y,SystemParams.Verased,0.35,SystemParams);
+L = llr(y,SystemParams.Verased,0.35,total_mu,sqrt(total_sigma2)); %Moving gaussian
+%L = llr(y,SystemParams.Verased,0.35,SystemParams.Vp,0.2); %Gaussian
+%L = llr_full(y,SystemParams.Verased,0.35,SystemParams); % Full function
 
 % Belief Propogation Stage: MATLAB decoder
 receivedBits = step(hDec, L);
