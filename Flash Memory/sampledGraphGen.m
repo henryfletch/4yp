@@ -3,9 +3,10 @@ addpath('./Random Generators');
 
 Y = [];
 
-parfor iN = 1:200;
+%parfor iN = 1:200;
 
-N = iN*100;
+%N = iN*100;
+N = 1000;
 
 % System Parameters
 tYrs = 5;
@@ -29,20 +30,27 @@ RTN = gen_laplacian(lambda,samples);
 
 % Retention Process
 [mu_d,sigma_d] = getRetentionParams(N,t,Vp,Verased);
-retention= gen_gaussian(mu_d,sigma_d,samples);
+retention = gen_gaussian(mu_d,sigma_d,samples);
 
 % Adding random variables
 VtP = retention + V0 + RTN;
 VtE = Ve + RTN;
 
-%histogram(VtP,1000,'DisplayStyle','stairs','Normalization','pdf');
-[numberP,edgesP] = histcounts(VtP,1000);
+%%%%%%%% GAUSSIAN TEST PLOT %%%%%%%%
+x = 0:0.01:5;
+total_mu = ((2*Vp+deltaVp)/2) + mu_d;
+total_sigma2 = ((deltaVp^2)/12) + sigma_d^2;
+gauss = normpdf(x,total_mu,sqrt(total_sigma2));
+plot(x,gauss);hold on;
+
+histogram(VtP,1000,'DisplayStyle','stairs','Normalization','pdf');
+%[numberP,edgesP] = histcounts(VtP,1000);
 hold on;
 
-%histogram(VtE,1000,'DisplayStyle','stairs','Normalization','pdf');
-[numberE,edgesE] = histcounts(VtE,1000);
+histogram(VtE,1000,'DisplayStyle','stairs','Normalization','pdf');
+%[numberE,edgesE] = histcounts(VtE,1000);
 
-midpoint = getMidpoint(numberP,edgesP,numberE,edgesE);
+%midpoint = getMidpoint(numberP,edgesP,numberE,edgesE);
 
-Y(iN,:) = [N,midpoint];
-end
+%Y(iN,:) = [N,midpoint];
+%end

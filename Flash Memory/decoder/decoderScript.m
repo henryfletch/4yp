@@ -11,6 +11,7 @@ SystemParams.tYrs = 5;
 SystemParams.Verased = 1.4;
 SystemParams.Vp = 2.8;
 SystemParams.deltaVp = 0.25;
+SystemParams.tSecs = SystemParams.tYrs*365*24*3600;
 
 %Code Rate
 Rc = 9/10;
@@ -24,7 +25,7 @@ l = 50;
 
 % Loop to go over all values of EbNo, as well as perform MC Simulation
 I = [];
-for N = 16000:2000:450000
+for N = 25000:1000:45000
     fprintf('N =%6.2f',N);
     fprintf('\n');
     hEnc = comm.LDPCEncoder(H);
