@@ -3,13 +3,14 @@ addpath('./Random Generators');
 
 Y = [];
 
-%parfor iN = 1:200;
+%parfor iN = 21:45;
 
-%N = iN*100;
-N = 1000;
+%N = iN*1000;
+N = 1;
 
 % System Parameters
-tYrs = 5;
+alpha = 5000; % 5000 p/e cycles per year
+tYrs = timeFunc(N,alpha);
 t = tYrs*365*24*3600;
 Vp = 2.8;
 Verased = 1.4;
@@ -36,7 +37,7 @@ retention = gen_gaussian(mu_d,sigma_d,samples);
 VtP = retention + V0 + RTN;
 VtE = Ve + RTN;
 
-%%%%%%%% GAUSSIAN TEST PLOT %%%%%%%%
+% %%%%%%%% GAUSSIAN TEST PLOT %%%%%%%%
 x = 0:0.01:5;
 total_mu = ((2*Vp+deltaVp)/2) + mu_d;
 total_sigma2 = ((deltaVp^2)/12) + sigma_d^2;
@@ -54,3 +55,4 @@ histogram(VtE,1000,'DisplayStyle','stairs','Normalization','pdf');
 
 %Y(iN,:) = [N,midpoint];
 %end
+axis([0 4 0 4]);

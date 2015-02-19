@@ -7,7 +7,7 @@ areaP = 0;
 areaE = 1;
 
 % Decision values:
-vDecision = 2.3;
+vDecision = 2.0;
 deltaV = 0.005;
 
 while areaP < areaE
