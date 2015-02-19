@@ -36,7 +36,7 @@ receivedBits = +receivedBits;
 % Iterates on LLR, outputs binary 1,0
 
 errorAmount = nnz(receivedBits - encodedData);
-error_ratio = errorAmount/64800;
+error_ratio = errorAmount/(64800);
 
 
 end
