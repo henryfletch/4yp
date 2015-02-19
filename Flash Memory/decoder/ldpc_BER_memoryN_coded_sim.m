@@ -23,12 +23,12 @@ y = memoryGetVoltage(encodedData,SystemParams);
 
 % SOFT DECISION -> Generate a LLR using gaussian approximation
 % L is the vector of log liklehood ratios
-[mu_d,sigma_d] = getRetentionParams(SystemParams.N,SystemParams.tSecs,SystemParams.Vp,SystemParams.Verased);
-total_mu = ((2*SystemParams.Vp+SystemParams.deltaVp)/2) + mu_d;
-total_sigma2 = ((SystemParams.deltaVp^2)/12) + sigma_d^2;
-L = llr(y,SystemParams.Verased,0.35,total_mu,sqrt(total_sigma2)); % Moving gaussian
+%[mu_d,sigma_d] = getRetentionParams(SystemParams.N,SystemParams.tSecs,SystemParams.Vp,SystemParams.Verased);
+%total_mu = ((2*SystemParams.Vp+SystemParams.deltaVp)/2) + mu_d;
+%total_sigma2 = ((SystemParams.deltaVp^2)/12) + sigma_d^2;
+%L = llr(y,SystemParams.Verased,0.35,total_mu,sqrt(total_sigma2)); % Moving gaussian
 %L = llr(y,SystemParams.Verased,0.35,SystemParams.Vp,0.2); %Gaussian
-%L = llr_full(y,SystemParams.Verased,0.35,SystemParams); %Full
+L = llr_full(y,SystemParams.Verased,0.35,SystemParams); %Full
 
 % Belief Propogation Stage
 receivedBits = decode(hDec, L');

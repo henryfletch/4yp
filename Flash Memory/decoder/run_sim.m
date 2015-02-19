@@ -11,7 +11,7 @@ filename = strcat('output_files/',varargin{2},randomID,'.txt');
 
 % Ensures truly random numbers for each process
 % seed is now a random number that can be used to initialise rand
-fid2 = fopen('/dev/urandom');
+fid2 = fopen('/dev/random');
 seed = fread(fid2, 1, 'uint32');
 RandStream.setDefaultStream(RandStream('mt19937ar','seed',seed));
 
