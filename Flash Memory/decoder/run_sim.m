@@ -35,7 +35,7 @@ Rc = 9/10;
 H = dvbs2ldpc(Rc);
 
 % Blocks per program
-mc_iters = 200000;
+mc_iters = 10;
 
 hEnc = fec.ldpcenc(H);
 hDec = fec.ldpcdec(H);
@@ -49,7 +49,7 @@ voltageHardDecision = decisionFunc(N);
 
 %for Loop
 for i = 1:mc_iters
-    errRatio(i) = ldpc_BER_memoryN_coded_sim(Rc,hEnc,hDec,SystemParams,voltageHardDecision);
+    errRatio(i) = ldpc_BER_memoryN_coded_sim(Rc,hEnc,hDec,SystemParams,voltageHardDecision,H,l);
 end
 
 fid=fopen(filename,'a+');
