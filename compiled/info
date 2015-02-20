@@ -1,0 +1,34 @@
+N = P/E Cycles
+textString = the name of the file output. e.g saved as: /output_files/textString_{randomNumber}.txt
+
+-mem_hard_decision(N,textString)
+	Hard decision decoding, uses variable exp window
+	#Blocks = 1000
+	Matlab Decoder
+
+-mem_soft_full(N,textString)
+	Soft decision decoding, uses retention as full function
+	#Blocks = 1000
+	Matlab Decoder
+
+-mem_soft_full_200k(N,textString)
+	Soft decision decoding, uses retention as full function
+	#Blocks = 200000   <-- This was to solve the random number/error floor issue
+	Matlab Decoder
+
+-mem_soft_gaussian(N,textString)
+	Soft decision decoding, static gaussian mu=Vp,sigma=0.2
+	#Blocks = 1000
+	Matlab Decoder
+
+-mem_soft_movingGaussian(N,textString)
+	Soft decision decoding, gaussian mu,sigma = combo of Retention + Normal dist
+	#Blocks = 1000
+	Matlab Decoder
+
+-my_mem_soft_movingGaussian(N,textString)
+	Soft decision decoding, gaussian mu,sigma = combo of Retention + Normal dist
+	#Blocks = 10
+	Henry's Decoder
+	Warning! - VERY slow
+
