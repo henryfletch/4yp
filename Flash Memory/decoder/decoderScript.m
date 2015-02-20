@@ -19,14 +19,15 @@ Rc = 9/10;
 
 %DVB-S2 Parity check matrix
 H = dvbs2ldpc(Rc);
+%H2 = full(H);
 
 % MC Simulation Runs
-mc_iters = 1000;
+mc_iters = 7;
 l = 50;
 
 % Loop to go over all values of EbNo, as well as perform MC Simulation
 I = [];
-for N = [0:100:5000,6000:1000:45000]
+for N = 34000:1000:40000
     fprintf('N =%6.2f',N);
     fprintf('\n');
     hEnc = comm.LDPCEncoder(H);
@@ -35,12 +36,12 @@ for N = [0:100:5000,6000:1000:45000]
     hError = comm.ErrorRate;
     tic;
     SystemParams.N = N;
-    SystemParams.tYrs = timeFunc(N,alpha);
+    %SystemParams.tYrs = timeFunc(N,alpha);
     voltageHardDecision = decisionFunc(N);
     %Parfor Loop
     parfor_progress(mc_iters);
     parfor i = 1:mc_iters
-        errRatio(i) = ldpc_BER_memoryN_coded(Rc,hEnc,hDec,hError,SystemParams,voltageHardDecision);
+        errRatio(i) = ldpc_BER_memoryN_coded(Rc,hEnc,hDec,hError,SystemParams,voltageHardDecision,H,l);
         parfor_progress;
     end
     parfor_progress(0);

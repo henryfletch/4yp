@@ -2,31 +2,28 @@
 % and then decodes using Belief Propogation (iterations l),
 % finally displays BER.
 
-function error_ratio = ldpc_BER_memoryN_coded(Rc,hEnc,hDec,hError,SystemParams,voltageHardDecision)
+function error_ratio = ldpc_BER_memoryN_coded(Rc,hEnc,hDec,hError,SystemParams,voltageHardDecision,H,l)
 
 % Input vector
 dataIn = randi([0,1],64800*Rc,1);
 
-%Encode multiple blocks at same time
-
+%Encode block
 encodedData = step(hEnc,dataIn);
 
 %Convert to a cell voltage level
 y = memoryGetVoltage(encodedData',SystemParams);
-%y = memoryGetVoltage_mex(encodedData,SystemParams.tYrs,SystemParams.Verased, ...
-%    SystemParams.Vp,SystemParams.deltaVp,SystemParams.N);
 
 % HARD DECISION process on Cell Voltage
 % > vHardDecision, then binary 1 (LLR -50), otherwise binary 0 (LLR +50)
-y(y <= voltageHardDecision) = 50;
-y(y < 50) = -50; 
+%y(y <= voltageHardDecision) = 50;
+%y(y < 50) = -50; 
 
 % SOFT DECISION -> Generate a LLR using gaussian approximation
 % L is the vector of log liklehood ratios
-%[mu_d,sigma_d] = getRetentionParams(SystemParams.N,SystemParams.tSecs,SystemParams.Vp,SystemParams.Verased);
-%total_mu = ((2*SystemParams.Vp+SystemParams.deltaVp)/2) + mu_d;
-%total_sigma2 = ((SystemParams.deltaVp^2)/12) + sigma_d^2;
-%L = llr(y,SystemParams.Verased,0.35,total_mu,sqrt(total_sigma2)); %Moving gaussian
+[mu_d,sigma_d] = getRetentionParams(SystemParams.N,SystemParams.tSecs,SystemParams.Vp,SystemParams.Verased);
+total_mu = ((2*SystemParams.Vp+SystemParams.deltaVp)/2) + mu_d;
+total_sigma2 = ((SystemParams.deltaVp^2)/12) + sigma_d^2;
+L = llr(y,SystemParams.Verased,0.35,total_mu,sqrt(total_sigma2)); %Moving gaussian
 %L = llr(y,SystemParams.Verased,0.35,SystemParams.Vp,0.2); %Gaussian
 %L = llr_full(y,SystemParams.Verased,0.35,SystemParams); % Full function
 
@@ -36,9 +33,9 @@ y(y < 50) = -50;
 % Iterates on LLR, outputs binary 1,0
 
 % Belief Propogation Stage: My decoder
-%receivedLLR = BP_iterate(y',H,l);
-receivedBits(y > 0) = 0;
-receivedBits(y < 0) = 1;
+receivedLLR = BP_iterate(L',H,l);
+receivedBits(receivedLLR > 0) = 0;
+receivedBits(receivedLLR < 0) = 1;
 %receivedBits = receivedBits';
 
 errorStats = step(hError, encodedData, receivedBits');
