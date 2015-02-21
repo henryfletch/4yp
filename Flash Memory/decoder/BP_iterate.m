@@ -20,69 +20,49 @@ nonzeros = nnz(H);
 m_IJ = spalloc(j_max,i_max,nonzeros);
 m_JI = spalloc(j_max,i_max,nonzeros);
 
+H_ = H';
 for iter = 0:l
+    
     %All Message nodes:
-    for i = 1:i_max
-        % At each Message node:
-        h = H(:,i);% Column vector of connections to check nodes
-        
-        % Message sent down each branch from MSG to CHK:j
-        if iter == 0 % on initial iteration:
-            m_IJ(find(h),i) = x(i); % Message sent = initial conditions
-        else % subsequently:
-            w = m_JI(:,i);
-            m_IJ(:,i) = h*x(i) + h*sum(w) - w;
-        end
+    if iter == 0 % on initial iteration:
+        m_IJ = bsxfun(@times,x,H);
+    else % subsequently:
+        a = (x + sum(m_JI));
+        b = bsxfun(@times,a,H);
+        m_IJ = b - m_JI;
     end
     
-    m_IJ_2 = m_IJ'; %Transpose: Memory access is then much quicker!
+    m_IJ_2 = m_IJ'./2; %Transpose: Memory access is then much quicker!
     
-    %All Check nodes:
-    for j = 1:j_max
-        % At each Check node:
-        %h = H(j,:);
-        %h = h';
-        
-        % Message sent down each branch:
-        w = m_IJ_2(:,j);
-        [row,~,v] = find(w); % v is non-zero elements
-        m_JI(j,row) = 2*atanh(prod(tanh(v./2))./(tanh(v./2)));
-    end
-    
-    % NEW! Clipping function
-    m_JI((m_JI) > 1000)=999; 
+    c = tanh(m_IJ_2);
+    d = spfun(@log,c);
+    e = sum(d);
+    f = bsxfun(@times,e,H_);
+    g = f - d;
+    g = spfun(@exp,g);
+    m_JI = 2*atanh(g);
+    m_JI = m_JI';
+
+    % Clipping function
+    m_JI((m_JI) > 1000)=999;
     m_JI((m_JI) < -1000)=-999;
     
     %Get current variable node values
     sumVector = sum(m_JI);
     y = x + sumVector;
     
-    %First stop check:
-    % Values of y either +/- Inf? -> Break
-    % Cannot resume if any value saturates to infinity anyway
-%     if  any(abs(y) == inf)
-%         iterations = iter;
-%         return
-%     end
-    
-    %Second stop check: Is a valid codeword? i.e. y*H' == 0
+    %Stop check: Is a valid codeword? i.e. y*H' == 0
     %Hard Decision:
-    for i = 1:length(y)
-        if y(i) > 0
-            y2(i) = 0;
-        else
-            y2(i) = 1;
-        end
-    end
+    y2(y>0) = 0;
+    y2(y<0) = 1;
+    
     %Parity Check:
-    test = sum(mod(y2*H',2));
+    test = sum(mod(y2*H_,2));
     if test == 0
         iterations = iter;
         return
     end
-    
 end
-
 end
 
 
