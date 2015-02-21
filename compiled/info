@@ -32,3 +32,8 @@ textString = the name of the file output. e.g saved as: /output_files/textString
 	Henry's Decoder
 	Warning! - VERY slow
 
+-my_mem_soft_full(N,textString)
+	Soft decision decoding, retention full function.
+	#Blocks = 100
+	Henry's Decoder, (fully vectorised)
+	Around 4x faster than previously
