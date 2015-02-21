@@ -2,7 +2,7 @@
 % and then decodes using Belief Propogation (iterations l),
 % finally displays BER.
 
-function error_ratio = ldpc_BER_memoryN_coded(Rc,hEnc,hDec,hError,SystemParams,voltageHardDecision,H,l)
+function error_ratio = ocl_ldpc_BER_memoryN_coded(Rc,hEnc,hDec,hError,SystemParams,voltageHardDecision,H,l)
 
 % Input vector
 dataIn = randi([0,1],64800*Rc,1);
@@ -33,12 +33,15 @@ L = llr_full(y,SystemParams.Verased,0.35,SystemParams); % Full function
 % Iterates on LLR, outputs binary 1,0
 
 % Belief Propogation Stage: My decoder
-receivedLLR = BP_iterate(L',H,l);
-receivedBits(receivedLLR > 0) = 0;
-receivedBits(receivedLLR < 0) = 1;
+%receivedLLR = BP_iterate(L',H,l);
+%receivedBits(receivedLLR > 0) = 0;
+%receivedBits(receivedLLR < 0) = 1;
 %receivedBits = receivedBits';
 
-errorStats = step(hError, encodedData, receivedBits');
+% OpenCL Decoder
+[~, receivedBits] = hDec.decode(L, l);
+
+errorStats = step(hError, encodedData, +receivedBits');
 error_ratio = errorStats(1);
 
 
