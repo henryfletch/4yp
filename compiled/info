@@ -22,12 +22,17 @@ textString = the name of the file output. e.g saved as: /output_files/textString
 	Matlab Decoder
 
 -mem_soft_movingGaussian(N,textString)
-	Soft decision decoding, gaussian mu,sigma = combo of Retention + Normal dist
+	Soft decision decoding, gaussian mu,sigma = combo of Retention + Uniform dist
+	#Blocks = 1000
+	Matlab Decoder
+
+-mem_soft_movingGaussian2(N,textString)
+	Soft decision decoding, gaussian mu,sigma = combo of Retention + Uniform + Laplacian dist
 	#Blocks = 1000
 	Matlab Decoder
 
 -my_mem_soft_movingGaussian(N,textString)
-	Soft decision decoding, gaussian mu,sigma = combo of Retention + Normal dist
+	Soft decision decoding, gaussian mu,sigma = combo of Retention + Uniform dist
 	#Blocks = 10
 	Henry's Decoder
 	Warning! - VERY slow
