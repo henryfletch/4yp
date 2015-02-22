@@ -35,7 +35,7 @@ Rc = 9/10;
 H = dvbs2ldpc(Rc);
 
 % Blocks per program
-mc_iters = 10;
+mc_iters = 1000;
 l = 50;
 
 hEnc = fec.ldpcenc(H);
