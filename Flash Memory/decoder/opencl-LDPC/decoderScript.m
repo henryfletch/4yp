@@ -23,7 +23,7 @@ H = dvbs2ldpc(Rc);
 %H2 = full(H);
 
 % MC Simulation Runs
-mc_iters = 2000;
+mc_iters = 500000;
 l = 50;
 
 % Loop to go over all values of EbNo, as well as perform MC Simulation
@@ -33,7 +33,7 @@ hEnc = comm.LDPCEncoder(H);
 hDec = ldpcdec(H, 'cl\Kernels_sp.cl', 0.875);
 hError = comm.ErrorRate;
 
-for N = 36000
+for N = 35000
     fprintf('N =%6.2f',N);
     fprintf('\n');
     tic;
