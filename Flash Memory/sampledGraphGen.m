@@ -6,7 +6,7 @@ Y = [];
 %parfor iN = 21:45;
 
 %N = iN*1000;
-N = 1;
+N = 100000;
 
 % System Parameters
 alpha = 5000; % 5000 p/e cycles per year
@@ -37,22 +37,22 @@ retention = gen_gaussian(mu_d,sigma_d,samples);
 VtP = retention + V0 + RTN;
 VtE = Ve + RTN;
 
-% %%%%%%%% GAUSSIAN TEST PLOT %%%%%%%%
+%%%%%%%% GAUSSIAN TEST PLOT %%%%%%%%
 x = 0:0.01:5;
 total_mu = ((2*Vp+deltaVp)/2) + mu_d;
 total_sigma2 = ((deltaVp^2)/12) + sigma_d^2;
 gauss = normpdf(x,total_mu,sqrt(total_sigma2));
 plot(x,gauss);hold on;
 
-histogram(VtP,1000,'DisplayStyle','stairs','Normalization','pdf');
+%histogram(VtP,1000,'DisplayStyle','stairs','Normalization','pdf');
 %[numberP,edgesP] = histcounts(VtP,1000);
 hold on;
 
-histogram(VtE,1000,'DisplayStyle','stairs','Normalization','pdf');
+%histogram(VtE,1000,'DisplayStyle','stairs','Normalization','pdf');
 %[numberE,edgesE] = histcounts(VtE,1000);
 
 %midpoint = getMidpoint(numberP,edgesP,numberE,edgesE);
 
 %Y(iN,:) = [N,midpoint];
 %end
-axis([0 4 0 4]);
+axis([0 4 0 5]);
