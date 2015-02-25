@@ -14,12 +14,12 @@ G = load('../LDPC data/Toshiba/G-4095-3367.mat');
 % Belief Propogation Max Iterations
 l = 50;
 % MC Simulation Runs/Blocks
-N = 20000;
+N = 1000;
 % MinSum Convergence Factor
 convergFactor = 0.7;
 
 % EbNo Range
-EbNoRange = 3.8:0.1:4;
+EbNoRange = 2;
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
