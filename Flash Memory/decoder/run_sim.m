@@ -37,7 +37,7 @@ SystemParams.tSecs = SystemParams.tYrs*365*24*3600;
 % H = dvbs2ldpc(Rc);
 
 %%% TOSHIBA PEG CODES %%%
-addpath('../../LDPC data/Toshiba');
+%addpath('../../LDPC data/Toshiba');
 H = load('H-4095-3367.mat');
 H = H.H;
 G = load('G-4095-3367.mat');
@@ -46,7 +46,7 @@ Nc = 4095;
 Rc = 3367/4095;
 
 % Blocks per program
-mc_iters = 1000;
+mc_iters = 10000;
 l = 50;
 
 hEnc = G;%fec.ldpcenc(H);

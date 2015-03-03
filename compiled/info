@@ -42,3 +42,9 @@ textString = the name of the file output. e.g saved as: /output_files/textString
 	#Blocks = 100
 	Henry's Decoder, (fully vectorised)
 	Around 4x faster than previously
+
+-toshiba_mem_soft_full(N,textString)
+    Toshiba PEG code (N=4095)
+    #Blocks = 10000
+    Matlab Decoder
+
