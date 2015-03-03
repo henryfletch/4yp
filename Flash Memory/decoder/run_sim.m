@@ -28,17 +28,28 @@ SystemParams.Vp = 2.8;
 SystemParams.deltaVp = 0.25;
 SystemParams.tSecs = SystemParams.tYrs*365*24*3600;
 
-%Code Rate
-Rc = 9/10;
+% %%% DVB-S2 CODES %%%
+% %Code Rate
+% Rc = 9/10;
+% %Code size
+% Nc = 64800;
+% %DVB-S2 Parity check matrix
+% H = dvbs2ldpc(Rc);
 
-%DVB-S2 Parity check matrix
-H = dvbs2ldpc(Rc);
+%%% TOSHIBA PEG CODES %%%
+addpath('../../LDPC data/Toshiba');
+H = load('H-4095-3367.mat');
+H = H.H;
+G = load('G-4095-3367.mat');
+G = G.G;
+Nc = 4095;
+Rc = 3367/4095;
 
 % Blocks per program
 mc_iters = 1000;
 l = 50;
 
-hEnc = fec.ldpcenc(H);
+hEnc = G;%fec.ldpcenc(H);
 hDec = fec.ldpcdec(H);
 hDec.DoParityChecks = 'Yes';
 hDec.DecisionType = 'Hard decision';
@@ -50,7 +61,7 @@ voltageHardDecision = decisionFunc(N);
 
 %for Loop
 for i = 1:mc_iters
-    errRatio(i) = ldpc_BER_memoryN_coded_sim(Rc,hEnc,hDec,SystemParams,voltageHardDecision,H,l);
+    errRatio(i) = ldpc_BER_memoryN_coded_sim(Rc,Nc,hEnc,hDec,SystemParams,voltageHardDecision,H,l);
 end
 
 fid=fopen(filename,'a+');

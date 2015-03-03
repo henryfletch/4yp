@@ -2,13 +2,14 @@
 % and then decodes using Belief Propogation (iterations l),
 % finally displays BER.
 
-function error_ratio = ldpc_BER_memoryN_coded_sim(Rc,hEnc,hDec,SystemParams,voltageHardDecision,H,l)
+function error_ratio = ldpc_BER_memoryN_coded_sim(Rc,Nc,hEnc,hDec,SystemParams,voltageHardDecision,H,l)
 
 % Input vector
-dataIn = randi([0,1],1,64800*Rc);
+dataIn = randi([0,1],1,Nc*Rc);
 
 %Encode
-encodedData = encode(hEnc,dataIn);
+%encodedData = encode(hEnc,dataIn);
+encodedData = mod(dataIn*hEnc,2);
 
 %Convert to a cell voltage level
 y = memoryGetVoltage(encodedData,SystemParams);
@@ -20,12 +21,12 @@ y = memoryGetVoltage(encodedData,SystemParams);
 
 % SOFT DECISION -> Generate a LLR using gaussian approximation
 % L is the vector of log liklehood ratios
-[mu_d,sigma_d] = getRetentionParams(SystemParams.N,SystemParams.tSecs,SystemParams.Vp,SystemParams.Verased);
-total_mu = ((2*SystemParams.Vp+SystemParams.deltaVp)/2) + mu_d;
-total_sigma2 = ((SystemParams.deltaVp^2)/12) + sigma_d^2 + 2*(0.00025*SystemParams.N^0.5)^2;
-L = llr(y,SystemParams.Verased,0.35,total_mu,sqrt(total_sigma2)); % Moving gaussian
+% [mu_d,sigma_d] = getRetentionParams(SystemParams.N,SystemParams.tSecs,SystemParams.Vp,SystemParams.Verased);
+% total_mu = ((2*SystemParams.Vp+SystemParams.deltaVp)/2) + mu_d;
+% total_sigma2 = ((SystemParams.deltaVp^2)/12) + sigma_d^2 + 2*(0.00025*SystemParams.N^0.5)^2;
+% L = llr(y,SystemParams.Verased,0.35,total_mu,sqrt(total_sigma2)); %Matched gaussian
 %L = llr(y,SystemParams.Verased,0.35,SystemParams.Vp,0.2); %Gaussian
-%L = llr_full(y,SystemParams.Verased,0.35,SystemParams); %Full
+L = llr_full(y,SystemParams.Verased,0.35,SystemParams); %Full
 
 % Belief Propogation Stage
 receivedBits = decode(hDec, L');
@@ -38,6 +39,6 @@ receivedBits = +receivedBits;
 % receivedBits(receivedLLR < 0) = 1;
 
 errorAmount = nnz(receivedBits - encodedData);
-error_ratio = errorAmount/(64800);
+error_ratio = errorAmount/(Nc);
 
 end
