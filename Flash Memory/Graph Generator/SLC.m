@@ -4,7 +4,7 @@ clear
 close
 
 x = -5:0.0001:5;
-N = 1000;
+N = 5000;
 Verased = 1.4;
 Vp = 2.6;
 deltaVp = 0.25;
@@ -21,6 +21,8 @@ yProgrammed = mem_programState(x,Vp,deltaVp);
 %Noise functions
 yRTN = mem_RTN(x,N);
 yRetention = mem_retention(x,time,N,Verased,Vp);
+
+test = conv(yRTN,yRetention,'same');
 
 %Noised programme distribution
 output1 = conv(yProgrammed,yRTN,'same');
