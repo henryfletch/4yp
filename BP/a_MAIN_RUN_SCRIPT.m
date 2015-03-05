@@ -14,19 +14,25 @@ G = load('../LDPC data/Toshiba/G-4095-3367.mat');
 % Belief Propogation Max Iterations
 l = 50;
 % MC Simulation Runs/Blocks
-N = 20000;
+N = 10000;
 % MinSum Convergence Factor
 convergFactor = 0.7;
 
 % EbNo Range
-EbNoRange = 3.8:0.1:4;
+EbNoRange = 3:0.2:4;
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 H = sparse(H.H);
 G = sparse(G.G);
 
-hDec = ldpcdec(H, 'opencl-LDPC\cl\Kernels_sp.cl', 0.875);
+%hDec = ldpcdec(H, 'opencl-LDPC\cl\Kernels_sp.cl', 0.875);
+hDec = comm.LDPCDecoder...
+    ('ParityCheckMatrix',H,'OutputValue','Whole codeword',...
+    'DecisionMethod','Hard decision',...
+    'IterationTerminationCondition','Parity check satisfied',...
+    'MaximumIterationCount',l,...
+    'NumIterationsOutputPort',true);
 
 % Modulation Rate
 Rm = 1; %Always 1 for BPSK
@@ -43,12 +49,12 @@ for EbNo = EbNoRange
     % Noise Variance Extraction
     sigma2 = getVariance(EbNo,Rc,Rm);
     %Parfor Loop
-    %parfor_progress(N);
-    for i = 1:N
+    parfor_progress(N);
+    parfor i = 1:N
         [~,errRatio(i),~] = ldpc_BER_AWGN(G,H,l,sigma2,hDec);
-        %parfor_progress;
+        parfor_progress;
     end
-    %parfor_progress(0);
+    parfor_progress(0);
     toc;
     %Output Matrix
     I = [I;EbNo,mean(errRatio),N];

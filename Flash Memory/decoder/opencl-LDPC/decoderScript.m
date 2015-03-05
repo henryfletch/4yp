@@ -15,46 +15,47 @@ SystemParams.Vp = 2.8;
 SystemParams.deltaVp = 0.25;
 SystemParams.tSecs = SystemParams.tYrs*365*24*3600;
 
-%Code Rate
-Rc = 9/10;
+% %%% DVB-S2 CODES %%%
+% %Code Rate
+% Rc = 9/10;
+% %Code size
+% Nc = 64800;
+% %DVB-S2 Parity check matrix
+% H = dvbs2ldpc(Rc);
 
-%DVB-S2 Parity check matrix
-H = dvbs2ldpc(Rc);
-%H2 = full(H);
+%%% TOSHIBA PEG CODES %%%
+addpath('../../../LDPC data/Toshiba');
+H = load('H-4095-3367.mat');
+H = H.H;
+G = load('G-4095-3367.mat');
+G = G.G;
+Nc = 4095;
+Rc = 3367/4095;
 
 % MC Simulation Runs
-mc_iters = 10000;
+mc_iters = 500000;
 l = 50;
 
 % Loop to go over all values of EbNo, as well as perform MC Simulation
 I = [];
 
-hEnc = comm.LDPCEncoder(H);
+hEnc = G;%comm.LDPCEncoder(H);
 hDec = ldpcdec(H, 'cl\Kernels_sp.cl', 0.875);
 hError = comm.ErrorRate;
 
-for N = 37000:1000:45000
-    for t = 1:1:10
-        fprintf('N = %6.2f',N);
-        fprintf('\n');
-        fprintf('t = %6.2f',t);
-        fprintf('\n');
-        tic;
-        SystemParams.N = N;
-        SystemParams.tYrs = t;
-        %SystemParams.tYrs = timeFunc(N,alpha);
-        voltageHardDecision = decisionFunc(N);
-        %Parfor Loop
-        %parfor_progress(mc_iters);
-        for i = 1:mc_iters
-            errRatio(i) = ocl_ldpc_BER_memoryN_coded(Rc,hEnc,hDec,hError,SystemParams,voltageHardDecision,H,l);
-            %parfor_progress;
-        end
-        %parfor_progress(0);
-        toc;
-        %Output Matrix
-        I = [I;N,t,mean(errRatio)];
+for N = 36000
+    fprintf('N = %6.2f',N);
+    fprintf('\n');
+    tic;
+    SystemParams.N = N;
+    voltageHardDecision = 0;% decisionFunc(N);
+    %Loop
+    for i = 1:mc_iters
+        errRatio(i) = ocl_ldpc_BER_memoryN_coded(Rc,Nc,hEnc,hDec,hError,SystemParams,voltageHardDecision,H,l);
     end
+    toc;
+    %Output Matrix
+    I = [I;N,mean(errRatio),mc_iters];
 end
 hDec.delete();
 clear hdec;

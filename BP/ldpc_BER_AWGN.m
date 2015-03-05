@@ -25,8 +25,9 @@ x = (2*x)/sigma2;
 
 % Belief Propogation Stage
 %[y,iterations] = BP_iterate(x,H,l);
-[~,y] = hDec.decode(x,l);
-iterations = l;
+%[~,y] = hDec.decode(x,l);
+%iterations = l;
+[y,iterations] = step(hDec,x');
 
 %Convert from LLR to Binary
 % for i = 1:length(y)
@@ -37,6 +38,6 @@ iterations = l;
 %     end
 % end
 
-[biterr_num,biterr_ratio] = biterr(x_encoded,+y);
+[biterr_num,biterr_ratio] = biterr(x_encoded,+y');
 
 end

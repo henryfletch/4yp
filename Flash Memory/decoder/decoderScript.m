@@ -37,7 +37,7 @@ l = 50;
 
 % Loop to go over all values of EbNo, as well as perform MC Simulation
 I = [];
-for N = 39000:1000:50000
+for N = 36000
     fprintf('N =%6.2f',N);
     fprintf('\n');
     hEnc = G;%comm.LDPCEncoder(H);
@@ -47,7 +47,7 @@ for N = 39000:1000:50000
     tic;
     SystemParams.N = N;
     %SystemParams.tYrs = timeFunc(N,alpha);
-    voltageHardDecision = decisionFunc(N);
+    voltageHardDecision = 0;%decisionFunc(N);
     %Parfor Loop
     parfor_progress(mc_iters);
     parfor i = 1:mc_iters
