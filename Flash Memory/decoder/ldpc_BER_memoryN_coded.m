@@ -25,7 +25,7 @@ y = memoryGetVoltage(encodedData',SystemParams);
 % [mu_d,sigma_d] = getRetentionParams(SystemParams.N,SystemParams.tSecs,SystemParams.Vp,SystemParams.Verased);
 % total_mu = ((2*SystemParams.Vp+SystemParams.deltaVp)/2) + mu_d;
 % total_sigma2 = ((SystemParams.deltaVp^2)/12) + sigma_d^2 + 2*(0.00025*SystemParams.N^0.5)^2;
-% L = llr(y,SystemParams.Verased,0.35,total_mu,sqrt(total_sigma2)); 
+% L = llr(y,SystemParams.Verased,0.35,total_mu,sqrt(total_sigma2));
 %%% Static Gaussian
 % L = llr(y,SystemParams.Verased,0.35,SystemParams.Vp,0.2);
 %%% Actual function (Retention only)
