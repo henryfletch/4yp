@@ -14,33 +14,33 @@ SystemParams.Vp = 2.8;
 SystemParams.deltaVp = 0.25;
 SystemParams.tSecs = SystemParams.tYrs*365*24*3600;
 
-% %%% DVB-S2 CODES %%%
-% %Code Rate
-% Rc = 9/10;
-% %Code size
-% Nc = 64800;
-% %DVB-S2 Parity check matrix
-% H = dvbs2ldpc(Rc);
+%%% DVB-S2 CODES %%%
+%Code Rate
+Rc = 9/10;
+%Code size
+Nc = 64800;
+%DVB-S2 Parity check matrix
+H = dvbs2ldpc(Rc);
 
 %%% TOSHIBA PEG CODES %%%
-addpath('../../LDPC data/Toshiba');
-H = load('H-4095-3367.mat');
-H = H.H;
-G = load('G-4095-3367.mat');
-G = G.G;
-Nc = 4095;
-Rc = 3367/4095;
+% addpath('../../LDPC data/Toshiba');
+% H = load('H-4095-3367.mat');
+% H = H.H;
+% G = load('G-4095-3367.mat');
+% G = G.G;
+% Nc = 4095;
+% Rc = 3367/4095;
 
 % MC Simulation Runs
-mc_iters = 1000;
+mc_iters = 2000;
 l = 50;
 
 % Loop to go over all values of EbNo, as well as perform MC Simulation
 I = [];
-for N = 36000
+for N = 38000:1000:40000
     fprintf('N =%6.2f',N);
     fprintf('\n');
-    hEnc = G;%comm.LDPCEncoder(H);
+    hEnc = comm.LDPCEncoder(H); %G;
     hDec = comm.LDPCDecoder('ParityCheckMatrix',H,'IterationTerminationCondition',...
         'Parity check satisfied','OutputValue','Whole codeword');
     hError = comm.ErrorRate;
