@@ -11,6 +11,11 @@ textString = the name of the file output. e.g saved as: /output_files/textString
 	#Blocks = 1000
 	Matlab Decoder
 
+-mem_soft_full_hachem(N,textString)
+	Soft decision decoding, uses entire function (Convolution by Hachem)
+	#Blocks = 1000
+	Matlab Decoder
+
 -mem_soft_full_200k(N,textString)
 	Soft decision decoding, uses retention as full function
 	#Blocks = 200000   <-- This was to solve the random number/error floor issue
