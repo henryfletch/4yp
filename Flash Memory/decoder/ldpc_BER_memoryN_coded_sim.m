@@ -8,8 +8,8 @@ function error_ratio = ldpc_BER_memoryN_coded_sim(Rc,Nc,hEnc,hDec,SystemParams,v
 dataIn = randi([0,1],1,Nc*Rc);
 
 %Encode
-%encodedData = encode(hEnc,dataIn);
-encodedData = mod(dataIn*hEnc,2);
+encodedData = encode(hEnc,dataIn);
+%encodedData = mod(dataIn*hEnc,2);
 
 %Convert to a cell voltage level
 y = memoryGetVoltage(encodedData,SystemParams);
@@ -19,14 +19,19 @@ y = memoryGetVoltage(encodedData,SystemParams);
 %y(y <= voltageHardDecision) = 50;
 %y(y < 50) = -50;
 
-% SOFT DECISION -> Generate a LLR using gaussian approximation
-% L is the vector of log liklehood ratios
+%%%% SOFT DECISION -> Generate a LLR using gaussian approximation
+%%%% L is the vector of log liklehood ratios
+%%% Matched gaussian
 % [mu_d,sigma_d] = getRetentionParams(SystemParams.N,SystemParams.tSecs,SystemParams.Vp,SystemParams.Verased);
 % total_mu = ((2*SystemParams.Vp+SystemParams.deltaVp)/2) + mu_d;
 % total_sigma2 = ((SystemParams.deltaVp^2)/12) + sigma_d^2 + 2*(0.00025*SystemParams.N^0.5)^2;
-% L = llr(y,SystemParams.Verased,0.35,total_mu,sqrt(total_sigma2)); %Matched gaussian
-%L = llr(y,SystemParams.Verased,0.35,SystemParams.Vp,0.2); %Gaussian
-L = llr_full(y,SystemParams.Verased,0.35,SystemParams); %Full
+% L = llr(y,SystemParams.Verased,0.35,total_mu,sqrt(total_sigma2));
+%%% Static Gaussian
+% L = llr(y,SystemParams.Verased,0.35,SystemParams.Vp,0.2);
+%%% Actual function (Retention only)
+%L = llr_full(y,SystemParams.Verased,0.35,SystemParams);
+%%% Actual function - Hachem's - (Retention + RTN)
+L = llr_full_hachem(y,SystemParams.Verased,0.35,SystemParams);
 
 % Belief Propogation Stage
 receivedBits = decode(hDec, L');
