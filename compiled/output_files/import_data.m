@@ -14,7 +14,7 @@ for i = valueRange
     end
     [m,n] = size(R);
     errRatio = sum(R(:))/(m*n);
-    I = [I;i,errRatio,m*n*10000];
+    I = [I;i,errRatio,m*n*1000];
 end
 
 
