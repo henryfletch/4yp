@@ -8,16 +8,16 @@ function error_ratio = ldpc_BER_memoryN_coded(Rc,Nc,hEnc,hDec,hError,SystemParam
 dataIn = randi([0,1],1,Nc*Rc);
 
 %Encode block
-encodedData = step(hEnc,dataIn);
+encodedData = step(hEnc,dataIn');
 %encodedData = mod(dataIn'*hEnc,2);
 
 %Convert to a cell voltage level
-y = memoryGetVoltage(encodedData,SystemParams);
+y = memoryGetVoltage(encodedData',SystemParams);
 
 % HARD DECISION process on Cell Voltage
-% > vHardDecision, then binary 1 (LLR -50), otherwise binary 0 (LLR +50)
-%y(y <= voltageHardDecision) = 50;
-%y(y < 50) = -50; 
+% > vHardDecision, then binary 1, otherwise binary 0
+%y(y <= voltageHardDecision) = 0;
+%y(y > 0) = 1; 
 
 %%%% SOFT DECISION -> Generate a LLR using gaussian approximation
 %%%% L is the vector of log liklehood ratios
@@ -31,11 +31,11 @@ y = memoryGetVoltage(encodedData,SystemParams);
 %%% Actual function (Retention only)
 %L = llr_full(y,SystemParams.Verased,0.35,SystemParams);
 %%% Actual function - Hachem's - (Retention + RTN)
-L = llr_full_hachem(y,SystemParams.Verased,0.35,SystemParams);
+%L = llr_full_hachem(y,SystemParams.Verased,0.35,SystemParams);
 
 % Belief Propogation Stage: MATLAB decoder
-receivedBits = step(hDec, L);
-receivedBits = +receivedBits;
+%receivedBits = step(hDec, L);
+%receivedBits = +receivedBits;
 % Iterates on LLR, outputs binary 1,0
 
 % Belief Propogation Stage: My decoder
