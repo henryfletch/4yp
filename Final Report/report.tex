@@ -1,0 +1,73 @@
+\documentclass[11pt]{article}
+\usepackage[left=20mm, right=20mm, top=20mm, bottom=20mm]{geometry} %this sets the page margins 
+\usepackage{amsmath}
+\usepackage{graphicx}
+\usepackage{wrapfig}
+\usepackage{subcaption}
+\usepackage[justification=centering]{caption}
+\usepackage{setspace}
+\doublespacing
+\setlength{\parindent}{1cm}
+\usepackage{color}
+\usepackage{framed}
+\usepackage{comment}
+\usepackage{pdfpages}
+
+\usepackage{courier}
+\usepackage{float}
+
+\usepackage{helvet}
+\renewcommand{\familydefault}{\sfdefault}
+
+\usepackage[hyphens]{url}
+\usepackage{listings,xcolor}
+
+
+%% THIS BIT MAKES CLICKABLE PDF LINKS
+\usepackage{hyperref}
+\hypersetup{
+    colorlinks,
+    citecolor=black,
+    filecolor=black,
+    linkcolor=black,
+    urlcolor=black
+}
+%%
+
+\author{Henry Fletcher}
+
+\title{Making Flash Memory Work}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{document}
+
+\section{Executive Summary}
+
+Modern flash memory is reliant on error-correcting code to ensure error-free operation. Current flash memory architectures often use linear block codes for this purpose (e.g. Reed-Solomon, Hamming or BCH codes). However, the recent rediscovery of LDPC (Low Density Parity Check) codes, which can achieve superior performance close to the Shannon Limit, has generated much interest in the NAND memory industry. These codes could be used to further improve error correction capability in flash memory, thus allowing for more densely packed memory cells and thus larger capacity drives.
+
+The general aim of this project is to produce a MATLAB simulation of how an error correction system using LDPC codes would work for flash memory.  By combining both an error generation and an error correction model, it will be possible to benchmark these rediscovered codes, and subsequently compare them to current generation technologies.
+
+\tableofcontents
+
+\section{Introduction}
+
+\section{Overview of Linear Block Codes}
+
+\section{Overview of Flash Memory Technology} 
+
+\section{Decoding of LDPC Codes}
+
+\section{The AWGN channel: Simulation \& Results}
+
+\section{Modelling a memory-specific noise channel}
+
+\section{Decoding in the non-gaussian case}
+
+\section{The memory channel: Simulation \& Results}
+
+\section{Conclusions}
+
+\end{document}
+
+
+
