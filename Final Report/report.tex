@@ -1,6 +1,8 @@
 \documentclass[11pt]{article}
 \usepackage[left=20mm, right=20mm, top=20mm, bottom=20mm]{geometry} %this sets the page margins 
 \usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
 \usepackage{graphicx}
 \usepackage{wrapfig}
 \usepackage{subcaption}
@@ -53,6 +55,39 @@ The general aim of this project is to produce a MATLAB simulation of how an erro
 
 \section{Overview of Linear Block Codes}
 
+Linear block codes are one of the two main classes of forward error correction (FEC), with the other main type being convolutional coding. A linear block code essentially takes a block of binary data, and adds additional redundant data onto it. This block can then be transmitted over a noisy channel, and subsequently decoded at the receiver. The redundant bits in the block are used as parity check equations, which allows a linear block code to both detect and correct errors. 
+
+\subsection{Definitions for Linear Block Codes}
+All linear block codes can be described using a set of standard terms and symbols. For this project, all codes use a binary alphabet of $\{0,1\}$ and hence all operations are over this binary field. $n$ is the block length, the total size of the output codeword. $k$ is the message length, the size of the information vector prior to encoding. The rate of any linear block code, $R$, is defined as: 
+\begin{equation}
+R = \dfrac{k}{n}
+\end{equation}
+The rate is a measure of the number of information bits compared to the total number of transmitted codeword bits. A high rate code will be more efficient in terms of useful information transmitted, but will have a poorer error correction capability. In Flash Memory, very high rate ($R > 0.9$) codes are used in order to maximise the amount of usable storage space. Conversely, an example use of low rate codes would be in deep-space probe transmissions, where receiving error-free data is more important than speed of transmission.
+
+A linear block code can be represented in two ways: through the $k \times n$ generator matrix $\mathbf{G}$, or the $(n - k) \times n$ parity check matrix $\mathbf{H}$. Each is the null-space of the other, such that:
+\begin{equation}
+\mathbf{G H^\intercal} = 0
+\end{equation}
+Unsurprisingly, the generator matrix $\mathbf{G}$ is used in the transmission side when encoding data, and the parity check matrix $\mathbf{H}$ is used at the receiver to detect and correct any errors. A \textit{systematic} generator matrix takes the form:
+%%%%% NEED MATRIX STUFF HERE!! - CHECK THE C16 NOTES %%%%%%%
+\begin{equation}
+\begin{array}{ccc}
+  1 & 0 & 0 \\
+  0 & 1 & 0 \\
+  0 & 0 & 1	 \\
+  \end{array}
+\end{equation}
+
+At the transmitter, if we take a $1 \times k$ input vector of binary data $\mathbf{x}$, the method of encoding this data into a codeword $\mathbf{c}$, is simply a multiplication operation:
+\begin{equation}
+\mathbf{c = xG}
+\end{equation}
+At the receiver, a similar operation is performed:
+%%%% CHECK THAT THIS IS CORRECT !!! %%%%%
+\begin{equation}
+\mathbf{s = Hc^\intercal} 
+\end{equation}
+where $\mathbf{s}$ is known as the \textit{syndrome}. If the syndrome is the all zero vector, then error free transmission has occured. Conversely, if any bit of the syndrome is 1, then this represents a particular error pattern.
 \section{Overview of Flash Memory Technology} 
 
 \section{Decoding of LDPC Codes}
@@ -61,7 +96,7 @@ The general aim of this project is to produce a MATLAB simulation of how an erro
 
 \section{Modelling a memory-specific noise channel}
 
-\section{Decoding in the non-gaussian case}
+\section{Decoding in the non-Gaussian case}
 
 \section{The memory channel: Simulation \& Results}
 
