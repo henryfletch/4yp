@@ -24,6 +24,13 @@
 \usepackage[hyphens]{url}
 \usepackage{listings,xcolor}
 
+\newcommand\undermat[2]{%
+  \makebox[0pt][l]{$\smash{\underbrace{\phantom{%
+    \begin{matrix}#2\end{matrix}}}_{\text{$#1$}}}$}#2}
+
+\numberwithin{equation}{subsection}
+\usepackage{titlesec}
+\newcommand{\sectionbreak}{\clearpage}
 
 %% THIS BIT MAKES CLICKABLE PDF LINKS
 \usepackage{hyperref}
@@ -58,25 +65,19 @@ The general aim of this project is to produce a MATLAB simulation of how an erro
 Linear block codes are one of the two main classes of forward error correction (FEC), with the other main type being convolutional coding. A linear block code essentially takes a block of binary data, and adds additional redundant data onto it. This block can then be transmitted over a noisy channel, and subsequently decoded at the receiver. The redundant bits in the block are used as parity check equations, which allows a linear block code to both detect and correct errors. 
 
 \subsection{Definitions for Linear Block Codes}
-All linear block codes can be described using a set of standard terms and symbols. For this project, all codes use a binary alphabet of $\{0,1\}$ and hence all operations are over this binary field. $n$ is the block length, the total size of the output codeword. $k$ is the message length, the size of the information vector prior to encoding. The rate of any linear block code, $R$, is defined as: 
+All linear block codes can be described using a set of standard terms and symbols. For this project, all codes use a binary alphabet of $\{0,1\}$ and hence all operations are over this binary field. $n$ is the block length, the total size of the output codeword. $k$ is the message length, the size of the information vector prior to encoding. An $(n,k)$ error correcting \textit{code} $\mathcal{C}$, will produce a set of $2^k$ output \textit{codewords} $\mathbf{c}$. Hence, $\mathbf{c} \in \mathcal{C}$. 
+
+The rate of any linear block code, $R$, is defined as: 
 \begin{equation}
 R = \dfrac{k}{n}
 \end{equation}
-The rate is a measure of the number of information bits compared to the total number of transmitted codeword bits. A high rate code will be more efficient in terms of useful information transmitted, but will have a poorer error correction capability. In Flash Memory, very high rate ($R > 0.9$) codes are used in order to maximise the amount of usable storage space. Conversely, an example use of low rate codes would be in deep-space probe transmissions, where receiving error-free data is more important than speed of transmission.
+The rate is a measure of the number of information bits compared to the total number of transmitted codeword bits. A high rate code will be more efficient in terms of useful information transmitted, but will have a poorer error correction capability. In Flash Memory, very high rate ($R > 0.9$) codes are used in order to maximise the amount of usable storage space. Conversely, an example use of low rate codes would be in deep-space probe transmissions, where receiving error-free data is more important than rate of transmission.
 
 A linear block code can be represented in two ways: through the $k \times n$ generator matrix $\mathbf{G}$, or the $(n - k) \times n$ parity check matrix $\mathbf{H}$. Each is the null-space of the other, such that:
 \begin{equation}
-\mathbf{G H^\intercal} = 0
+\mathbf{G H}^\top = 0
 \end{equation}
-Unsurprisingly, the generator matrix $\mathbf{G}$ is used in the transmission side when encoding data, and the parity check matrix $\mathbf{H}$ is used at the receiver to detect and correct any errors. A \textit{systematic} generator matrix takes the form:
-%%%%% NEED MATRIX STUFF HERE!! - CHECK THE C16 NOTES %%%%%%%
-\begin{equation}
-\begin{array}{ccc}
-  1 & 0 & 0 \\
-  0 & 1 & 0 \\
-  0 & 0 & 1	 \\
-  \end{array}
-\end{equation}
+Unsurprisingly, the generator matrix $\mathbf{G}$ is used in the transmission side when encoding data, and the parity check matrix $\mathbf{H}$ is used at the receiver to detect and correct any errors.
 
 At the transmitter, if we take a $1 \times k$ input vector of binary data $\mathbf{x}$, the method of encoding this data into a codeword $\mathbf{c}$, is simply a multiplication operation:
 \begin{equation}
@@ -85,9 +86,85 @@ At the transmitter, if we take a $1 \times k$ input vector of binary data $\math
 At the receiver, a similar operation is performed:
 %%%% CHECK THAT THIS IS CORRECT !!! %%%%%
 \begin{equation}
-\mathbf{s = Hc^\intercal} 
+\mathbf{s = c H}^\top
 \end{equation}
-where $\mathbf{s}$ is known as the \textit{syndrome}. If the syndrome is the all zero vector, then error free transmission has occured. Conversely, if any bit of the syndrome is 1, then this represents a particular error pattern.
+where $\mathbf{s}$ is known as the \textit{syndrome}. If the syndrome is the all zero vector, then error free transmission has occurred. Conversely, if any bit of the syndrome is 1, then this represents a particular error pattern. For small block lengths, these error pattern's can be pre-calculated and saved as a table, allowing for syndrome lookup decoding. The table identifies the exact location of a bit error in the codeword, which can then be 'flipped' in order to perform error correction.
+
+An example of a \textit{systematic} generator matrix, in this case a matrix known as the \textit{Hamming(7,4) code}, takes the form:
+\begin{equation}
+\mathbf{G} = 
+\left(
+\begin{array}{ccc|cccc}
+  1 & 1 & 0 & 1 & 0 & 0 & 0 \\
+  0 & 1 & 1 & 0 & 1 & 0 & 0 \\
+  1 & 1 & 1 & 0 & 0 & 1 & 0 \\
+  %1 & 0 & 1 & 0 & 0 & 0 & 1 \\
+  \undermat{n-k}{1 & 0 & 1} & \undermat{k}{0 & 0 & 0 & 1} \\
+  \end{array}
+\right)
+\end{equation}
+\\
+In this code, 4 information bits are encoded into 7 output bits.
+Notice the identity matrix in the right portion of the generator matrix. This means that the 4 message ($k$) bits are always encoded at the end of the codeword, with the parity check ($n-k$) bits at the start of the codeword. This is why it is \textit{systematic}. At the decoder, it is then easy to extract the (uncorrected) message bits from the codeword, simply by looking at the last 4 bits.
+
+\subsection{Hamming weight, distance, and error correction capability}
+
+An important metric when discussing error correcting codes is the concept of the Hamming weight. 
+For any codeword, the Hamming weight is defined as the total number of non-zero elements in a given codeword. 
+Another metric, the minimum weight ($w_{min}$), is simply the minimum value from the set of all Hamming weight's for a given code, excluding the all-zero case.
+
+\textbf{Example:}
+A fictional example (6,2) code could have the following codewords:
+
+\begin{center}
+\begin{tabular}{ c | c | c }
+Message (2 bits) & Codeword (6 bits) & Hamming weight \\
+\hline
+0 0 & 0 0 0 0 0 0 & 0 \\
+0 1 & 1 0 1 0 1 0 & 3 \\
+1 0 & 0 0 1 1 0 0 & 2 \\
+1 1 & 1 0 0 1 1 0 & 3 \\
+\end{tabular}
+\end{center}
+For this code, the minimum weight ($w_{min}$) is 2, since that is the smallest value of the Hamming weight's excluding the all-zero case.
+
+Another metric used is the Hamming distance. The Hamming distance defines how 'close' any two codewords are to each other. Codewords that are 'far away' from each other are less likely to be decoded in error, and hence the Hamming distance determines how 'good' a code is at error detection and correction. Formally, the Hamming distance is defined as the number of (binary) places that any 2 codewords differ. Analogous to the minimum weight, there is also a minimum distance ($d_{min}$), which is the minimum value from the set of all Hamming distances for a given code, excluding the trivial case of comparing a codeword to itself.
+
+An important result arises because of the use of binary arithmetic, in that the minimum Hamming weight is in fact equal to the minimum Hamming distance:
+\begin{equation}
+d_{min} = w_{min}
+\end{equation}
+
+It is now possible to present the results that describe, for linear block codes, their error correction and detection performance:
+
+\medskip
+\noindent
+\textbf{Error Detection Theorem:}
+\textit{A linear block code with minimum weight $w_{min}$ is able to detect up to $e$ errors:}
+\begin{equation}
+e_{detectable} = w_{min} - 1
+\end{equation}
+
+\noindent
+\textbf{Error Correction Theorem:}
+\textit{A linear block code with minimum weight $w_{min}$ is able to correct up to $e$ errors:}
+\begin{equation}
+e_{correctable} = \dfrac{w_{min} - 1}{2}
+\end{equation}
+
+\subsection{Low Density Parity Check codes}
+A particular class of codes, known as "Low Density Parity Check" (LDPC) codes, are of particular interest and relevance to this project. LDPC codes are generally considered to be some of the best performing linear block codes available, in terms of error performance, with some codes getting within a fraction of the Shannon Limit. Additionally, LDPC codes have no patent and hence no licensing costs, making them attractive for real world use.(??!).
+
+LDPC codes were originally discovered by R.G. Gallager in 1962. Then known as "Gallager codes", they were defined by a sparse parity check matrix with low column weights. Gallager also worked on a probabilty based decoding method for these codes, which proved to have promising performance. However for various reasons, these codes were essentially lost in favour of other more practical codes available at the time. It is possible that the decoding complexity for LDPC was, at the time, too great for the computational power then available.\footnote{Personal opinion. Even today, decoding LDPC using near-optimum belief propagation on a PC is computationally expensive, whilst on dedicated ASIC hardware consumes large amounts of power.}
+
+Modern LDPC codes were re-discovered by J.C. MacKay in 1996. MacKay demonstrated that LDPC codes could be decoded using probabilistic methods, even beyond the bound set by their minimum distance. Today, LDPC codes are seeing a resurgence in various applications. Most notably in the DVB-S2 standards for digital HD satellite broadcast, 10GBase-T Ethernet and as optional 'add-ons' to the 802.11n/ac wi-fi standards.
+
+Disadvantages of LDPC include the fact that there still exists a small (often in the region of $10^{-6}$ to $10^{-9}$) probability of error after decoding, known as the 'error-floor'. This can be avoided by using a second high rate, 'inner' Error Correcting Code such as BCH or Reed-Solomon to remove the last few bit errors. Other issues include decoding complexity. Whilst decoding time is linear with block length, decoding using the belief propagation algorithm is still problematic, especially for low power mobile devices. Most applications of LDPC so far have been on mains-powered equipment.
+
+
+\textbf{Example:}
+A specific DVB-S2 code, with $n = 64800$ and $r = 0.9$, has a total of $194,399$ non-zero elements in it's parity check matrix $\mathbf{H}$. However, the non-zero elements account for just 0.04\% of the total matrix: The vast majority of $\mathbf{H}$ is empty. It is therefore easy to see why they are called "Low Density". In this project, this specific high-rate code is used extensively, especially when modelling the memory-specific case in section ?????????.
+
 \section{Overview of Flash Memory Technology} 
 
 \section{Decoding of LDPC Codes}
@@ -103,6 +180,3 @@ where $\mathbf{s}$ is known as the \textit{syndrome}. If the syndrome is the all
 \section{Conclusions}
 
 \end{document}
-
-
-
