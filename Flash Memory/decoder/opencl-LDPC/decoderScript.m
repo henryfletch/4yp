@@ -56,6 +56,8 @@ for N = 35500:500:38000
     toc;
     %Output Matrix
     I = [I;N,mean(errRatio),mc_iters];
+    %Save to file
+    save('temp.mat','I');
 end
 hDec.delete();
 clear hdec;
