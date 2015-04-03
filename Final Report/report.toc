@@ -7,7 +7,8 @@
 \contentsline {section}{\numberline {4}Overview of Flash Memory Technology}{7}{section.4}
 \contentsline {section}{\numberline {5}Decoding of LDPC Codes}{7}{section.5}
 \contentsline {section}{\numberline {6}The AWGN channel: Simulation \& Results}{7}{section.6}
-\contentsline {section}{\numberline {7}Modelling a memory-specific noise channel}{7}{section.7}
-\contentsline {section}{\numberline {8}Decoding in the non-Gaussian case}{7}{section.8}
-\contentsline {section}{\numberline {9}The memory channel: Simulation \& Results}{7}{section.9}
-\contentsline {section}{\numberline {10}Conclusions}{7}{section.10}
+\contentsline {subsection}{\numberline {6.1}Random number generation}{7}{subsection.6.1}
+\contentsline {section}{\numberline {7}Modelling a memory-specific noise channel}{9}{section.7}
+\contentsline {section}{\numberline {8}Decoding in the non-Gaussian case}{9}{section.8}
+\contentsline {section}{\numberline {9}The memory channel: Simulation \& Results}{9}{section.9}
+\contentsline {section}{\numberline {10}Conclusions}{9}{section.10}

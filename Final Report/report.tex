@@ -14,15 +14,14 @@
 \usepackage{framed}
 \usepackage{comment}
 \usepackage{pdfpages}
-
 \usepackage{courier}
 \usepackage{float}
-
 \usepackage{helvet}
 \renewcommand{\familydefault}{\sfdefault}
-
 \usepackage[hyphens]{url}
 \usepackage{listings,xcolor}
+\usepackage[numbered,framed]{matlab-prettifier}
+\renewcommand{\lstlistingname}{Codebox}% Listing -> Algorithm
 
 \newcommand\undermat[2]{%
   \makebox[0pt][l]{$\smash{\underbrace{\phantom{%
@@ -42,6 +41,7 @@
     urlcolor=black
 }
 %%
+
 
 \author{Henry Fletcher}
 
@@ -88,7 +88,7 @@ At the receiver, a similar operation is performed:
 \begin{equation}
 \mathbf{s = c H}^\top
 \end{equation}
-where $\mathbf{s}$ is known as the \textit{syndrome}. If the syndrome is the all zero vector, then error free transmission has occurred. Conversely, if any bit of the syndrome is 1, then this represents a particular error pattern. For small block lengths, these error pattern's can be pre-calculated and saved as a table, allowing for syndrome lookup decoding. The table identifies the exact location of a bit error in the codeword, which can then be 'flipped' in order to perform error correction.
+where $\mathbf{s}$ is known as the \textit{syndrome}. If the syndrome is the all zero vector, then error free transmission has occurred. Conversely, if any bit of the syndrome is 1, then this represents a particular error pattern. For small block lengths, these error pattern's can be pre-calculated and saved as a table, allowing for syndrome lookup decoding. The table identifies the exact location of a bit error in the codeword, which can then be `flipped' in order to perform error correction.
 
 An example of a \textit{systematic} generator matrix, in this case a matrix known as the \textit{Hamming(7,4) code}, takes the form:
 \begin{equation}
@@ -128,7 +128,7 @@ Message (2 bits) & Codeword (6 bits) & Hamming weight \\
 \end{center}
 For this code, the minimum weight ($w_{min}$) is 2, since that is the smallest value of the Hamming weight's excluding the all-zero case.
 
-Another metric used is the Hamming distance. The Hamming distance defines how 'close' any two codewords are to each other. Codewords that are 'far away' from each other are less likely to be decoded in error, and hence the Hamming distance determines how 'good' a code is at error detection and correction. Formally, the Hamming distance is defined as the number of (binary) places that any 2 codewords differ. Analogous to the minimum weight, there is also a minimum distance ($d_{min}$), which is the minimum value from the set of all Hamming distances for a given code, excluding the trivial case of comparing a codeword to itself.
+Another metric used is the Hamming distance. The Hamming distance defines how `close' any two codewords are to each other. Codewords that are `far away' from each other are less likely to be decoded in error, and hence the Hamming distance determines how `good' a code is at error detection and correction. Formally, the Hamming distance is defined as the number of (binary) places that any 2 codewords differ. Analogous to the minimum weight, there is also a minimum distance ($d_{min}$), which is the minimum value from the set of all Hamming distances for a given code, excluding the trivial case of comparing a codeword to itself.
 
 An important result arises because of the use of binary arithmetic, in that the minimum Hamming weight is in fact equal to the minimum Hamming distance:
 \begin{equation}
@@ -153,23 +153,41 @@ e_{correctable} = \dfrac{w_{min} - 1}{2}
 \end{equation}
 
 \subsection{Low Density Parity Check codes}
-A particular class of codes, known as "Low Density Parity Check" (LDPC) codes, are of particular interest and relevance to this project. LDPC codes are generally considered to be some of the best performing linear block codes available, in terms of error performance, with some codes getting within a fraction of the Shannon Limit. Additionally, LDPC codes have no patent and hence no licensing costs, making them attractive for real world use.(??!).
+A particular class of codes, known as ``Low Density Parity Check" (LDPC) codes, are of particular interest and relevance to this project. LDPC codes are generally considered to be some of the best performing linear block codes available, in terms of error performance, with some codes getting within a fraction of the Shannon Limit. Additionally, LDPC codes have no patent and hence no licensing costs, making them attractive for real world use.(??!).
 
-LDPC codes were originally discovered by R.G. Gallager in 1962. Then known as "Gallager codes", they were defined by a sparse parity check matrix with low column weights. Gallager also worked on a probabilty based decoding method for these codes, which proved to have promising performance. However for various reasons, these codes were essentially lost in favour of other more practical codes available at the time. It is possible that the decoding complexity for LDPC was, at the time, too great for the computational power then available.\footnote{Personal opinion. Even today, decoding LDPC using near-optimum belief propagation on a PC is computationally expensive, whilst on dedicated ASIC hardware consumes large amounts of power.}
+LDPC codes were originally discovered by R.G. Gallager in 1962. Then known as ``Gallager codes", they were defined by a sparse parity check matrix with low column weights. Gallager also worked on a probabilty based decoding method for these codes, which proved to have promising performance. However for various reasons, these codes were essentially lost in favour of other more practical codes. It is possible that the decoding complexity for LDPC was, at the time, too great for the computational power then available.\footnote{Personal opinion. Even today, decoding LDPC using near-optimum belief propagation on a PC is computationally expensive, whilst on dedicated ASIC hardware consumes large amounts of power.}
 
-Modern LDPC codes were re-discovered by J.C. MacKay in 1996. MacKay demonstrated that LDPC codes could be decoded using probabilistic methods, even beyond the bound set by their minimum distance. Today, LDPC codes are seeing a resurgence in various applications. Most notably in the DVB-S2 standards for digital HD satellite broadcast, 10GBase-T Ethernet and as optional 'add-ons' to the 802.11n/ac wi-fi standards.
+Modern LDPC codes were re-discovered by J.C. MacKay in 1996. MacKay demonstrated that LDPC codes could be decoded using probabilistic methods, even beyond the bound set by their minimum distance. Today, LDPC codes are seeing a resurgence in various applications. Most notably in the DVB-S2 standards for digital HD satellite broadcast, 10GBase-T Ethernet and as optional `add-ons' to the 802.11n/ac wi-fi standards.
 
-Disadvantages of LDPC include the fact that there still exists a small (often in the region of $10^{-6}$ to $10^{-9}$) probability of error after decoding, known as the 'error-floor'. This can be avoided by using a second high rate, 'inner' Error Correcting Code such as BCH or Reed-Solomon to remove the last few bit errors. Other issues include decoding complexity. Whilst decoding time is linear with block length, decoding using the belief propagation algorithm is still problematic, especially for low power mobile devices. Most applications of LDPC so far have been on mains-powered equipment.
+Disadvantages of LDPC include the fact that there still exists a small (often in the region of $10^{-6}$ to $10^{-9}$) probability of error after decoding, known as the `error-floor'. This can be avoided by using a second high rate, `inner' Error Correcting Code such as BCH or Reed-Solomon to remove the last few bit errors. Other issues include decoding complexity. Whilst decoding time is linear with block length, decoding using the belief propagation algorithm is still problematic, especially for low power mobile devices. Most applications of LDPC so far have been on mains-powered equipment.
 
 
 \textbf{Example:}
-A specific DVB-S2 code, with $n = 64800$ and $r = 0.9$, has a total of $194,399$ non-zero elements in it's parity check matrix $\mathbf{H}$. However, the non-zero elements account for just 0.04\% of the total matrix: The vast majority of $\mathbf{H}$ is empty. It is therefore easy to see why they are called "Low Density". In this project, this specific high-rate code is used extensively, especially when modelling the memory-specific case in section ?????????.
+A specific DVB-S2 code, with $n = 64800$ and $r = 0.9$, has a total of $194,399$ non-zero elements in it's parity check matrix $\mathbf{H}$. However, the non-zero elements account for just 0.04\% of the total matrix: The vast majority of $\mathbf{H}$ is empty. It is therefore easy to see why they are called ``Low Density". In this project, this specific high-rate code is used extensively, especially when modelling the memory-specific case in section ?????????.
 
 \section{Overview of Flash Memory Technology} 
 
 \section{Decoding of LDPC Codes}
 
 \section{The AWGN channel: Simulation \& Results}
+\subsection{Random number generation}
+When performing any sort of Monte Carlo simulation, and particularly if running the same program in parallel across multiple computers, it is important to ensure that the random numbers being generated are as random as possible. Even more crucially, there must be no dependence between the parallel task's random numbers if we are to combine result sets.
+
+MATLAB, like many other software packages, cannot generate truly random numbers. Instead, it uses a pseudo-random number generator, such as the Mersenne Twister algorithm. This is just a function that produces numbers which, for most purposes, are considered to be pseudo-random and pseudo-independent. That is, if you generate numbers from this algorithm, they will appear to be random samples from a uniform distribution. 
+
+However, the Mersenne Twister algorithm actually has a finite period. After generating $2^{19937}$ random numbers, the output begins to repeat itself. More importantly, every time MATLAB starts, the random generator is reset to the same position. This means if you try to generate a large set of random numbers in MATLAB, you will always get exactly the same numbers. Effectively, MATLAB uses the same \textit{seed} to the random number generator on every start-up. This is meant to be useful for debugging purposes, however when running simulations in parallel, it causes all the result to no longer be independent. This means you cannot combine results made in parallel, since the output from each parallel stream will actually be identical.
+
+The solution is to ensure that every task executed in parallel has a random seed fed into the random number generator. Effectively, the seed is used as the starting position for the Twister algorithm. If the seed is a truly random number, then each random generator should start in a different position. Any two random generators might start with billions of positions between them, or possibly right next to each other. But the chances of an identical start position are negligible.
+
+\begin{lstlisting}[float=ht,style=Matlab-editor,caption = {Seeding random generator},label=code:rng]
+% Ensures truly random numbers for each process
+% seed is now a random number that can be used to initialise rand
+fid = fopen('/dev/random');
+seed = fread(fid, 1, 'uint32');
+RandStream.setDefaultStream(RandStream('mt19937ar','seed',seed));
+\end{lstlisting}
+
+The commands in codebox \ref{code:rng} were used to seed the random number generator every time a new MATLAB process was created. On UNIX machines, there is a system random number source \mbox{`/dev/random'}, which ``gathers environmental noise from device drivers and other sources into an entropy pool [and] from this entropy pool random numbers are created." The numbers generated by this process originate from physical random processes such as hardware noise, and so it is assumed that when calling the function on a different machine, a different random number will be generated every time. These random numbers are then used to seed the pseudo-random stream in MATLAB. 
 
 \section{Modelling a memory-specific noise channel}
 
