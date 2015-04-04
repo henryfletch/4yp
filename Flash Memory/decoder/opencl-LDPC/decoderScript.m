@@ -33,7 +33,7 @@ H = dvbs2ldpc(Rc);
 % Rc = 3367/4095;
 
 % MC Simulation Runs
-mc_iters = 10000;
+mc_iters = 5000000;
 l = 50;
 
 % Loop to go over all values of EbNo, as well as perform MC Simulation
@@ -57,7 +57,7 @@ for N = 35500:500:38000
     %Output Matrix
     I = [I;N,mean(errRatio),mc_iters];
     %Save to file
-    save('temp.mat','I');
+    save('temp2.mat','I');
 end
 hDec.delete();
 clear hdec;
