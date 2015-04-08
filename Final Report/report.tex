@@ -64,7 +64,7 @@ The general aim of this project is to produce a MATLAB simulation of how an erro
 
 Linear block codes are one of the two main classes of forward error correction (FEC), with the other main type being convolutional coding. A linear block code essentially takes a block of binary data, and adds additional redundant data onto it. This block can then be transmitted over a noisy channel, and subsequently decoded at the receiver. The redundant bits in the block are used as parity check equations, which allows a linear block code to both detect and correct errors. 
 
-\subsection{Definitions for Linear Block Codes}
+\subsection{Definitions for Linear Block Codes} \label{3.1:definitions}
 All linear block codes can be described using a set of standard terms and symbols. For this project, all codes use a binary alphabet of $\{0,1\}$ and hence all operations are over this binary field. $n$ is the block length, the total size of the output codeword. $k$ is the message length, the size of the information vector prior to encoding. An $(n,k)$ error correcting \textit{code} $\mathcal{C}$, will produce a set of $2^k$ output \textit{codewords} $\mathbf{c}$. Hence, $\mathbf{c} \in \mathcal{C}$. 
 
 The rate of any linear block code, $R$, is defined as: 
@@ -168,6 +168,14 @@ A specific DVB-S2 code, with $n = 64800$ and $r = 0.9$, has a total of $194,399$
 \section{Overview of Flash Memory Technology} 
 
 \section{Decoding of LDPC Codes}
+Using syndrome lookup decoding as described in section \ref{3.1:definitions} would be nearly impossible for longer block lengths. There is a much better, iterative decoding method that can be used for any linear block code, and which is linear in block length. It is called the belief propagation algorithm (also known as the sum-product algorithm or the message passing algorithm). 
+
+There are two distinct methods of belief propagation: Hard decision decoding and soft decision decoding. In hard decision decoding, the error correction algorithm only receives binary data (i.e. \{1,0\}). In soft decision decoding, the error correction algorithm receives a numerical likelihood of the data being either a 0 or 1. Soft decision decoding will therefore result in superior performance, since it is able to make use of the additional 'soft' information that is otherwise discarded.
+
+\begin{figure}[h]
+\centering
+\includegraphics{BPSK_channel_graph}
+\end{figure}
 
 \section{The AWGN channel: Simulation \& Results}
 \subsection{Random number generation}
