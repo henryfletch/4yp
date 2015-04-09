@@ -175,7 +175,39 @@ There are two distinct methods of belief propagation: Hard decision decoding and
 \begin{figure}[h]
 \centering
 \includegraphics{BPSK_channel_graph}
+\caption{Received voltage probability distribution for AWGN channel}
+\label{figure:awgn probability graph}
 \end{figure}
+
+Figure \ref{figure:awgn probability graph} shows the typical probability distribution of a Binary Phase Shift Keying (BPSK) system with Additive White Gaussian Noise (AWGN). The x-axis is effectively a received voltage value from the demodulator. At transmission, a value of +1 volts corresponds to a binary 0, and a value of -1 volts corresponds to a binary 1. However, the additive noise in the channel results in the received voltage taking a range of values, and hence the received voltage is now defined as a probability distribution.
+
+With hard decision decoding, the obvious boundary would be $x = 0$, half way between the +1 and -1 constellation symbols. Any value to the right side of this boundary would always be classified as binary 0, and anything to the left always binary 1. This means that a voltage value of 0.01 would be output as a binary 0, even though in practice it is almost equiprobable to be a binary 1. The fact that it could equally be a binary 0 or binary 1 is lost when making a hard decision, and the error correction decoder does not get that additional information.
+
+Soft decision decoding seeks to improve on hard decision decoding, by making use of the actual received voltage value, rather than discarding it. The messages are now the conditional \textit{probabilites} of being a 1 or 0, instead of being just binary values. This allows the error correction decoder to know the degree of certainty that the message sent was a 1 or a 0.
+
+\subsection{Hard decision decoding}
+The belief propagation algorithm can be best understood with hard decision decoding. As an example, eq \ref{8,4 code} shows the parity check matrix $\mathbf{H}$ of an (8,4) code. This code can also be displayed, as in figure \ref{figure:tanner graph}, as a visual graph representation known as a tanner graph. [Reference: LDPC Leiner tutorial]
+
+\begin{equation} \label{8,4 code} 
+\mathbf{H} = 
+\left(
+\begin{array}{cccccccc}
+  0 & 1 & 0 & 1 & 1 & 0 & 0 & 1 \\
+  1 & 1 & 1 & 0 & 0 & 1 & 0 & 0 \\
+  0 & 0 & 1 & 0 & 0 & 1 & 1 & 1 \\
+  1 & 0 & 0 & 1 & 1 & 0 & 1 & 0 \\
+\end{array}
+\right)
+\end{equation}
+
+\begin{figure}[h]
+\centering
+\includegraphics[scale=0.6]{tannergraph}
+\caption{Tanner Graph}
+\label{figure:tanner graph}
+\end{figure}
+
+The tanner graph is a bipartite graph with 2 types of node: Check nodes and Message nodes. The check nodes represent the $(n-k)$ parity check equations, whilst the message nodes represent the $n$ codeword bits. It is directly related to $\mathbf{H}$: Check node $f_i$ connects to message node $c_j$ if element $h_{ij}$ is $1$.
 
 \section{The AWGN channel: Simulation \& Results}
 \subsection{Random number generation}

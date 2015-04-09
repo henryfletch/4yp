@@ -6,9 +6,10 @@
 \BOOKMARK [2][-]{subsection.3.3}{Low Density Parity Check codes}{section.3}% 6
 \BOOKMARK [1][-]{section.4}{Overview of Flash Memory Technology}{}% 7
 \BOOKMARK [1][-]{section.5}{Decoding of LDPC Codes}{}% 8
-\BOOKMARK [1][-]{section.6}{The AWGN channel: Simulation \046 Results}{}% 9
-\BOOKMARK [2][-]{subsection.6.1}{Random number generation}{section.6}% 10
-\BOOKMARK [1][-]{section.7}{Modelling a memory-specific noise channel}{}% 11
-\BOOKMARK [1][-]{section.8}{Decoding in the non-Gaussian case}{}% 12
-\BOOKMARK [1][-]{section.9}{The memory channel: Simulation \046 Results}{}% 13
-\BOOKMARK [1][-]{section.10}{Conclusions}{}% 14
+\BOOKMARK [2][-]{subsection.5.1}{Hard decision decoding}{section.5}% 9
+\BOOKMARK [1][-]{section.6}{The AWGN channel: Simulation \046 Results}{}% 10
+\BOOKMARK [2][-]{subsection.6.1}{Random number generation}{section.6}% 11
+\BOOKMARK [1][-]{section.7}{Modelling a memory-specific noise channel}{}% 12
+\BOOKMARK [1][-]{section.8}{Decoding in the non-Gaussian case}{}% 13
+\BOOKMARK [1][-]{section.9}{The memory channel: Simulation \046 Results}{}% 14
+\BOOKMARK [1][-]{section.10}{Conclusions}{}% 15

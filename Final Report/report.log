@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.15 (TeX Live 2014) (preloaded format=pdflatex 2015.1.26)  8 APR 2015 13:13
+This is pdfTeX, Version 3.14159265-2.6-1.40.15 (TeX Live 2014) (preloaded format=pdflatex 2015.1.26)  9 APR 2015 12:56
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -727,17 +727,17 @@ File: omsphv.fd
 LaTeX Font Info:    Font shape `OMS/phv/m/n' in size <10.95> not available
 (Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 173.
 Package epstopdf Info: Source file: <BPSK_channel_graph.eps>
-(epstopdf)                    date: 2015-04-08 13:05:38
+(epstopdf)                    date: 2015-04-08 18:39:18
 (epstopdf)                    size: 28127 bytes
 (epstopdf)             Output file: <BPSK_channel_graph-eps-converted-to.pdf>
-(epstopdf)                    date: 2015-04-08 13:13:02
+(epstopdf)                    date: 2015-04-08 18:39:18
 (epstopdf)                    size: 9307 bytes
 (epstopdf)             Command: <repstopdf --outfile=BPSK_channel_graph-eps-con
 verted-to.pdf BPSK_channel_graph.eps>
 (epstopdf)             \includegraphics on input line 177.
 Package epstopdf Info: Output file is already uptodate.
 
-<BPSK_channel_graph-eps-converted-to.pdf, id=118, 419.5675pt x 157.58875pt>
+<BPSK_channel_graph-eps-converted-to.pdf, id=123, 419.5675pt x 157.58875pt>
 File: BPSK_channel_graph-eps-converted-to.pdf Graphic file (type pdf)
 
 <use BPSK_channel_graph-eps-converted-to.pdf>
@@ -746,38 +746,46 @@ line 177.
 (pdftex.def)             Requested size: 419.56647pt x 157.58835pt.
  [7
 
- <./BPSK_channel_graph-eps-converted-to.pdf>]
-LaTeX Font Info:    Try loading font information for OT1+pcr on input line 190.
+ <./BPSK_channel_graph-eps-converted-to.pdf>] <tannergraph.pdf, id=142, 563.354
+69pt x 430.35782pt>
+File: tannergraph.pdf Graphic file (type pdf)
 
- (/usr/local/texlive/2014/texmf-dist/tex/latex/psnfss/ot1pcr.fd
+<use tannergraph.pdf>
+Package pdftex.def Info: tannergraph.pdf used on input line 205.
+(pdftex.def)             Requested size: 338.01543pt x 258.21667pt.
+ [8 <./tannergraph.pdf>] [9]
+LaTeX Font Info:    Try loading font information for OT1+pcr on input line 222.
+
+
+(/usr/local/texlive/2014/texmf-dist/tex/latex/psnfss/ot1pcr.fd
 File: ot1pcr.fd 2001/06/04 font definitions for OT1/pcr.
 )
-LaTeX Font Info:    Try loading font information for TS1+pcr on input line 193.
+LaTeX Font Info:    Try loading font information for TS1+pcr on input line 225.
 
 
 (/usr/local/texlive/2014/texmf-dist/tex/latex/psnfss/ts1pcr.fd
 File: ts1pcr.fd 2001/06/04 font definitions for TS1/pcr.
-) [8
+) [10
 
-] [9]
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 208.
+] [11]
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 240.
 
-[10
+[12
 
 ]
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 208.
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 240.
  (./report.aux)
-Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 208.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 208.
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 240.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 240.
 Package rerunfilecheck Info: File `report.out' has not changed.
-(rerunfilecheck)             Checksum: 5E29F4766BA8F7970AD4DACD598C85D4;982.
-Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 208.
+(rerunfilecheck)             Checksum: 953B5021759DA497DE6583EA00F2FB60;1054.
+Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 240.
  ) 
 Here is how much of TeX's memory you used:
- 11105 strings out of 493116
- 165711 string characters out of 6135420
- 293510 words of memory out of 5000000
- 14327 multiletter control sequences out of 15000+600000
+ 11121 strings out of 493116
+ 165963 string characters out of 6135420
+ 293695 words of memory out of 5000000
+ 14337 multiletter control sequences out of 15000+600000
  27869 words of font info for 67 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
  42i,28n,56p,775b,1517s stack positions out of 5000i,500n,10000p,200000b,80000s
@@ -794,10 +802,10 @@ exmf-dist/fonts/type1/urw/courier/ucrr8a.pfb></usr/local/texlive/2014/texmf-dis
 t/fonts/type1/urw/helvetic/uhvb8a.pfb></usr/local/texlive/2014/texmf-dist/fonts
 /type1/urw/helvetic/uhvr8a.pfb></usr/local/texlive/2014/texmf-dist/fonts/type1/
 urw/helvetic/uhvro8a.pfb>
-Output written on report.pdf (10 pages, 139086 bytes).
+Output written on report.pdf (12 pages, 178557 bytes).
 PDF statistics:
- 208 PDF objects out of 1000 (max. 8388607)
- 178 compressed objects within 2 object streams
- 39 named destinations out of 1000 (max. 500000)
- 118 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 296 PDF objects out of 1000 (max. 8388607)
+ 234 compressed objects within 3 object streams
+ 44 named destinations out of 1000 (max. 500000)
+ 131 words of extra memory for PDF output out of 10000 (max. 10000000)
 
