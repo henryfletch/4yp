@@ -166,6 +166,10 @@ Disadvantages of LDPC include the fact that there still exists a small (often in
 \textbf{Example:}
 A specific DVB-S2 code, with $n = 64800$ and $r = 0.9$, has a total of $194,399$ non-zero elements in it's parity check matrix $\mathbf{H}$. However, the non-zero elements account for just 0.04\% of the total matrix: The vast majority of $\mathbf{H}$ is empty. It is therefore easy to see why they are called ``Low Density". In this project, this specific high-rate code is used extensively, especially when modelling the memory-specific case in section ?????????.
 
+\subsection{Channel Capacity}
+
+Channel capacity stuff to go here
+
 \section{Overview of Flash Memory Technology} 
 
 \section{Decoding of LDPC Codes}
@@ -321,7 +325,7 @@ One of the most important noisy channels used in communications theory, and alre
 \item Finally, the channel decoder performs error correction using the Belief Propagation algorithm, and outputs the corrected codeword (Note: The encoded message can be extracted from the codeword if a systematic generator matrix was used).
 \end{itemize}
 
-To simulate the error correction performance of this system, and compare it to other results, there needs to be a standardised quantity to describe the error rate and the channel noise. Whilst the noise variance is one such quantity, it doesn't take into account the relative difference between signal power and noise power. A far more useful metric would be Signal-to-noise ratio (SNR), or more specifically in this case $\dfrac{E_b}{N_0}$ (energy per bit/noise power). Like SNR, this is usually given in decibels\footnote{For the conversion calculations, $\dfrac{E_b}{N_0}$ must be a linear, not logarithmic, value. i.e: $\dfrac{E_b}{N_0}(dB) = 10\log_{10}\left[\dfrac{E_b}{N_0}(lin)\right]$}. 
+To simulate the error correction performance of this system, and compare it to other results, there needs to be a standardised quantity to describe the error rate and the channel noise. Whilst the noise variance is one such quantity, it doesn't take into account the relative difference between signal power and noise power. A far more useful metric would be Signal-to-noise ratio (SNR), or more specifically in this case $\dfrac{E_b}{N_0}$ (energy per bit/noise power). Like SNR, this is usually given in decibels\footnote{For the conversion calculations, $\dfrac{E_b}{N_0}$ must be a linear, not logarithmic, value. i.e: $\dfrac{E_b}{N_0}(\text{dB}) = 10\log_{10}\left[\dfrac{E_b}{N_0}(\text{lin})\right]$}. 
 \vspace{3mm} \\
 \noindent
 Converting between $\sigma^2$ and $\dfrac{E_b}{N_0}$ is relatively trivial:
@@ -348,6 +352,21 @@ $N_0$, the noise power, is defined as in \ref{eq:noisePwr}. The energy per symbo
 \end{aligned}
 \end{equation}
 $E_s = R_m = 1$ in this case, further simplifying the equation. This allows the conversion between $\sigma^2$, the parameter used in the noise model, and $\dfrac{E_b}{N_0}$, the metric used to present the results.
+
+The dependent variable in the simulation is the Bit Error Rate (BER). The output from the channel encoder is compared to the output from the channel decoder, where both are blocks of length $n$. The number of bit errors is simply the difference between the two codewords (similar to the Hamming distance). This raw bit error number is then divided by the block length, to obtain a bit error rate.
+
+Each instance of the block diagram in figure \ref{figure:awgn sim model} generates a random binary block, and the noise added to that block is also random. A single sample will not be sufficient to get an accurate error rate of the system for a given noise value, since at very low error rates thousands of blocks may need to be decoded before a single bit error occurs. Performing a simulation of repeated sampling is known as a Monte Carlo simulation. The process in MATLAB is therefore designed to perform $N$ trials of the simulation, with each trial outputting a bit error rate. After completing all trials, the bit error rate can be averaged over all blocks. In this project, for the lowest bit error rate experiments, up to $10^6$ blocks were processed per noise value.
+
+\subsection{Simulation results}
+\begin{figure}[h]
+\centering
+\includegraphics[scale=0.5]{96_48_LDPC}
+\caption{Simulated results of 96,48 LDPC code}
+\label{figure:96_48_LDPC_graph}
+\end{figure}
+
+A short block length, rate $\dfrac{1}{2}$ LDPC code was used to produce the results in figure \ref{figure:96_48_LDPC_graph}, using the Sum-Product decoding algorithm. The figure also displays the results obtained by MacKay using the same LDPC code. There is a minor performance loss compared to MacKay, but otherwise the results are in agreement. Additionally, the dashed line indicates the expected bit error rate in the event that no error correction code was used. There is therefore a substantial coding gain in this system, for example to achieve a BER of $10^{-6}$ requires around $5.5$ dB with coding, and nearly $10$ dB without.
+
 
 
 \subsection{Random number generation}

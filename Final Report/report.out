@@ -4,16 +4,18 @@
 \BOOKMARK [2][-]{subsection.3.1}{Definitions for Linear Block Codes}{section.3}% 4
 \BOOKMARK [2][-]{subsection.3.2}{Hamming weight, distance, and error correction capability}{section.3}% 5
 \BOOKMARK [2][-]{subsection.3.3}{Low Density Parity Check codes}{section.3}% 6
-\BOOKMARK [1][-]{section.4}{Overview of Flash Memory Technology}{}% 7
-\BOOKMARK [1][-]{section.5}{Decoding of LDPC Codes}{}% 8
-\BOOKMARK [2][-]{subsection.5.1}{Hard decision decoding}{section.5}% 9
-\BOOKMARK [2][-]{subsection.5.2}{The Log-likelihood ratio}{section.5}% 10
-\BOOKMARK [2][-]{subsection.5.3}{Soft decision decoding}{section.5}% 11
-\BOOKMARK [2][-]{subsection.5.4}{Min-Sum approximation}{section.5}% 12
-\BOOKMARK [1][-]{section.6}{The AWGN channel: Simulation \046 Results}{}% 13
-\BOOKMARK [2][-]{subsection.6.1}{Simulation model}{section.6}% 14
-\BOOKMARK [2][-]{subsection.6.2}{Random number generation}{section.6}% 15
-\BOOKMARK [1][-]{section.7}{Modelling a memory-specific noise channel}{}% 16
-\BOOKMARK [1][-]{section.8}{Decoding in the non-Gaussian case}{}% 17
-\BOOKMARK [1][-]{section.9}{The memory channel: Simulation \046 Results}{}% 18
-\BOOKMARK [1][-]{section.10}{Conclusions}{}% 19
+\BOOKMARK [2][-]{subsection.3.4}{Channel Capacity}{section.3}% 7
+\BOOKMARK [1][-]{section.4}{Overview of Flash Memory Technology}{}% 8
+\BOOKMARK [1][-]{section.5}{Decoding of LDPC Codes}{}% 9
+\BOOKMARK [2][-]{subsection.5.1}{Hard decision decoding}{section.5}% 10
+\BOOKMARK [2][-]{subsection.5.2}{The Log-likelihood ratio}{section.5}% 11
+\BOOKMARK [2][-]{subsection.5.3}{Soft decision decoding}{section.5}% 12
+\BOOKMARK [2][-]{subsection.5.4}{Min-Sum approximation}{section.5}% 13
+\BOOKMARK [1][-]{section.6}{The AWGN channel: Simulation \046 Results}{}% 14
+\BOOKMARK [2][-]{subsection.6.1}{Simulation model}{section.6}% 15
+\BOOKMARK [2][-]{subsection.6.2}{Simulation results}{section.6}% 16
+\BOOKMARK [2][-]{subsection.6.3}{Random number generation}{section.6}% 17
+\BOOKMARK [1][-]{section.7}{Modelling a memory-specific noise channel}{}% 18
+\BOOKMARK [1][-]{section.8}{Decoding in the non-Gaussian case}{}% 19
+\BOOKMARK [1][-]{section.9}{The memory channel: Simulation \046 Results}{}% 20
+\BOOKMARK [1][-]{section.10}{Conclusions}{}% 21
