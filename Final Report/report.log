@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.15 (TeX Live 2014) (preloaded format=pdflatex 2015.1.26)  9 APR 2015 12:56
+This is pdfTeX, Version 3.14159265-2.6-1.40.15 (TeX Live 2014) (preloaded format=pdflatex 2015.1.26)  10 APR 2015 17:24
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -508,32 +508,32 @@ Package uniquecounter Info: New unique counter `rerunfilecheck' on input line 2
 )
 \Hy@SectionHShift=\skip55
 )
-Package hyperref Info: Option `colorlinks' set `true' on input line 42.
+Package hyperref Info: Option `colorlinks' set `true' on input line 43.
 
 (./report.aux)
 \openout1 = `report.aux'.
 
-LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 51.
-LaTeX Font Info:    ... okay on input line 51.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 51.
-LaTeX Font Info:    ... okay on input line 51.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 51.
-LaTeX Font Info:    ... okay on input line 51.
-LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 51.
-LaTeX Font Info:    ... okay on input line 51.
-LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 51.
-LaTeX Font Info:    ... okay on input line 51.
-LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 51.
-LaTeX Font Info:    ... okay on input line 51.
-LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 51.
-LaTeX Font Info:    Try loading font information for TS1+cmr on input line 51.
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 52.
+LaTeX Font Info:    ... okay on input line 52.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 52.
+LaTeX Font Info:    ... okay on input line 52.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 52.
+LaTeX Font Info:    ... okay on input line 52.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 52.
+LaTeX Font Info:    ... okay on input line 52.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 52.
+LaTeX Font Info:    ... okay on input line 52.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 52.
+LaTeX Font Info:    ... okay on input line 52.
+LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 52.
+LaTeX Font Info:    Try loading font information for TS1+cmr on input line 52.
  (/usr/local/texlive/2014/texmf-dist/tex/latex/base/ts1cmr.fd
 File: ts1cmr.fd 2014/09/29 v2.5h Standard LaTeX font definitions
 )
-LaTeX Font Info:    ... okay on input line 51.
-LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 51.
-LaTeX Font Info:    ... okay on input line 51.
-LaTeX Font Info:    Try loading font information for OT1+phv on input line 51.
+LaTeX Font Info:    ... okay on input line 52.
+LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 52.
+LaTeX Font Info:    ... okay on input line 52.
+LaTeX Font Info:    Try loading font information for OT1+phv on input line 52.
 
 (/usr/local/texlive/2014/texmf-dist/tex/latex/psnfss/ot1phv.fd
 File: ot1phv.fd 2001/06/04 scalable font definitions for OT1/phv.
@@ -607,7 +607,7 @@ Package caption Info: listings package is loaded.
 Package caption Info: End \AtBeginDocument code.
 \AtBeginShipoutBox=\box37
 \c@lstlisting=\count139
-Package hyperref Info: Link coloring ON on input line 51.
+Package hyperref Info: Link coloring ON on input line 52.
 
 (/usr/local/texlive/2014/texmf-dist/tex/latex/hyperref/nameref.sty
 Package: nameref 2012/10/27 v2.43 Cross-referencing by name of section
@@ -617,16 +617,16 @@ Package: gettitlestring 2010/12/03 v1.4 Cleanup title references (HO)
 )
 \c@section@level=\count140
 )
-LaTeX Info: Redefining \ref on input line 51.
-LaTeX Info: Redefining \pageref on input line 51.
-LaTeX Info: Redefining \nameref on input line 51.
+LaTeX Info: Redefining \ref on input line 52.
+LaTeX Info: Redefining \pageref on input line 52.
+LaTeX Info: Redefining \nameref on input line 52.
 
 (./report.out) (./report.out)
 \@outlinefile=\write4
 \openout4 = `report.out'.
 
 LaTeX Font Info:    Font shape `OT1/phv/bx/n' in size <14.4> not available
-(Font)              Font shape `OT1/phv/b/n' tried instead on input line 53.
+(Font)              Font shape `OT1/phv/b/n' tried instead on input line 54.
  [1
 
 
@@ -651,9 +651,9 @@ File: umsb.fd 2013/01/14 v3.01 AMS symbols B
 
 ]
 LaTeX Font Info:    Font shape `OT1/phv/bx/n' in size <12> not available
-(Font)              Font shape `OT1/phv/b/n' tried instead on input line 67.
+(Font)              Font shape `OT1/phv/b/n' tried instead on input line 68.
 LaTeX Font Info:    Font shape `OT1/phv/m/it' in size <10.95> not available
-(Font)              Font shape `OT1/phv/m/sl' tried instead on input line 68.
+(Font)              Font shape `OT1/phv/m/sl' tried instead on input line 69.
  [3
 
 ]
@@ -661,71 +661,71 @@ LaTeX Font Info:    Font shape `OT1/phv/m/it' in size <10.95> not available
 .1}) has been already used, duplicate ignored
 <to be read again> 
                    \relax 
-l.134 \begin{equation}
+l.135 \begin{equation}
                       pdfTeX warning (ext4): destination with the same identifi
 er (name{equation.3.1}) has been already used, duplicate ignored
 <to be read again> 
                    \relax 
-l.134 \begin{equation}
+l.135 \begin{equation}
                       pdfTeX warning (ext4): destination with the same identifi
 er (name{equation.3.1}) has been already used, duplicate ignored
 <to be read again> 
                    \relax 
-l.134 \begin{equation}
+l.135 \begin{equation}
                       pdfTeX warning (ext4): destination with the same identifi
 er (name{equation.3.1}) has been already used, duplicate ignored
 <to be read again> 
                    \relax 
-l.134 \begin{equation}
+l.135 \begin{equation}
                       pdfTeX warning (ext4): destination with the same identifi
 er (name{equation.3.2}) has been already used, duplicate ignored
 <to be read again> 
                    \relax 
-l.144 \begin{equation}
+l.145 \begin{equation}
                       pdfTeX warning (ext4): destination with the same identifi
 er (name{equation.3.2}) has been already used, duplicate ignored
 <to be read again> 
                    \relax 
-l.144 \begin{equation}
+l.145 \begin{equation}
                       pdfTeX warning (ext4): destination with the same identifi
 er (name{equation.3.2}) has been already used, duplicate ignored
 <to be read again> 
                    \relax 
-l.144 \begin{equation}
+l.145 \begin{equation}
                       pdfTeX warning (ext4): destination with the same identifi
 er (name{equation.3.2}) has been already used, duplicate ignored
 <to be read again> 
                    \relax 
-l.144 \begin{equation}
+l.145 \begin{equation}
                       pdfTeX warning (ext4): destination with the same identifi
 er (name{equation.3.3}) has been already used, duplicate ignored
 <to be read again> 
                    \relax 
-l.151 \begin{equation}
+l.152 \begin{equation}
                       pdfTeX warning (ext4): destination with the same identifi
 er (name{equation.3.3}) has been already used, duplicate ignored
 <to be read again> 
                    \relax 
-l.151 \begin{equation}
+l.152 \begin{equation}
                       pdfTeX warning (ext4): destination with the same identifi
 er (name{equation.3.3}) has been already used, duplicate ignored
 <to be read again> 
                    \relax 
-l.151 \begin{equation}
+l.152 \begin{equation}
                       pdfTeX warning (ext4): destination with the same identifi
 er (name{equation.3.3}) has been already used, duplicate ignored
 <to be read again> 
                    \relax 
-l.151 \begin{equation}
+l.152 \begin{equation}
                        [5] [6]
-LaTeX Font Info:    Try loading font information for OMS+phv on input line 173.
+LaTeX Font Info:    Try loading font information for OMS+phv on input line 174.
 
 
 (/usr/local/texlive/2014/texmf-dist/tex/latex/psnfss/omsphv.fd
 File: omsphv.fd 
 )
 LaTeX Font Info:    Font shape `OMS/phv/m/n' in size <10.95> not available
-(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 173.
+(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 174.
 Package epstopdf Info: Source file: <BPSK_channel_graph.eps>
 (epstopdf)                    date: 2015-04-08 18:39:18
 (epstopdf)                    size: 28127 bytes
@@ -734,78 +734,170 @@ Package epstopdf Info: Source file: <BPSK_channel_graph.eps>
 (epstopdf)                    size: 9307 bytes
 (epstopdf)             Command: <repstopdf --outfile=BPSK_channel_graph-eps-con
 verted-to.pdf BPSK_channel_graph.eps>
-(epstopdf)             \includegraphics on input line 177.
+(epstopdf)             \includegraphics on input line 178.
 Package epstopdf Info: Output file is already uptodate.
 
-<BPSK_channel_graph-eps-converted-to.pdf, id=123, 419.5675pt x 157.58875pt>
+<BPSK_channel_graph-eps-converted-to.pdf, id=143, 419.5675pt x 157.58875pt>
 File: BPSK_channel_graph-eps-converted-to.pdf Graphic file (type pdf)
 
 <use BPSK_channel_graph-eps-converted-to.pdf>
 Package pdftex.def Info: BPSK_channel_graph-eps-converted-to.pdf used on input 
-line 177.
+line 178.
 (pdftex.def)             Requested size: 419.56647pt x 157.58835pt.
  [7
 
- <./BPSK_channel_graph-eps-converted-to.pdf>] <tannergraph.pdf, id=142, 563.354
+ <./BPSK_channel_graph-eps-converted-to.pdf>] <tannergraph.pdf, id=163, 563.354
 69pt x 430.35782pt>
 File: tannergraph.pdf Graphic file (type pdf)
 
 <use tannergraph.pdf>
-Package pdftex.def Info: tannergraph.pdf used on input line 205.
+Package pdftex.def Info: tannergraph.pdf used on input line 206.
 (pdftex.def)             Requested size: 338.01543pt x 258.21667pt.
- [8 <./tannergraph.pdf>] [9]
-LaTeX Font Info:    Try loading font information for OT1+pcr on input line 222.
+ [8 <./tannergraph.pdf>]
+LaTeX Font Info:    Try loading font information for TS1+phv on input line 221.
+
+
+(/usr/local/texlive/2014/texmf-dist/tex/latex/psnfss/ts1phv.fd
+File: ts1phv.fd 2001/06/04 scalable font definitions for TS1/phv.
+) [9]pdfTeX warning (ext4): destination with the same identifier (name{equation
+.5.1}) has been already used, duplicate ignored
+<to be read again> 
+                   \relax 
+l.237 \begin{equation}
+                       \label{eq:LLR}pdfTeX warning (ext4): destination with th
+e same identifier (name{equation.5.1}) has been already used, duplicate ignored
+
+<to be read again> 
+                   \relax 
+l.237 \begin{equation}
+                       \label{eq:LLR}pdfTeX warning (ext4): destination with th
+e same identifier (name{equation.5.1}) has been already used, duplicate ignored
+
+<to be read again> 
+                   \relax 
+l.237 \begin{equation}
+                       \label{eq:LLR}pdfTeX warning (ext4): destination with th
+e same identifier (name{equation.5.1}) has been already used, duplicate ignored
+
+<to be read again> 
+                   \relax 
+l.237 \begin{equation}
+                       \label{eq:LLR} [10]pdfTeX warning (ext4): destination wi
+th the same identifier (name{equation.5.1}) has been already used, duplicate ig
+nored
+<to be read again> 
+                   \relax 
+l.278 \begin{equation}
+                       \label{eq:msgNode}pdfTeX warning (ext4): destination wit
+h the same identifier (name{equation.5.1}) has been already used, duplicate ign
+ored
+<to be read again> 
+                   \relax 
+l.278 \begin{equation}
+                       \label{eq:msgNode}pdfTeX warning (ext4): destination wit
+h the same identifier (name{equation.5.1}) has been already used, duplicate ign
+ored
+<to be read again> 
+                   \relax 
+l.278 \begin{equation}
+                       \label{eq:msgNode}pdfTeX warning (ext4): destination wit
+h the same identifier (name{equation.5.1}) has been already used, duplicate ign
+ored
+<to be read again> 
+                   \relax 
+l.278 \begin{equation}
+                       \label{eq:msgNode} [11]pdfTeX warning (ext4): destinatio
+n with the same identifier (name{equation.5.2}) has been already used, duplicat
+e ignored
+<to be read again> 
+                   \relax 
+l.284 \begin{equation}
+                       \label{eq:chkNode}pdfTeX warning (ext4): destination wit
+h the same identifier (name{equation.5.2}) has been already used, duplicate ign
+ored
+<to be read again> 
+                   \relax 
+l.284 \begin{equation}
+                       \label{eq:chkNode}pdfTeX warning (ext4): destination wit
+h the same identifier (name{equation.5.2}) has been already used, duplicate ign
+ored
+<to be read again> 
+                   \relax 
+l.284 \begin{equation}
+                       \label{eq:chkNode}pdfTeX warning (ext4): destination wit
+h the same identifier (name{equation.5.2}) has been already used, duplicate ign
+ored
+<to be read again> 
+                   \relax 
+l.284 \begin{equation}
+                       \label{eq:chkNode} [12]
+<awgn_channel_model.pdf, id=279, 570.13pt x 115.43124pt>
+File: awgn_channel_model.pdf Graphic file (type pdf)
+
+<use awgn_channel_model.pdf>
+Package pdftex.def Info: awgn_channel_model.pdf used on input line 310.
+(pdftex.def)             Requested size: 500.57632pt x 101.34906pt.
+ [13
+
+ <./awgn_channel_model.pdf>] [14]
+LaTeX Font Info:    Try loading font information for OT1+pcr on input line 362.
 
 
 (/usr/local/texlive/2014/texmf-dist/tex/latex/psnfss/ot1pcr.fd
 File: ot1pcr.fd 2001/06/04 font definitions for OT1/pcr.
 )
-LaTeX Font Info:    Try loading font information for TS1+pcr on input line 225.
+LaTeX Font Info:    Try loading font information for TS1+pcr on input line 365.
 
 
 (/usr/local/texlive/2014/texmf-dist/tex/latex/psnfss/ts1pcr.fd
 File: ts1pcr.fd 2001/06/04 font definitions for TS1/pcr.
-) [10
+) [15] [16]
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 380.
 
-] [11]
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 240.
-
-[12
+[17
 
 ]
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 240.
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 380.
  (./report.aux)
-Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 240.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 240.
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 380.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 380.
 Package rerunfilecheck Info: File `report.out' has not changed.
-(rerunfilecheck)             Checksum: 953B5021759DA497DE6583EA00F2FB60;1054.
-Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 240.
+(rerunfilecheck)             Checksum: B7F040E98EC0D97F56F3937D4E854C9F;1337.
+Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 380.
  ) 
 Here is how much of TeX's memory you used:
- 11121 strings out of 493116
- 165963 string characters out of 6135420
- 293695 words of memory out of 5000000
- 14337 multiletter control sequences out of 15000+600000
- 27869 words of font info for 67 fonts, out of 8000000 for 9000
+ 11201 strings out of 493116
+ 167031 string characters out of 6135420
+ 294080 words of memory out of 5000000
+ 14385 multiletter control sequences out of 15000+600000
+ 29520 words of font info for 70 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
  42i,28n,56p,775b,1517s stack positions out of 5000i,500n,10000p,200000b,80000s
 {/usr/local/texlive/2014/texmf-dist/fonts/enc/dvips/base/8r.enc}</usr/local/t
 exlive/2014/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx10.pfb></usr/local/te
 xlive/2014/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb></usr/local/tex
-live/2014/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb></usr/local/texl
-ive/2014/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi8.pfb></usr/local/texliv
-e/2014/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></usr/local/texlive/
-2014/texmf-dist/fonts/type1/public/amsfonts/cm/cmr8.pfb></usr/local/texlive/201
-4/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/local/texlive/2014
-/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy8.pfb></usr/local/texlive/2014/t
-exmf-dist/fonts/type1/urw/courier/ucrr8a.pfb></usr/local/texlive/2014/texmf-dis
-t/fonts/type1/urw/helvetic/uhvb8a.pfb></usr/local/texlive/2014/texmf-dist/fonts
-/type1/urw/helvetic/uhvr8a.pfb></usr/local/texlive/2014/texmf-dist/fonts/type1/
-urw/helvetic/uhvro8a.pfb>
-Output written on report.pdf (12 pages, 178557 bytes).
+live/2014/texmf-dist/fonts/type1/public/amsfonts/cmextra/cmex9.pfb></usr/local/
+texlive/2014/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb></usr/local/t
+exlive/2014/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi6.pfb></usr/local/tex
+live/2014/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi8.pfb></usr/local/texli
+ve/2014/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi9.pfb></usr/local/texlive
+/2014/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></usr/local/texlive/2
+014/texmf-dist/fonts/type1/public/amsfonts/cm/cmr6.pfb></usr/local/texlive/2014
+/texmf-dist/fonts/type1/public/amsfonts/cm/cmr8.pfb></usr/local/texlive/2014/te
+xmf-dist/fonts/type1/public/amsfonts/cm/cmr9.pfb></usr/local/texlive/2014/texmf
+-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/local/texlive/2014/texmf-
+dist/fonts/type1/public/amsfonts/cm/cmsy6.pfb></usr/local/texlive/2014/texmf-di
+st/fonts/type1/public/amsfonts/cm/cmsy8.pfb></usr/local/texlive/2014/texmf-dist
+/fonts/type1/public/amsfonts/cm/cmsy9.pfb></usr/local/texlive/2014/texmf-dist/f
+onts/type1/public/amsfonts/symbols/msam10.pfb></usr/local/texlive/2014/texmf-di
+st/fonts/type1/urw/courier/ucrr8a.pfb></usr/local/texlive/2014/texmf-dist/fonts
+/type1/urw/helvetic/uhvb8a.pfb></usr/local/texlive/2014/texmf-dist/fonts/type1/
+urw/helvetic/uhvr8a.pfb></usr/local/texlive/2014/texmf-dist/fonts/type1/urw/hel
+vetic/uhvro8a.pfb>
+Output written on report.pdf (17 pages, 313208 bytes).
 PDF statistics:
- 296 PDF objects out of 1000 (max. 8388607)
- 234 compressed objects within 3 object streams
- 44 named destinations out of 1000 (max. 500000)
- 131 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 462 PDF objects out of 1000 (max. 8388607)
+ 364 compressed objects within 4 object streams
+ 71 named destinations out of 1000 (max. 500000)
+ 168 words of extra memory for PDF output out of 10000 (max. 10000000)
 

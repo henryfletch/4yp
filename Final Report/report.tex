@@ -21,7 +21,7 @@
 \usepackage[hyphens]{url}
 \usepackage{listings,xcolor}
 \usepackage[numbered,framed]{matlab-prettifier}
-\renewcommand{\lstlistingname}{Codebox}% Listing -> Algorithm
+\renewcommand{\lstlistingname}{Codebox}% Listing -> Codebox
 
 \newcommand\undermat[2]{%
   \makebox[0pt][l]{$\smash{\underbrace{\phantom{%
@@ -30,6 +30,7 @@
 \numberwithin{equation}{subsection}
 \usepackage{titlesec}
 \newcommand{\sectionbreak}{\clearpage}
+\DeclareMathOperator\arctanh{arctanh}
 
 %% THIS BIT MAKES CLICKABLE PDF LINKS
 \usepackage{hyperref}
@@ -186,7 +187,7 @@ With hard decision decoding, the obvious boundary would be $x = 0$, half way bet
 Soft decision decoding seeks to improve on hard decision decoding, by making use of the actual received voltage value, rather than discarding it. The messages are now the conditional \textit{probabilites} of being a 1 or 0, instead of being just binary values. This allows the error correction decoder to know the degree of certainty that the message sent was a 1 or a 0.
 
 \subsection{Hard decision decoding}
-The belief propagation algorithm can be best understood with hard decision decoding. As an example, eq \ref{8,4 code} shows the parity check matrix $\mathbf{H}$ of an (8,4) code. This code can also be displayed, as in figure \ref{figure:tanner graph}, as a visual graph representation known as a tanner graph. [Reference: LDPC Leiner tutorial]
+The message passing algorithm can be best understood with hard decision decoding. As an example, eq \ref{8,4 code} shows the parity check matrix $\mathbf{H}$ of an (8,4) code. This code can also be displayed, as in figure \ref{figure:tanner graph}, as a visual graph representation known as a tanner graph. [Reference: LDPC Leiner tutorial]
 
 \begin{equation} \label{8,4 code} 
 \mathbf{H} = 
@@ -207,9 +208,148 @@ The belief propagation algorithm can be best understood with hard decision decod
 \label{figure:tanner graph}
 \end{figure}
 
-The tanner graph is a bipartite graph with 2 types of node: Check nodes and Message nodes. The check nodes represent the $(n-k)$ parity check equations, whilst the message nodes represent the $n$ codeword bits. It is directly related to $\mathbf{H}$: Check node $f_i$ connects to message node $c_j$ if element $h_{ij}$ is $1$.
+The tanner graph is a bipartite graph with 2 types of node: Check nodes and Message nodes. The check nodes represent the $(n-k)$ parity check equations, whilst the message nodes represent the $n$ codeword bits. It is directly related to $\mathbf{H}$: Check node $f_j$ connects to message node $c_i$ if element $h_{ji}$ is $1$. Using the tanner graph, the hard decision decoding algorithm can now be explained as follows:
+\begin{enumerate}
+\item All message nodes $c_i$, having been initialised to the received codeword $y$, send their value to their connected check nodes $f_j$.
+\item Each check node $f_j$ calculates a separate reply back to each message node $c_i$, with the binary value that it believes the message node should be. The parity check equation at each check node must satisfy $\lvert \sum f_j \rvert_{mod2} = 0$. From the example, check node $f_0$ receives values from $c_{1,3,4,7}$. When sending it's reply back to variable node $c_1$, it uses the values from nodes 3, 4 \& 7 along with the parity check constraint, to calculate the outbound message. Note that it does not use the information received from $c_1$ to send a reply back to $c_1$. This process continues: At each check node, a separate reply is calculated back to each connected message node.
+\item The check nodes send their update back to the message nodes. Each message node in this example is connected to 2 check nodes, as well as having a previous value from step 1. As such, majority logic (with 3 bits in this case) can be used to decide whether the message node should be a 1 or a 0. 
+\item The process now loops until the parity check constraint is satisfied for all nodes, at which the process terminates.
+\end{enumerate}
+
+\noindent A simple example describing the check node stage:
+\begin{itemize}
+\item Check node $f_0$ might receive values from $c_1$,$c_3$,$c_4$,$c_7$ = \{1,1,0,1\}.
+\item To calculate the reply message to each $c_j$, use the parity check constraint $\lvert \sum f_0 \rvert_{mod2} = 0$:
+\begin{itemize}
+\item Reply for $c_1 : x + 1 + 0 + 1 = 0 \therefore c_1 = 0$ 
+\item Reply for $c_3 : 1 + x + 0 + 1 = 0 \therefore c_3 = 0$ 
+\item Reply for $c_4 : 1 + 1 + x + 1 = 0 \therefore c_4 = 1$ 
+\item Reply for $c_7 : 1 + 1 + 0 + x = 0 \therefore c_7 = 0$
+\end{itemize}
+\item Repeat this process at all other check nodes $f_{1,2,3}$
+\end{itemize}
+
+\subsection{The Log-likelihood ratio}
+Whilst hard decision decoding is a good way to demonstrate how the iterative message passing algorithm works, soft decision decoding yields substantially better error correction performance, and is therefore the main method used in decoding LDPC.
+
+In soft decision decoding, the message nodes no longer represent binary 1's or 0's, but instead can take a continuous range of probability values. These probability values are initially calculated using two sources of information: The received voltage value of each bit, and the underlying probability distribution of the received bit. Before being able to describe the soft decision decoding algorithm, this information needs to be formed into a useful metric: the \textit{Log-likelihood ratio}, [Reference: LLR computation.pdf]
+
+\begin{equation} \label{eq:LLR}
+\mathcal{L}(c|y) = log_e \left[ \dfrac{f(c=+1|y)}{f(c=-1|y)} \right]
+\end{equation}
+
+\noindent The term $\mathcal{L}(c|y)$ is the likelihood of $c$ being transmitted given that $y$ was received. The log-ratio is able to tell us if $c=+1$ or $c=-1$ was the most likely transmitted symbol, given the received value $y$. A positive LLR indicates it is more likely that $c=+1$ was transmitted, and a negative LLR that $c=-1$ was transmitted. Additionally, the LLR has a range of $-\infty$ to $+\infty$, which provides the degree of certainty of a given symbol.
+
+To make use of the LLR, it is necessary to manipulate it into a more useful form. Using Bayes' rule\footnote{$P(A|B) = \dfrac{P(B|A) P(A)}{P(B)}$}, and the assumption that the transmitted bits are equiprobable\footnote{i.e. $f(c=+1) = f(c=-1)$},
+
+\begin{equation}
+\begin{aligned}
+\mathcal{L}(c|y) &= log_e \left[ \dfrac{f(y|c=+1) \dfrac{f(c=+1)}{f(y)}}{f(y|c=-1) \dfrac{f(c=-1)}{f(y)}} \right] 
+\\
+&= log_e \left[ \dfrac{f(y|c=+1)} {f(y|c=-1)} \right] 
+\\
+&\sim log_e \left[ \dfrac{\text{\textit{``Probability density function of +1"}}}{\text{\textit{``Probability density function of -1"}}} \right]
+\end{aligned}
+\end{equation}
+
+\noindent The LLR can now be calculated for each received value of $y$. Note that it is necessary to have the underlying density functions of the received symbols. By inserting the received value $y$ into each PDF, you obtain a numerical probability of $y$ representing either +1 or -1. The ratio of these 2 probabilities then gives us the likelihood ratio.
+
+The LLR method applies in general to all noisy channels, that is, the probability density functions can take any form. However when dealing with the AWGN channel, converting from a received symbol amplitude $y$ into the LLR is much simpler, since the probability density function in both cases is a gaussian,
+
+\begin{equation} \label{eq:LLR_awgn}
+\begin{aligned}
+\mathcal{L}(c|y) &= log_e \left[ \dfrac{\mathcal{N}(1,\sigma^2)} {\mathcal{N}(-1,\sigma^2)} \right] 
+\\
+&= log_e \left[ \dfrac{e^{-(y-1)^2/(2\sigma^2)}}{e^{-(y+1)^2/(2\sigma^2)}} \right]
+\\
+&= log_e \left[ e^{4y/(2\sigma^2)} \right]
+\\
+&= \dfrac{2y}{\sigma^2}
+\end{aligned}
+\end{equation}
+
+\noindent This result makes it very easy to take the output from the demodulator (the +1/-1 BPSK $y$ symbols) and generate the appropriate LLR's for the AWGN channel.
+
+\subsection{Soft decision decoding}
+The Belief Propagation algorithm for soft decision decoding follows a similar process to that of hard decision decoding. Messages are passed between check and variable nodes defined by the tanner graph. The main difference is what happens at each of the nodes, since now the messages are LLR's rather than binary bits. 
+
+[Papers such as ??, ?? and ??] have all proved the set of equations that are used at both the message nodes and check nodes. The belief propagation algorithm can be distilled into just 2 equations: The message node update equation, and the check node update equation. The reason why it is often called the 'Sum-Product' algorithm, is since the message node update equation involves summing the LLR's, and the check node update equation involves taking their product.
+
+\begin{equation} \label{eq:msgNode}
+m_{ij}^{(l)} = L_i+\sum\limits_{j'\in C_i \ne j}m_{j'i}^{(l-1)}
+\end{equation}
+
+Equation \ref{eq:msgNode} is the message node update equation. $m_{ij}^{(l)}$ is the message sent from message node $i$ to check node $j$, at iteration $l$. $L_i$ is the initial LLR for message bit $i$. The expression $j'\in C_i \ne j$ is used to sum the incoming messages from all check nodes $j'$ that are connected to $C_i$, except the current node $j$ that is being sent to. This exclusion is the same as for hard decision decoding, whereby a message to a node is never a function of a message from that node (the extrinsic information rule). Finally, $m_{j'i}^{(l-1)}$ indicates that the sum is of the received check node messages from the last ($l-1$) iteration.
+
+\begin{equation} \label{eq:chkNode}
+m_{ji}^{(l)} = 2\arctanh\left[\prod\limits_{i'\in V_j\ne i} \tanh(\dfrac{m_{i'j}^{(l-1)}}{2})\right]
+\end{equation}
+
+Equation \ref{eq:chkNode} is the check node update equation. $m_{ji}^{(l)}$ is the message sent from check node $j$ to message node $i$, at iteration $l$. As before, $i'\in V_j\ne i$ includes all message nodes $i'$ that are connected to check node $V_j$, except the current node $i$ that is being sent to (extrinsic information rule).
+
+\noindent With both node equations defined, the iterative soft decision decoder proceeds as follows:
+
+\begin{enumerate}
+\item All message nodes $c_i$, having been initialised to the received LLR's $L_i$, send their value to their connected check nodes $f_j$. 
+\item At each check node $j$, using equation \ref{eq:chkNode}, the return message to each connected message node $i$ can be calculated.
+\item Sum the LLR's received at each message node, and obtain the binary value of the codeword ($l_i > 0 \rightarrow 0$, $l_i < 0 \rightarrow 1$). Using the parity check equation $\mathbf{s=c H}^\top$, where $c$ is the current binary value of the codeword, we obtain the syndrome. If the syndrome is all-zero, the algorithm terminates, since a valid (though not necessarily correct) codeword $c$ has been found.
+\item At each message node $i$, using equation \ref{eq:msgNode}, the return message to each connected check node $j$ can be calculated.
+\item Steps 2-4 repeat until a valid codeword is found, or up to a maximum number of iterations (Usually around $l=50$). 
+\end{enumerate}
+
+\subsection{Min-Sum approximation}
+
+Min sum to go in here
 
 \section{The AWGN channel: Simulation \& Results}
+One of the most important noisy channels used in communications theory, and already mentioned previously, is the Additive White Gaussian Noise (AWGN) channel. Whilst this noise channel is not really applicable to model Flash Memory, which is the aim of this project, it is however a useful benchmarking tool to ensure that the MATLAB decoder is working correctly. It is also a good method of demonstrating the power of LDPC, soft decision decoding, and error-correcting codes generally. This section presents the work done in modelling the encoder, AWGN channel, and decoder, and compares the results to known data sets.
+
+\subsection{Simulation model}
+\begin{figure}[h]
+\centering
+\includegraphics[scale=0.878]{awgn_channel_model}
+\caption{The AWGN simulation model}
+\label{figure:awgn sim model}
+\end{figure}
+
+\begin{itemize}
+\item The random generator produces a vector of pseudo-random, uniformly distributed values from the set \{1,0\}, of length $k$.
+\item The channel encoder takes the length $k$ message, and encodes it using the generator matrix, into a block of length $n$.
+\item The modulator maps each binary bit, in this case using Binary Phase-Shift Keying (BPSK), onto a constellation symbol. These symbols represent a real voltage value.
+\item The channel is simulated by adding white gaussian noise onto each symbol. The output from the channel is $\mathbf{Y = X + N}$, where $\mathbf{X}$ is the input random variable (+/- 1), and $\mathbf{N}$ is the noise random variable ($\mathbf{N} \sim \mathcal{N}(0,\sigma^2)$)
+\item The demodulator, for soft decision decoding, calculates the LLR of each received symbol. From equation \ref{eq:LLR_awgn}, $\mathcal{L} = \dfrac{2y}{\sigma^2}$, where $y$ is the received value from the output of the channel, and $\sigma^2$ is the AWGN channel noise variance. In a real system, this method therefore requires knowledge of the underlying noise parameters. For the simulation, the value is assumed to be known.
+\item Finally, the channel decoder performs error correction using the Belief Propagation algorithm, and outputs the corrected codeword (Note: The encoded message can be extracted from the codeword if a systematic generator matrix was used).
+\end{itemize}
+
+To simulate the error correction performance of this system, and compare it to other results, there needs to be a standardised quantity to describe the error rate and the channel noise. Whilst the noise variance is one such quantity, it doesn't take into account the relative difference between signal power and noise power. A far more useful metric would be Signal-to-noise ratio (SNR), or more specifically in this case $\dfrac{E_b}{N_0}$ (energy per bit/noise power). Like SNR, this is usually given in decibels\footnote{For the conversion calculations, $\dfrac{E_b}{N_0}$ must be a linear, not logarithmic, value. i.e: $\dfrac{E_b}{N_0}(dB) = 10\log_{10}\left[\dfrac{E_b}{N_0}(lin)\right]$}. 
+\vspace{3mm} \\
+\noindent
+Converting between $\sigma^2$ and $\dfrac{E_b}{N_0}$ is relatively trivial:
+\vspace{3mm} \\
+\noindent
+\begin{tabular}{lcl}
+$E_s$ & - & Energy per symbol (Always 1 for BPSK) \\
+$R_c$ & - & Code rate \\
+$R_m$ & - & Modulation rate (Always 1 for BPSK) \\
+$E_b$ & - & Energy per information bit \\
+\end{tabular}
+\begin{equation} \label{eq:noisePwr}
+\sigma^2 = \dfrac{N_0}{2}
+\end{equation}
+\begin{equation}\label{eq:EnergyperSymbol}
+E_s = R_cR_mE_b
+\end{equation}
+$N_0$, the noise power, is defined as in \ref{eq:noisePwr}. The energy per symbol is defined in \ref{eq:EnergyperSymbol}: the energy per bit multiplied by both the number of bits per symbol and the ratio of useful message data. By substituting $E_s$ into $\dfrac{E_b}{N_0}$:
+\begin{equation}
+\begin{aligned}
+\dfrac{E_b}{N_0} &= \dfrac{E_s}{R_cR_mN_0} \\
+&= \dfrac{E_s}{R_cR_m2\sigma^2} \\
+&= \dfrac{1}{2R_c\sigma^2}
+\end{aligned}
+\end{equation}
+$E_s = R_m = 1$ in this case, further simplifying the equation. This allows the conversion between $\sigma^2$, the parameter used in the noise model, and $\dfrac{E_b}{N_0}$, the metric used to present the results.
+
+
 \subsection{Random number generation}
 When performing any sort of Monte Carlo simulation, and particularly if running the same program in parallel across multiple computers, it is important to ensure that the random numbers being generated are as random as possible. Even more crucially, there must be no dependence between the parallel task's random numbers if we are to combine result sets.
 
