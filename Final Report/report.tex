@@ -365,11 +365,33 @@ Each instance of the block diagram in figure \ref{figure:awgn sim model} generat
 \label{figure:96_48_LDPC_graph}
 \end{figure}
 
-A short block length, rate $\dfrac{1}{2}$ LDPC code was used to produce the results in figure \ref{figure:96_48_LDPC_graph}, using the Sum-Product decoding algorithm. The figure also displays the results obtained by MacKay using the same LDPC code. There is a minor performance loss compared to MacKay, but otherwise the results are in agreement. Additionally, the dashed line indicates the expected bit error rate in the event that no error correction code was used. There is therefore a substantial coding gain in this system, for example to achieve a BER of $10^{-6}$ requires around $5.5$ dB with coding, and nearly $10$ dB without.
+A short block length, rate $\dfrac{1}{2}$ LDPC code was used to produce the results in figure \ref{figure:96_48_LDPC_graph}, using the Sum-Product algorithm with soft decision decoding. The figure also displays the results obtained by MacKay using the same LDPC code and decoding method. There is a minor performance loss compared to MacKay, but otherwise the results are in agreement. Additionally, the dashed line indicates the expected bit error rate in the event that no error correction code was used. There is therefore a substantial coding gain in this system, for example to achieve a BER of $10^{-6}$ requires around $5.5$ dB with coding, and nearly $10$ dB without.
 
+\begin{figure}[h]
+\centering
+\includegraphics[scale=0.6]{dvbs2_graph}
+\caption{Simulated results of 64k DVB-S2 LDPC code}
+\label{figure:64k_LDPC_graph}
+\end{figure}
 
+Longer block length codes generally achieve superior performance and greater 'cut-off' compared to shorter codes. Figure \ref{figure:64k_LDPC_graph} demonstrates a code with a block length of $64000$, and a substantially higher rate ($R=0.9$). This particular code is a standardised construction, used in the DVB-S2 (Satellite broadcasting) specifications. This code is also the primary one used in this project for the memory error correction later. One benefit of using this code is its sharp 'cut-off', compared to the previous code in figure \ref{figure:96_48_LDPC_graph}.
 
-\subsection{Random number generation}
+\subsection{Conclusion}
+Simulating the AWGN channel, and then comparing the results to the known data published by MacKay, allows for some degree of verification of the MATLAB program. The AWGN channel is one of the common channels simulated when dealing with error correcting code, since it simulates the effect of random noise that often occurs in the environment. 
+
+One issue identified with the simulation program was the speed of the decoder. In the first version of the decoder program [?? Matlab appendix section], there were a substantial number of 'for' loops, which are generally slow in MATLAB. Subsequent versions of the decoder attempted to fix this by vectorising the code [?? Matlab appendix section 2], resulting in a ???x speed increase. However, even with these improvements, the decoder was still much slower compared to MATLAB's built-in LDPC decoder [?? matlab reference page]. In addition, freely available OpenCL accelerated decoders [?? openCL ref] can be used on a GPU (Graphics Processing Unit) which are even faster than MATLAB's implementation (See appendix [??] for the benchmark comparisons). In the subsequent sections simulating the memory model, the MATLAB built-in implementation of the LDPC decoder was used, allowing for substantially more blocks to be decoded in the same amount of time.
+
+\section{Modelling a memory-specific noise channel}
+
+\section{Decoding in the non-Gaussian case}
+
+\section{The memory channel: Simulation \& Results}
+
+\section{Conclusions}
+
+\phantomsection
+\addcontentsline{toc}{section}{Appendix A: Random Number Generation}
+\section*{Appendix A: Random Number Generation}
 When performing any sort of Monte Carlo simulation, and particularly if running the same program in parallel across multiple computers, it is important to ensure that the random numbers being generated are as random as possible. Even more crucially, there must be no dependence between the parallel task's random numbers if we are to combine result sets.
 
 MATLAB, like many other software packages, cannot generate truly random numbers. Instead, it uses a pseudo-random number generator, such as the Mersenne Twister algorithm. This is just a function that produces numbers which, for most purposes, are considered to be pseudo-random and pseudo-independent. That is, if you generate numbers from this algorithm, they will appear to be random samples from a uniform distribution. 
@@ -387,13 +409,5 @@ RandStream.setDefaultStream(RandStream('mt19937ar','seed',seed));
 \end{lstlisting}
 
 The commands in codebox \ref{code:rng} were used to seed the random number generator every time a new MATLAB process was created. On UNIX machines, there is a system random number source \mbox{`/dev/random'}, which ``gathers environmental noise from device drivers and other sources into an entropy pool [and] from this entropy pool random numbers are created." The numbers generated by this process originate from physical random processes such as hardware noise, and so it is assumed that when calling the function on a different machine, a different random number will be generated every time. These random numbers are then used to seed the pseudo-random stream in MATLAB. 
-
-\section{Modelling a memory-specific noise channel}
-
-\section{Decoding in the non-Gaussian case}
-
-\section{The memory channel: Simulation \& Results}
-
-\section{Conclusions}
 
 \end{document}

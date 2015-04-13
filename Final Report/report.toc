@@ -14,8 +14,9 @@
 \contentsline {section}{\numberline {6}The AWGN channel: Simulation \& Results}{14}{section.6}
 \contentsline {subsection}{\numberline {6.1}Simulation model}{14}{subsection.6.1}
 \contentsline {subsection}{\numberline {6.2}Simulation results}{16}{subsection.6.2}
-\contentsline {subsection}{\numberline {6.3}Random number generation}{17}{subsection.6.3}
+\contentsline {subsection}{\numberline {6.3}Conclusion}{18}{subsection.6.3}
 \contentsline {section}{\numberline {7}Modelling a memory-specific noise channel}{19}{section.7}
 \contentsline {section}{\numberline {8}Decoding in the non-Gaussian case}{19}{section.8}
 \contentsline {section}{\numberline {9}The memory channel: Simulation \& Results}{19}{section.9}
 \contentsline {section}{\numberline {10}Conclusions}{19}{section.10}
+\contentsline {section}{Appendix A: Random Number Generation}{19}{section*.6}

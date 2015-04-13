@@ -14,8 +14,9 @@
 \BOOKMARK [1][-]{section.6}{The AWGN channel: Simulation \046 Results}{}% 14
 \BOOKMARK [2][-]{subsection.6.1}{Simulation model}{section.6}% 15
 \BOOKMARK [2][-]{subsection.6.2}{Simulation results}{section.6}% 16
-\BOOKMARK [2][-]{subsection.6.3}{Random number generation}{section.6}% 17
+\BOOKMARK [2][-]{subsection.6.3}{Conclusion}{section.6}% 17
 \BOOKMARK [1][-]{section.7}{Modelling a memory-specific noise channel}{}% 18
 \BOOKMARK [1][-]{section.8}{Decoding in the non-Gaussian case}{}% 19
 \BOOKMARK [1][-]{section.9}{The memory channel: Simulation \046 Results}{}% 20
 \BOOKMARK [1][-]{section.10}{Conclusions}{}% 21
+\BOOKMARK [1][-]{section*.6}{Appendix A: Random Number Generation}{}% 22
