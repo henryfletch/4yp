@@ -382,6 +382,74 @@ Simulating the AWGN channel, and then comparing the results to the known data pu
 One issue identified with the simulation program was the speed of the decoder. In the first version of the decoder program [?? Matlab appendix section], there were a substantial number of 'for' loops, which are generally slow in MATLAB. Subsequent versions of the decoder attempted to fix this by vectorising the code [?? Matlab appendix section 2], resulting in a ???x speed increase. However, even with these improvements, the decoder was still much slower compared to MATLAB's built-in LDPC decoder [?? matlab reference page]. In addition, freely available OpenCL accelerated decoders [?? openCL ref] can be used on a GPU (Graphics Processing Unit) which are even faster than MATLAB's implementation (See appendix [??] for the benchmark comparisons). In the subsequent sections simulating the memory model, the MATLAB built-in implementation of the LDPC decoder was used, allowing for substantially more blocks to be decoded in the same amount of time.
 
 \section{Modelling a memory-specific noise channel}
+There are many similarities between modelling a communications system and flash memory. Both are binary channels, subject to some binary input, distortion by some noise source, and subsequent decoding. However, the major difference in flash memory is the storage of binary data in the device for a length of time, unlike a communications system where the data is 'in transit'. When a bit is stored to a memory cell, the noise effect is cumulative over the lifetime of the stored bit. Therefore, two major parameters in modelling flash memory are time, and the number of read/write (or Program/Erase) cycles each cell is subject to.
+
+As stated previously in section [??], it is the threshold voltage of each gate that defines the binary value of the memory cell. In this project, the flash memory is assumed to be of SLC design, that is 1 bit per cell. It is also assumed that a low gate threshold voltage corresponds to a binary 0, whilst a higher threshold voltage corresponds to a binary 1. 
+
+The primary noise source, which is caused by repeated P/E cycling, can be split into two physical phenomena: Electron capture and emission events, which result in a random variation of the threshold voltage, and interface trap recovery and electron de-trapping, which gradually reduces the gate threshold voltage over time. The former is known as `Random Telegraph Noise' (RTN), whilst the latter is often called the `Retention Noise', since it sets a time limit on how long data can be stored in a cell until the threshold voltage becomes too low.
+
+Another noise source, known as `Cell-to-cell interference', which as the name implies is the result of neighbouring memory cells interfering with each other. This dependence between neighbouring cells adds additional complexity when modelling the system, since it is no longer possible to model one cell at a time. As a result, it was decided for this project not to include this noise source, instead focusing on an individual memory cell.
+
+\subsection{Description of Noise Sources}
+
+The first noise source in the memory channel, the random telegraph noise (RTN), can be modelled as a Laplacian distribution, $Y_{rtn} \sim \mathcal{L}(\lambda_{rtn})$, whose probability density function is just a double-sided exponential
+\begin{equation} \label{eq:RTN}
+p_{rtn}(x) = \dfrac{1}{2\lambda_{rtn}}e^{-\lvert x \rvert / \lambda_{rtn}}
+\end{equation}
+In equation \ref{eq:RTN}, $x$ is the value of the voltage fluctuation, and $\lambda_{rtn}$ scales with $N$, the P/E cycling number. In this project, $\lambda_{rtn} = K \sqrt{N}$ where $K$ is just a constant. Therefore as the memory cell is subject to more P/E cycles ($N$), the RTN distribution widens, as expected. Figure \ref{figure:RTN_graph} shows the probability density function of the distribution for different values of $N$. The distribution is centered about $x=0$, since the random effect of RTN can result in either an increase of decrease of the cell threshold voltage.
+
+\begin{figure}[h]
+\centering
+\minipage{0.5\textwidth}
+\centering
+\includegraphics[scale=0.42]{RTN_graph}
+\caption{PDF of RTN distribution}
+\label{figure:RTN_graph}
+\endminipage\hfill
+\minipage{0.5\textwidth}
+\centering
+\includegraphics[scale=0.378]{retention_noise_graph}
+\caption{PDF of Retention noise distribution}
+\label{figure:ret_graph}
+\endminipage
+\end{figure}
+
+The second noise source, the retention noise, is modelled as a Gaussian, $Y_{retention} \sim \mathcal{N}(\mu_r,\sigma_r^2)$, with the mean and variance defined as
+\begin{equation} \label{eq:retention}
+\begin{aligned}
+\mu_r &= -K_sK_d(V_p-V_e)N^{0.5}\ln\left(1+\dfrac{t}{t_0}\right)\\
+\sigma_r^2 &= K_sK_m(V_p-V_e)N^{0.6}\ln\left(1+\dfrac{t}{t_0}\right)
+\end{aligned}
+\end{equation}
+In equation \ref{eq:retention}, $V_p$ is the initial voltage of the programmed state, $V_e$ is the (mean) voltage of the erased state, $t$ is the current memory retention time, and $t_0$ is an initial starting time. $K_{s,d,m}$ are all constants. The retention noise therefore has a power-law relationship with the P/E cycling number $N$, a logarithmic relationship with retention time, and is also dependent on the initial threshold voltages. Figure \ref{figure:ret_graph} shows the probability density function of the retention noise for different values of $N$, with the remaining variables fixed. Also note that since the mean ($\mu_r$) is always negative, the effect of the Retention noise is to always reduce the gate threshold voltage. As $N$ increases, the programmed state voltage will therefore reduce and get closer to the erased state voltage. This is perhaps the main source of bit error: the interference between the erased and programmed states. 
+
+\subsection{Channel Model}
+Both the RTN and retention noise are independent random variables. Therefore the threshold voltage of any given cell is simply the sum of the random variables. As explained previously in section [??], each cell is either a binary 0 or 1, with a corresponding threshold voltage distribution for each. Therefore in the ideal case each cell will have a single voltage value, either $V_{p_0}$ for a programmed cell or $V_{e_0}$ for an erased cell. After noise, the final threshold voltage of the cell is then
+
+\begin{equation}
+\begin{aligned}
+V_{p} &= V_{p_0} + Y_{rtn} + Y_{retention} \\
+V_{e} &= V_{e_0} + Y_{rtn}
+\end{aligned}
+\end{equation}
+where $V_{p}$ and $V_{e}$ are the final programmed and erased voltage states, respectively. Retention noise is not added onto the erased state in this model, since we are assuming that the erased state is the reference voltage level that the programmed state is ultimately heading towards.
+\bigskip
+
+\begin{figure}[h]
+\centering
+\includegraphics[scale=0.96]{memory_channel}
+\caption{Memory channel noise model}
+\label{fig:mem_channel_model}
+\end{figure}
+
+Figure \ref{fig:mem_channel_model} shows the block diagram of the memory channel noise model. Unlike the AWGN channel, the noise added to each binary bit depends on whether it is a 0 or a 1. The input to the model is a binary value, whilst the output from the model is the final threshold voltage value of the memory cell, ready to be decoded. Effectively, the model simulates the programming of a memory cell, and then the subsequent noise that would be experienced if the cell were subjected to repeated program and erase cycles.
+
+\begin{figure}[ht]
+\centering
+\includegraphics[scale=0.75]{memory_voltage_distribution}
+\caption{blah}
+\label{fig:mem_channel_distribution}
+\end{figure}
 
 \section{Decoding in the non-Gaussian case}
 

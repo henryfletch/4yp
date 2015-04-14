@@ -1,14 +1,14 @@
 %test script
 
-clear
-close
-
+clear all
+close all
+I = [];
 x = -5:0.0001:5;
-N = 5000;
+NVector = [1000,50000,100000];
 Verased = 1.4;
 Vp = 2.6;
 deltaVp = 0.25;
-timeYrs = 50;
+timeYrs = 10;
 
 time = timeYrs*365*24*3600;
 
@@ -18,11 +18,10 @@ yErased = normpdf(x,Verased,0.35);
 %Initial Programmed State Vp
 yProgrammed = mem_programState(x,Vp,deltaVp);
 
+for N = NVector
 %Noise functions
 yRTN = mem_RTN(x,N);
 yRetention = mem_retention(x,time,N,Verased,Vp);
-
-test = conv(yRTN,yRetention,'same');
 
 %Noised programme distribution
 output1 = conv(yProgrammed,yRTN,'same');
@@ -39,19 +38,29 @@ output2 = output2/area2;
 area4 = trapz(x,output4);
 output4 = output4/area4;
 
-% Noisy PDFs
-subplot(2,1,2)
-plot(x,output2)
-hold on
-plot(x,output4)
-axis([0 5 0 10])
-title(['t = ',num2str(timeYrs),' yrs, N = ',num2str(N),' P/E cycles'])
+I = [I;{output2},{output4}]; % Programmed, Erased
+end
+
+[numplots,~] = size(I);
+numplots = numplots+1;
 
 % Original PDFs
-subplot(2,1,1)
+subplot(numplots,1,1)
 plot(x,yProgrammed)
 hold on
 plot(x,yErased)
-axis([0 5 0 10])
+axis([0 3.5 0 5])
 title('t=0,N=0');
 
+for i  = 2:numplots
+% Noisy PDFs
+subplot(numplots,1,i)
+prog = I{i-1,1};
+erase = I{i-1,2};
+plot(x,prog)
+hold on
+plot(x,erase)
+axis([0 3.5 0 5])
+N = NVector(i-1);
+title(['t = ',num2str(timeYrs),' yrs, N = ',num2str(N),' P/E cycles'])
+end
