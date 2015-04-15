@@ -392,7 +392,7 @@ Another noise source, known as `Cell-to-cell interference', which as the name im
 
 \subsection{Description of Noise Sources}
 
-The first noise source in the memory channel, the random telegraph noise (RTN), can be modelled as a Laplacian distribution, $Y_{rtn} \sim \mathcal{L}(\lambda_{rtn})$, whose probability density function is just a double-sided exponential
+The first noise source in the memory channel, the random telegraph noise (RTN), can be modelled as a Laplacian distribution, $Y_{rtn} \sim \mathcal{L}(\lambda_{rtn})$, whose probability density function is
 \begin{equation} \label{eq:RTN}
 p_{rtn}(x) = \dfrac{1}{2\lambda_{rtn}}e^{-\lvert x \rvert / \lambda_{rtn}}
 \end{equation}
@@ -432,7 +432,7 @@ V_{p} &= V_{p_0} + Y_{rtn} + Y_{retention} \\
 V_{e} &= V_{e_0} + Y_{rtn}
 \end{aligned}
 \end{equation}
-where $V_{p}$ and $V_{e}$ are the final programmed and erased voltage states, respectively. Retention noise is not added onto the erased state in this model, since we are assuming that the erased state is the reference voltage level that the programmed state is ultimately heading towards.
+where $V_{p}$ and $V_{e}$ are the final programmed and erased voltage states, respectively. Retention noise is not added onto the erased state in this model, since we are assuming that the erased state is the reference voltage level that the retention noise is derived from.
 \bigskip
 
 \begin{figure}[h]
@@ -444,12 +444,14 @@ where $V_{p}$ and $V_{e}$ are the final programmed and erased voltage states, re
 
 Figure \ref{fig:mem_channel_model} shows the block diagram of the memory channel noise model. Unlike the AWGN channel, the noise added to each binary bit depends on whether it is a 0 or a 1. The input to the model is a binary value, whilst the output from the model is the final threshold voltage value of the memory cell, ready to be decoded. Effectively, the model simulates the programming of a memory cell, and then the subsequent noise that would be experienced if the cell were subjected to repeated program and erase cycles.
 
-\begin{figure}[ht]
+\begin{figure}[!ht]
 \centering
 \includegraphics[scale=0.75]{memory_voltage_distribution}
-\caption{blah}
+\caption{Density functions of memory threshold voltages for differing values of N}
 \label{fig:mem_channel_distribution}
 \end{figure}
+
+Figure \ref{fig:mem_channel_distribution} shows the probability density functions obtained from the memory model in figure \ref{fig:mem_channel_model}. Note that the $x$ axes are the gate threshold voltages. Various values for $N$ are displayed as well as showing the initial programmed state (the uniform distribution) when $N=0$. As the number of P/E cycles increases, the programmed distribution shifts left and widens, and interferes with the erased state. It is now clear that a simple hard-decision decoder without any error correction would generate a substantial number of errors when, in this case, $N > 50,000$. The distributions overlap, which would lead to incorrectly decoded bits.
 
 \section{Decoding in the non-Gaussian case}
 
