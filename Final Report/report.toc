@@ -18,7 +18,9 @@
 \contentsline {section}{\numberline {7}Modelling a memory-specific noise channel}{20}{section.7}
 \contentsline {subsection}{\numberline {7.1}Description of Noise Sources}{20}{subsection.7.1}
 \contentsline {subsection}{\numberline {7.2}Channel Model}{22}{subsection.7.2}
-\contentsline {section}{\numberline {8}Decoding in the non-Gaussian case}{24}{section.8}
-\contentsline {section}{\numberline {9}The memory channel: Simulation \& Results}{24}{section.9}
-\contentsline {section}{\numberline {10}Conclusions}{24}{section.10}
-\contentsline {section}{Appendix A: Random Number Generation}{24}{section*.9}
+\contentsline {section}{\numberline {8}Decoding for the memory model}{24}{section.8}
+\contentsline {subsection}{\numberline {8.1}Hard decision decoding: Variable boundary}{24}{subsection.8.1}
+\contentsline {subsection}{\numberline {8.2}Soft decision decoding: Gaussian approximations \& non-Gaussian functions}{26}{subsection.8.2}
+\contentsline {section}{\numberline {9}The memory channel: Simulation \& Results}{27}{section.9}
+\contentsline {section}{\numberline {10}Conclusions}{27}{section.10}
+\contentsline {section}{Appendix A: Random Number Generation}{27}{section*.10}

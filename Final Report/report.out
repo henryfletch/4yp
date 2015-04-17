@@ -18,7 +18,9 @@
 \BOOKMARK [1][-]{section.7}{Modelling a memory-specific noise channel}{}% 18
 \BOOKMARK [2][-]{subsection.7.1}{Description of Noise Sources}{section.7}% 19
 \BOOKMARK [2][-]{subsection.7.2}{Channel Model}{section.7}% 20
-\BOOKMARK [1][-]{section.8}{Decoding in the non-Gaussian case}{}% 21
-\BOOKMARK [1][-]{section.9}{The memory channel: Simulation \046 Results}{}% 22
-\BOOKMARK [1][-]{section.10}{Conclusions}{}% 23
-\BOOKMARK [1][-]{section*.9}{Appendix A: Random Number Generation}{}% 24
+\BOOKMARK [1][-]{section.8}{Decoding for the memory model}{}% 21
+\BOOKMARK [2][-]{subsection.8.1}{Hard decision decoding: Variable boundary}{section.8}% 22
+\BOOKMARK [2][-]{subsection.8.2}{Soft decision decoding: Gaussian approximations \046 non-Gaussian functions}{section.8}% 23
+\BOOKMARK [1][-]{section.9}{The memory channel: Simulation \046 Results}{}% 24
+\BOOKMARK [1][-]{section.10}{Conclusions}{}% 25
+\BOOKMARK [1][-]{section*.10}{Appendix A: Random Number Generation}{}% 26

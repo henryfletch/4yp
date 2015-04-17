@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.15 (TeX Live 2014) (preloaded format=pdflatex 2015.1.26)  14 APR 2015 18:09
+This is pdfTeX, Version 3.14159265-2.6-1.40.15 (TeX Live 2014) (preloaded format=pdflatex 2015.1.26)  17 APR 2015 17:07
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -643,13 +643,13 @@ LaTeX Font Info:    Try loading font information for U+msb on input line 4.
 
 (/usr/local/texlive/2014/texmf-dist/tex/latex/amsfonts/umsb.fd
 File: umsb.fd 2013/01/14 v3.01 AMS symbols B
-))
+) [2
+
+])
 \tf@toc=\write5
 \openout5 = `report.toc'.
 
- [2
-
-] [3]
+ [3]
 LaTeX Font Info:    Font shape `OT1/phv/bx/n' in size <12> not available
 (Font)              Font shape `OT1/phv/b/n' tried instead on input line 68.
 LaTeX Font Info:    Font shape `OT1/phv/m/it' in size <10.95> not available
@@ -737,7 +737,7 @@ verted-to.pdf BPSK_channel_graph.eps>
 (epstopdf)             \includegraphics on input line 182.
 Package epstopdf Info: Output file is already uptodate.
 
-<BPSK_channel_graph-eps-converted-to.pdf, id=178, 419.5675pt x 157.58875pt>
+<BPSK_channel_graph-eps-converted-to.pdf, id=188, 419.5675pt x 157.58875pt>
 File: BPSK_channel_graph-eps-converted-to.pdf Graphic file (type pdf)
 
 <use BPSK_channel_graph-eps-converted-to.pdf>
@@ -746,7 +746,7 @@ line 182.
 (pdftex.def)             Requested size: 419.56647pt x 157.58835pt.
  [9
 
- <./BPSK_channel_graph-eps-converted-to.pdf>] <tannergraph.pdf, id=196, 563.354
+ <./BPSK_channel_graph-eps-converted-to.pdf>] <tannergraph.pdf, id=206, 563.354
 69pt x 430.35782pt>
 File: tannergraph.pdf Graphic file (type pdf)
 
@@ -831,7 +831,7 @@ ored
                    \relax 
 l.288 \begin{equation}
                        \label{eq:chkNode} [14]
-<awgn_channel_model.pdf, id=314, 570.13pt x 115.43124pt>
+<awgn_channel_model.pdf, id=324, 570.13pt x 115.43124pt>
 File: awgn_channel_model.pdf Graphic file (type pdf)
 
 <use awgn_channel_model.pdf>
@@ -851,7 +851,7 @@ o.pdf 96_48_LDPC.eps>
 (epstopdf)             \includegraphics on input line 363.
 Package epstopdf Info: Output file is already uptodate.
 
-<96_48_LDPC-eps-converted-to.pdf, id=393, 973.6375pt x 674.52pt>
+<96_48_LDPC-eps-converted-to.pdf, id=403, 973.6375pt x 674.52pt>
 File: 96_48_LDPC-eps-converted-to.pdf Graphic file (type pdf)
 
 <use 96_48_LDPC-eps-converted-to.pdf>
@@ -870,7 +870,7 @@ to.pdf dvbs2_graph.eps>
 (epstopdf)             \includegraphics on input line 372.
 Package epstopdf Info: Output file is already uptodate.
 
-<dvbs2_graph-eps-converted-to.pdf, id=405, 780.9175pt x 520.94624pt>
+<dvbs2_graph-eps-converted-to.pdf, id=415, 780.9175pt x 520.94624pt>
 File: dvbs2_graph-eps-converted-to.pdf Graphic file (type pdf)
 
 <use dvbs2_graph-eps-converted-to.pdf>
@@ -890,7 +890,7 @@ Package epstopdf Info: Source file: <RTN_graph.eps>
 .pdf RTN_graph.eps>
 (epstopdf)             \includegraphics on input line 405.
 Package epstopdf Info: Output file is already uptodate.
- <RTN_graph-eps-converted-to.pdf, id=430, 586.19pt x 442.65375pt>
+ <RTN_graph-eps-converted-to.pdf, id=440, 586.19pt x 442.65375pt>
 File: RTN_graph-eps-converted-to.pdf Graphic file (type pdf)
 
 <use RTN_graph-eps-converted-to.pdf>
@@ -909,7 +909,7 @@ converted-to.pdf retention_noise_graph.eps>
 (epstopdf)             \includegraphics on input line 411.
 Package epstopdf Info: Output file is already uptodate.
 
-<retention_noise_graph-eps-converted-to.pdf, id=431, 637.38126pt x 488.82625pt>
+<retention_noise_graph-eps-converted-to.pdf, id=441, 637.38126pt x 488.82625pt>
 File: retention_noise_graph-eps-converted-to.pdf Graphic file (type pdf)
 <use retention_noise_graph-eps-converted-to.pdf>
 Package pdftex.def Info: retention_noise_graph-eps-converted-to.pdf used on inp
@@ -936,7 +936,7 @@ er (name{equation.7.1}) has been already used, duplicate ignored
 <to be read again> 
                    \relax 
 l.429 \begin{equation}
-                       <memory_channel.pdf, id=451, 518.93875pt x 209.78375pt>
+                       <memory_channel.pdf, id=461, 518.93875pt x 209.78375pt>
 File: memory_channel.pdf Graphic file (type pdf)
 
 <use memory_channel.pdf>
@@ -954,7 +954,7 @@ n-eps-converted-to.pdf memory_voltage_distribution.eps>
 (epstopdf)             \includegraphics on input line 449.
 Package epstopdf Info: Output file is already uptodate.
 
-<memory_voltage_distribution-eps-converted-to.pdf, id=453, 626.34pt x 668.4975p
+<memory_voltage_distribution-eps-converted-to.pdf, id=463, 626.34pt x 668.4975p
 t>
 File: memory_voltage_distribution-eps-converted-to.pdf Graphic file (type pdf)
  <use memory_voltage_distribution-eps-converted-to.pdf>
@@ -962,37 +962,78 @@ Package pdftex.def Info: memory_voltage_distribution-eps-converted-to.pdf used
 on input line 449.
 (pdftex.def)             Requested size: 469.75383pt x 501.37189pt.
  [22 <./memory_channel.pdf>] [23 <./memory_voltage_distribution-eps-converted-t
-o.pdf>]
-LaTeX Font Info:    Try loading font information for OT1+pcr on input line 473.
+o.pdf>] [24
 
+]
+Package epstopdf Info: Source file: <variable_boundary_graph.eps>
+(epstopdf)                    date: 2015-04-17 16:10:30
+(epstopdf)                    size: 108962 bytes
+(epstopdf)             Output file: <variable_boundary_graph-eps-converted-to.p
+df>
+(epstopdf)                    date: 2015-04-17 16:10:41
+(epstopdf)                    size: 18166 bytes
+(epstopdf)             Command: <repstopdf --outfile=variable_boundary_graph-ep
+s-converted-to.pdf variable_boundary_graph.eps>
+(epstopdf)             \includegraphics on input line 479.
+Package epstopdf Info: Output file is already uptodate.
 
-(/usr/local/texlive/2014/texmf-dist/tex/latex/psnfss/ot1pcr.fd
+<variable_boundary_graph-eps-converted-to.pdf, id=539, 458.71375pt x 400.49625p
+t>
+File: variable_boundary_graph-eps-converted-to.pdf Graphic file (type pdf)
+ <use variable_boundary_graph-eps-converted-to.pdf>
+Package pdftex.def Info: variable_boundary_graph-eps-converted-to.pdf used on i
+nput line 479.
+(pdftex.def)             Requested size: 238.53252pt x 208.25925pt.
+Package epstopdf Info: Source file: <variable_boundary_example.eps>
+(epstopdf)                    date: 2015-04-17 16:28:38
+(epstopdf)                    size: 61778 bytes
+(epstopdf)             Output file: <variable_boundary_example-eps-converted-to
+.pdf>
+(epstopdf)                    date: 2015-04-17 16:31:32
+(epstopdf)                    size: 18088 bytes
+(epstopdf)             Command: <repstopdf --outfile=variable_boundary_example-
+eps-converted-to.pdf variable_boundary_example.eps>
+(epstopdf)             \includegraphics on input line 485.
+Package epstopdf Info: Output file is already uptodate.
+
+<variable_boundary_example-eps-converted-to.pdf, id=540, 415.5525pt x 352.31625
+pt>
+File: variable_boundary_example-eps-converted-to.pdf Graphic file (type pdf)
+ <use variable_boundary_example-eps-converted-to.pdf>
+Package pdftex.def Info: variable_boundary_example-eps-converted-to.pdf used on
+ input line 485.
+(pdftex.def)             Requested size: 249.33342pt x 211.39137pt.
+ [25 <./variable_boundary_graph-eps-converted-to.pdf> <./variable_boundary_exam
+ple-eps-converted-to.pdf>] [26]
+LaTeX Font Info:    Try loading font information for OT1+pcr on input line 515.
+
+ (/usr/local/texlive/2014/texmf-dist/tex/latex/psnfss/ot1pcr.fd
 File: ot1pcr.fd 2001/06/04 font definitions for OT1/pcr.
 )
-LaTeX Font Info:    Try loading font information for TS1+pcr on input line 476.
+LaTeX Font Info:    Try loading font information for TS1+pcr on input line 518.
 
 
 (/usr/local/texlive/2014/texmf-dist/tex/latex/psnfss/ts1pcr.fd
 File: ts1pcr.fd 2001/06/04 font definitions for TS1/pcr.
-) [24
+) [27
 
 ]
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 483.
- [25]
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 483.
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 525.
+ [28]
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 525.
 
 (./report.aux)
-Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 483.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 483.
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 525.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 525.
 Package rerunfilecheck Info: File `report.out' has not changed.
-(rerunfilecheck)             Checksum: DC53E8E5E51736684A867C879B5D2E96;1671.
-Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 483.
+(rerunfilecheck)             Checksum: 10C71EC9661EED48D05B4E564851C906;1884.
+Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 525.
  ) 
 Here is how much of TeX's memory you used:
- 11265 strings out of 493116
- 168540 string characters out of 6135420
- 295625 words of memory out of 5000000
- 14423 multiletter control sequences out of 15000+600000
+ 11287 strings out of 493116
+ 169188 string characters out of 6135420
+ 294946 words of memory out of 5000000
+ 14436 multiletter control sequences out of 15000+600000
  30126 words of font info for 71 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
  42i,28n,56p,992b,1517s stack positions out of 5000i,500n,10000p,200000b,80000s
@@ -1017,10 +1058,10 @@ st/fonts/type1/urw/courier/ucrr8a.pfb></usr/local/texlive/2014/texmf-dist/fonts
 /type1/urw/helvetic/uhvb8a.pfb></usr/local/texlive/2014/texmf-dist/fonts/type1/
 urw/helvetic/uhvr8a.pfb></usr/local/texlive/2014/texmf-dist/fonts/type1/urw/hel
 vetic/uhvro8a.pfb>
-Output written on report.pdf (25 pages, 557067 bytes).
+Output written on report.pdf (28 pages, 594048 bytes).
 PDF statistics:
- 624 PDF objects out of 1000 (max. 8388607)
- 489 compressed objects within 5 object streams
- 91 named destinations out of 1000 (max. 500000)
- 238 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 678 PDF objects out of 1000 (max. 8388607)
+ 533 compressed objects within 6 object streams
+ 98 named destinations out of 1000 (max. 500000)
+ 264 words of extra memory for PDF output out of 10000 (max. 10000000)
 

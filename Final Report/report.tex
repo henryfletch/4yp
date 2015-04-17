@@ -172,7 +172,7 @@ Channel capacity stuff to go here
 
 \section{Overview of Flash Memory Technology} 
 
-\section{Decoding of LDPC Codes}
+\section{Decoding of LDPC Codes} \label{decoding}
 Using syndrome lookup decoding as described in section \ref{3.1:definitions} would be nearly impossible for longer block lengths. There is a much better, iterative decoding method that can be used for any linear block code, and which is linear in block length. It is called the belief propagation algorithm (also known as the sum-product algorithm or the message passing algorithm). 
 
 There are two distinct methods of belief propagation: Hard decision decoding and soft decision decoding. In hard decision decoding, the error correction algorithm only receives binary data (i.e. \{1,0\}). In soft decision decoding, the error correction algorithm receives a numerical likelihood of the data being either a 0 or 1. Soft decision decoding will therefore result in superior performance, since it is able to make use of the additional 'soft' information that is otherwise discarded.
@@ -453,7 +453,49 @@ Figure \ref{fig:mem_channel_model} shows the block diagram of the memory channel
 
 Figure \ref{fig:mem_channel_distribution} shows the probability density functions obtained from the memory model in figure \ref{fig:mem_channel_model}. Note that the $x$ axes are the gate threshold voltages. Various values for $N$ are displayed as well as showing the initial programmed state (the uniform distribution) when $N=0$. As the number of P/E cycles increases, the programmed distribution shifts left and widens, and interferes with the erased state. It is now clear that a simple hard-decision decoder without any error correction would generate a substantial number of errors when, in this case, $N > 50,000$. The distributions overlap, which would lead to incorrectly decoded bits.
 
-\section{Decoding in the non-Gaussian case}
+\section{Decoding for the memory model}
+
+In section \ref{decoding}, two primary methods for error correction decoding were presented: Soft decision decoding and hard decision decoding. For the memory model, both types of decoding can be used, however with some substantial changes compared to the simplistic AWGN case.
+
+The AWGN model assumes that both symbols \{+1,-1\}, after noise, produce symmetric Gaussian distributions (Figure \ref{figure:awgn probability graph}, page \pageref{figure:awgn probability graph}). For hard decision decoding, it is obvious where the boundary should be placed in this case: the midpoint between the two distributions. For soft decision decoding, obtaining the log-likelihood ratios is relatively simple, as explained previously in equation \ref{eq:LLR_awgn}, whereby the raw voltage values are just divided by the noise variance. 
+
+The memory channel noise model is, however, not two symmetric Gaussians. As demonstrated in figure \ref{fig:mem_channel_distribution}, the programmed distribution's mean is not static: it shifts to the left as $N$ increases. Also, it is not immediately clear what the overall distribution is, since we have added 2 sources of noise to an originally uniform distribution.
+
+\subsection{Hard decision decoding: Variable boundary}
+
+To use Hard decision decoding, it is only necessary to classify each symbol in the memory model as either a 0 or 1. To do this, the system needs to determine where the boundary between these regions should be. The main issue here is that as the number of program/erase cycles increases, both the shape and mean of the programmed distribution changes significantly. A static boundary between the two regions would therefore result in very poor performance. As an example, using figure \ref{fig:mem_channel_distribution}, setting a crossover voltage of 2 volts may seem somewhat reasonable even up to 50,000 cycles. But at 100,000 cycles this decision region would result in nearly half of all programmed 1's being decoded as 0's.
+
+The obvious solution is to have a variable decision boundary, that moves position dependent on the number of program/erase cycles the memory cell has undergone. Mathematically, this position should seek to ensure an equal probability of obtaining a 1 or 0 either side of the boundary. Or, the corollary of this is that the position of the boundary should ensure that the probability of \textit{incorrectly} decoding a 1 or 0 is the same. 
+
+If we let $P(N,x)$ equal the probability density function of the programmed (1) state at $N$ cycles, and $E(N,x)$ be the density function of the erased (0) state at $N$ cycles, then
+\begin{equation}
+\int_0^x \mathrm{P}(N,x)\,\mathrm{d}x = \int_x^\infty \mathrm{E}(N,x)\,\mathrm{d}x
+\end{equation}
+which must be true in order to ensure equal probability decoding of 1's and 0's. This could be solved for $x$ to obtain the ideal boundary value for each value of $N$. However, it is not possible to immediately obtain the expressions for each density function, since in reality it is the combination of many different functions. To solve this problem more quickly, the solution can be obtained using an approximate numerical solution in MATLAB [Appendix ??]. 
+\begin{figure}[h]
+\centering
+\minipage{0.5\textwidth}
+\centering
+\includegraphics[scale=0.52]{variable_boundary_graph}
+\caption{Results of numerical integration, showing ideal hard decision decoding boundary for given values of N}
+\label{fig:hard_decision_variable_boundary}
+\endminipage\hfill
+\minipage{0.5\textwidth}
+\centering
+\includegraphics[scale=0.6]{variable_boundary_example}
+\caption{Example showing both erased and programmed distributions and the decision boundary (dotted line) between them}
+\label{fig:hard_decision_variable_example}
+\endminipage
+\end{figure}
+
+Figure \ref{fig:hard_decision_variable_boundary} shows the results of the numerical integration, in order to obtain the optimal decision boundary for hard decision decoding. The boundary voltage, V, is the same as $x$ for the analytic case. The results appear slightly jagged since the data was taken from histograms of each distribution, which themselves were created from random sampling. In order to make use of the data from the integration, in a closed form solution, a simple exponential fit was plotted over the results. 
+
+Figure \ref{fig:hard_decision_variable_example} is an example of both the erased and programmed distributions for a specific P/E cycle number, $N=20,000$. The dotted black line shows the optimal decision boundary, taken from the approximate exponential fit in figure \ref{fig:hard_decision_variable_boundary} ($V \approx 2.31$).
+
+\subsection{Soft decision decoding: Gaussian approximations \& non-Gaussian functions}
+As shown previously, soft decision decoding makes use of additional 'soft' information in order to improve the decoding performance. The main premise with SDD is to introduce probabilities into the decoding process, harnessing the \textit{a priori} probabilities of the underlying distributions, in order to construct a probabilistic decoder.
+
+Simply obtaining the exact threshold voltage of the memory cell is not sufficient to perform SDD. As with the AWGN model, some prior information (in that case the noise variance) is required in order to convert the received raw data into a likelihood value. Once a likelihood \textit{ratio} of the received data has been calculated, exactly the same Sum-Product algorithm can be used as before. The difficult is 
 
 \section{The memory channel: Simulation \& Results}
 

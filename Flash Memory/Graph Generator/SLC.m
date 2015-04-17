@@ -4,11 +4,11 @@ clear all
 close all
 I = [];
 x = -5:0.0001:5;
-NVector = [1000,50000,100000];
+NVector = [20000];
 Verased = 1.4;
-Vp = 2.6;
+Vp = 2.8;
 deltaVp = 0.25;
-timeYrs = 10;
+timeYrs = 5;
 
 time = timeYrs*365*24*3600;
 
