@@ -233,7 +233,7 @@ The tanner graph is a bipartite graph with 2 types of node: Check nodes and Mess
 \item Repeat this process at all other check nodes $f_{1,2,3}$
 \end{itemize}
 
-\subsection{The Log-likelihood ratio}
+\subsection{The Log-likelihood ratio} \label{section:LLR}
 Whilst hard decision decoding is a good way to demonstrate how the iterative message passing algorithm works, soft decision decoding yields substantially better error correction performance, and is therefore the main method used in decoding LDPC.
 
 In soft decision decoding, the message nodes no longer represent binary 1's or 0's, but instead can take a continuous range of probability values. These probability values are initially calculated using two sources of information: The received voltage value of each bit, and the underlying probability distribution of the received bit. Before being able to describe the soft decision decoding algorithm, this information needs to be formed into a useful metric: the \textit{Log-likelihood ratio}, [Reference: LLR computation.pdf]
@@ -426,7 +426,7 @@ In equation \ref{eq:retention}, $V_p$ is the initial voltage of the programmed s
 \subsection{Channel Model}
 Both the RTN and retention noise are independent random variables. Therefore the threshold voltage of any given cell is simply the sum of the random variables. As explained previously in section [??], each cell is either a binary 0 or 1, with a corresponding threshold voltage distribution for each. Therefore in the ideal case each cell will have a single voltage value, either $V_{p_0}$ for a programmed cell or $V_{e_0}$ for an erased cell. After noise, the final threshold voltage of the cell is then
 
-\begin{equation}
+\begin{equation} \label{eq:additive_memory_noise_model}
 \begin{aligned}
 V_{p} &= V_{p_0} + Y_{rtn} + Y_{retention} \\
 V_{e} &= V_{e_0} + Y_{rtn}
@@ -495,8 +495,24 @@ Figure \ref{fig:hard_decision_variable_example} is an example of both the erased
 \subsection{Soft decision decoding: Gaussian approximations \& non-Gaussian functions}
 As shown previously, soft decision decoding makes use of additional 'soft' information in order to improve the decoding performance. The main premise with SDD is to introduce probabilities into the decoding process, harnessing the \textit{a priori} probabilities of the underlying distributions, in order to construct a probabilistic decoder.
 
-Simply obtaining the exact threshold voltage of the memory cell is not sufficient to perform SDD. As with the AWGN model, some prior information (in that case the noise variance) is required in order to convert the received raw data into a likelihood value. Once a likelihood \textit{ratio} of the received data has been calculated, exactly the same Sum-Product algorithm can be used as before. The difficult is 
+Simply obtaining the exact threshold voltage of the memory cell is not sufficient to perform SDD. As with the AWGN model, some prior information (in that case the noise variance) is required in order to convert the received raw data into a likelihood value. Once a likelihood \textit{ratio} of the received data has been calculated, exactly the same Sum-Product algorithm can be used as before. The difficulty in the memory model case, is obtaining this likelihood ratio.
 
+\begin{equation} \label{eq:llr_memory}
+\mathcal{L}(c|y) \sim log_e \left[ \dfrac{\text{\textit{``Probability density function of E(x)"}}}{\text{\textit{``Probability density function of P(x)"}}} \right]
+\end{equation}
+
+Equation \ref{eq:llr_memory}, which results from the earlier work in section \ref{section:LLR}, gives us the Log-Likelihood ratio that is required in order to perform soft decision decoding on the memory channel. It is clear that the necessary \textit{a priori} information in this case is the entire Probability Density Function for both the erased and programmed states. Once the PDF's are known, the voltage value for the cell can be inputted and the requisite LLR obtained.
+
+As said previously, obtaining an exact solution for the density functions is non-trivial. This arises since, as explained in equation \ref{eq:additive_memory_noise_model}, we are adding both Gaussian and Laplacian noise onto a Uniform distribution in the case of the programmed sate, and adding Laplacian noise to a Gaussian distribution in the case of the erased state.
+
+To evaluate the overall probability density functions, given the individual PDF's of each noise source, requires using the convolution property:
+
+\begin{equation}
+f_{1+2+...+N}(x) = (f_1 \ast f_2 \ast .... \ast f_N)(x)
+\end{equation}
+That is, the probability density function resulting from the sum of independent random variables, is just the convolution of each random variable's own density function. In terms of the memory model, this means the overall density function representing the programmed state is the 3-way convolution of a Gaussian, Laplacian and Uniform distribution. For the erased state, it is the convolution between a Gaussian and Laplacian. 
+
+Performing such a convolution analytically 
 \section{The memory channel: Simulation \& Results}
 
 \section{Conclusions}

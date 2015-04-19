@@ -21,6 +21,6 @@
 \contentsline {section}{\numberline {8}Decoding for the memory model}{24}{section.8}
 \contentsline {subsection}{\numberline {8.1}Hard decision decoding: Variable boundary}{24}{subsection.8.1}
 \contentsline {subsection}{\numberline {8.2}Soft decision decoding: Gaussian approximations \& non-Gaussian functions}{26}{subsection.8.2}
-\contentsline {section}{\numberline {9}The memory channel: Simulation \& Results}{27}{section.9}
-\contentsline {section}{\numberline {10}Conclusions}{27}{section.10}
-\contentsline {section}{Appendix A: Random Number Generation}{27}{section*.10}
+\contentsline {section}{\numberline {9}The memory channel: Simulation \& Results}{28}{section.9}
+\contentsline {section}{\numberline {10}Conclusions}{28}{section.10}
+\contentsline {section}{Appendix A: Random Number Generation}{28}{section*.10}
