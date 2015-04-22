@@ -21,6 +21,9 @@
 \BOOKMARK [1][-]{section.8}{Decoding for the memory model}{}% 21
 \BOOKMARK [2][-]{subsection.8.1}{Hard decision decoding: Variable boundary}{section.8}% 22
 \BOOKMARK [2][-]{subsection.8.2}{Soft decision decoding: Gaussian approximations \046 non-Gaussian functions}{section.8}% 23
-\BOOKMARK [1][-]{section.9}{The memory channel: Simulation \046 Results}{}% 24
-\BOOKMARK [1][-]{section.10}{Conclusions}{}% 25
-\BOOKMARK [1][-]{section*.10}{Appendix A: Random Number Generation}{}% 26
+\BOOKMARK [3][-]{subsubsection.8.2.1}{Full convolution: Retention Noise + RTN}{subsection.8.2}% 24
+\BOOKMARK [3][-]{subsubsection.8.2.2}{Full convolution: Retention Noise only}{subsection.8.2}% 25
+\BOOKMARK [3][-]{subsubsection.8.2.3}{Matched Gaussians}{subsection.8.2}% 26
+\BOOKMARK [1][-]{section.9}{The memory channel: Simulation \046 Results}{}% 27
+\BOOKMARK [1][-]{section.10}{Conclusions}{}% 28
+\BOOKMARK [1][-]{section*.10}{Appendix A: Random Number Generation}{}% 29

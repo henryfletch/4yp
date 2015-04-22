@@ -31,6 +31,7 @@
 \usepackage{titlesec}
 \newcommand{\sectionbreak}{\clearpage}
 \DeclareMathOperator\arctanh{arctanh}
+\DeclareMathOperator\erf{erf}
 
 %% THIS BIT MAKES CLICKABLE PDF LINKS
 \usepackage{hyperref}
@@ -60,6 +61,15 @@ The general aim of this project is to produce a MATLAB simulation of how an erro
 \tableofcontents
 
 \section{Introduction}
+Flash Memory is a multi-billion dollar industry, and is almost certainly set to grow in the future. It is also a highly competitive one, with consumers eager for low cost yet high volume storage. Innovation in the industry therefore seeks to increase the capacity and performance of these drives whilst keeping manufacturing costs low. 
+
+An obvious way to achieve low cost per Gigabyte is to increase the number of stored bits per cell without increasing the number of physical memory cells. Indeed, most consumer high capacity solid-state drives use this approach, making use of MLC (Multi-level cell) or TLC technology where 2 or 3 bits of information are stored per cell. However this comes at the cost of reducing read/write speeds, as well as increasing the occurrence of bit-errors on the device. 
+
+Current generation flash memory therefore makes extensive use of Error-Correcting Code, to offset the increased error rate caused by densely packed cells. However, recent advances in error-correction capability elsewhere have yet to be implemented in consumer flash memory devices. This project therefore aims to investigate the use of the latest generation error-correcting codes in flash memory. 
+
+Previous papers [??,??,??] on this topic have investigated the use of more modern error-correcting codes, including a type known as Low Density Parity Check (LDPC) codes, and have shown performance improvements over existing coding schemes. In addition, these papers present a more accurate noise model for flash memory, that takes into account the program/erase nature of the memory cells. Previous work on LDPC codes is extensive [??,??,??], particularly by MacKay who rediscovered them. The decoding method for these codes, the Belief Propagation algorithm, also features in a large number of papers [??........], and in addition methods for simplifying this decoding method through the use of approximations [??,??,??].
+
+The majority of this project concerns the development of a MATLAB simulation, that includes both an error generation and error correction model. The flash memory error model, used to simulate the effects of noise and time-varying degradation in a memory cell, is mostly derived from existing work. So too are the methods for error correction, in the form of LDPC and the Belief Propagation algorithm. However, the novelty of this project is investigating how varying degrees of prior information provided to the decoder can alter error performance, through using approximations of the underlying noise assumptions. It also seeks to show the importance of modelling the noise correctly, since having an accurate noise model will result in superior system performance.
 
 \section{Overview of Linear Block Codes}
 
@@ -168,9 +178,10 @@ A specific DVB-S2 code, with $n = 64800$ and $r = 0.9$, has a total of $194,399$
 
 \subsection{Channel Capacity}
 
-Channel capacity stuff to go here
+Channel capacity overview here. (1 page)
 
 \section{Overview of Flash Memory Technology} 
+A fairly brief overview of the low-level transistor construction as well as the voltage levels to go here (1.5 pages)
 
 \section{Decoding of LDPC Codes} \label{decoding}
 Using syndrome lookup decoding as described in section \ref{3.1:definitions} would be nearly impossible for longer block lengths. There is a much better, iterative decoding method that can be used for any linear block code, and which is linear in block length. It is called the belief propagation algorithm (also known as the sum-product algorithm or the message passing algorithm). 
@@ -303,7 +314,7 @@ Equation \ref{eq:chkNode} is the check node update equation. $m_{ji}^{(l)}$ is t
 
 \subsection{Min-Sum approximation}
 
-Min sum to go in here
+Min sum to go here (0.5 pages)
 
 \section{The AWGN channel: Simulation \& Results}
 One of the most important noisy channels used in communications theory, and already mentioned previously, is the Additive White Gaussian Noise (AWGN) channel. Whilst this noise channel is not really applicable to model Flash Memory, which is the aim of this project, it is however a useful benchmarking tool to ensure that the MATLAB decoder is working correctly. It is also a good method of demonstrating the power of LDPC, soft decision decoding, and error-correcting codes generally. This section presents the work done in modelling the encoder, AWGN channel, and decoder, and compares the results to known data sets.
@@ -503,7 +514,7 @@ Simply obtaining the exact threshold voltage of the memory cell is not sufficien
 
 Equation \ref{eq:llr_memory}, which results from the earlier work in section \ref{section:LLR}, gives us the Log-Likelihood ratio that is required in order to perform soft decision decoding on the memory channel. It is clear that the necessary \textit{a priori} information in this case is the entire Probability Density Function for both the erased and programmed states. Once the PDF's are known, the voltage value for the cell can be inputted and the requisite LLR obtained.
 
-As said previously, obtaining an exact solution for the density functions is non-trivial. This arises since, as explained in equation \ref{eq:additive_memory_noise_model}, we are adding both Gaussian and Laplacian noise onto a Uniform distribution in the case of the programmed sate, and adding Laplacian noise to a Gaussian distribution in the case of the erased state.
+As said previously, obtaining an exact solution for the density functions is non-trivial. This arises since, as explained in equation \ref{eq:additive_memory_noise_model}, we are adding both Gaussian and Laplacian noise onto a Uniform distribution in the case of the programmed state, and adding Laplacian noise to a Gaussian distribution in the case of the erased state.
 
 To evaluate the overall probability density functions, given the individual PDF's of each noise source, requires using the convolution property:
 
@@ -512,7 +523,23 @@ f_{1+2+...+N}(x) = (f_1 \ast f_2 \ast .... \ast f_N)(x)
 \end{equation}
 That is, the probability density function resulting from the sum of independent random variables, is just the convolution of each random variable's own density function. In terms of the memory model, this means the overall density function representing the programmed state is the 3-way convolution of a Gaussian, Laplacian and Uniform distribution. For the erased state, it is the convolution between a Gaussian and Laplacian. 
 
-Performing such a convolution analytically 
+Performing such a convolution analytically, whilst possible, results in a function with a large number of terms. For example, the resultant PDF of the programmed state contains 6 exponential and 6 error ($\erf$) functions. Whilst using the full density function within the Log-Likelihood ratio gives the overall best performance, there may be ways to achieve similar performance by using a simpler approximation. In terms of the simulation, a simplified approximation would be able to run quicker in MATLAB, whilst in a real device, might be easier to implement. 
+
+\subsubsection{Full convolution: Retention Noise + RTN}
+The full convolution of the initial Uniform distribution with the retention noise and RTN density function, obtained from [Hachem ref], is shown below:
+\begin{equation}
+\text{(placeholder)}
+\end{equation}
+
+\subsubsection{Full convolution: Retention Noise only}
+The magnitude of the RTN generated is substantially smaller than the magnitude of the retention noise. It therefore seems reasonable to ignore the effect of the RTN and perform the convolution of just the uniform and Gaussian distributions for the programmed state. The substantially simplified density function is then:
+\begin{equation}
+\text{(placeholder)}
+\end{equation}
+
+\subsubsection{Matched Gaussians}
+1234
+
 \section{The memory channel: Simulation \& Results}
 
 \section{Conclusions}
