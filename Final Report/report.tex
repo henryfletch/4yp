@@ -22,6 +22,7 @@
 \usepackage{listings,xcolor}
 \usepackage[numbered,framed]{matlab-prettifier}
 \renewcommand{\lstlistingname}{Codebox}% Listing -> Codebox
+\usepackage{breqn}
 
 \newcommand\undermat[2]{%
   \makebox[0pt][l]{$\smash{\underbrace{\phantom{%
@@ -61,7 +62,7 @@ The general aim of this project is to produce a MATLAB simulation of how an erro
 \tableofcontents
 
 \section{Introduction}
-Flash Memory is a multi-billion dollar industry, and is almost certainly set to grow in the future. It is also a highly competitive one, with consumers eager for low cost yet high volume storage. Innovation in the industry therefore seeks to increase the capacity and performance of these drives whilst keeping manufacturing costs low. 
+[Disclaimer: Intro needs further work!] Flash Memory is a multi-billion dollar industry, and is almost certainly set to grow in the future. It is also a highly competitive one, with consumers eager for low cost yet high volume storage. Innovation in the industry therefore seeks to increase the capacity and performance of these drives whilst keeping manufacturing costs low. 
 
 An obvious way to achieve low cost per Gigabyte is to increase the number of stored bits per cell without increasing the number of physical memory cells. Indeed, most consumer high capacity solid-state drives use this approach, making use of MLC (Multi-level cell) or TLC technology where 2 or 3 bits of information are stored per cell. However this comes at the cost of reducing read/write speeds, as well as increasing the occurrence of bit-errors on the device. 
 
@@ -178,9 +179,9 @@ A specific DVB-S2 code, with $n = 64800$ and $r = 0.9$, has a total of $194,399$
 
 \subsection{Channel Capacity}
 
-Channel capacity overview here. (1 page)
+Channel capacity overview here. Will probably go before LDPC page(1 page)
 
-\section{Overview of Flash Memory Technology} 
+\section{Overview of Flash Memory Technology} \label{section:memtech}
 A fairly brief overview of the low-level transistor construction as well as the voltage levels to go here (1.5 pages)
 
 \section{Decoding of LDPC Codes} \label{decoding}
@@ -390,12 +391,12 @@ Longer block length codes generally achieve superior performance and greater 'cu
 \subsection{Conclusion}
 Simulating the AWGN channel, and then comparing the results to the known data published by MacKay, allows for some degree of verification of the MATLAB program. The AWGN channel is one of the common channels simulated when dealing with error correcting code, since it simulates the effect of random noise that often occurs in the environment. 
 
-One issue identified with the simulation program was the speed of the decoder. In the first version of the decoder program [?? Matlab appendix section], there were a substantial number of 'for' loops, which are generally slow in MATLAB. Subsequent versions of the decoder attempted to fix this by vectorising the code [?? Matlab appendix section 2], resulting in a ???x speed increase. However, even with these improvements, the decoder was still much slower compared to MATLAB's built-in LDPC decoder [?? matlab reference page]. In addition, freely available OpenCL accelerated decoders [?? openCL ref] can be used on a GPU (Graphics Processing Unit) which are even faster than MATLAB's implementation (See appendix [??] for the benchmark comparisons). In the subsequent sections simulating the memory model, the MATLAB built-in implementation of the LDPC decoder was used, allowing for substantially more blocks to be decoded in the same amount of time.
+One issue identified with the simulation program was the speed of the decoder. In the first version of the decoder program [?? Matlab appendix section], there were a substantial number of 'for' loops, which are generally slow in MATLAB. Subsequent versions of the decoder attempted to fix this by vectorising the code [?? Matlab appendix section 2], resulting in approximately a 4x speed increase. However, even with these improvements, the decoder was still much slower compared to MATLAB's built-in LDPC decoder [?? matlab reference page]. In addition, freely available OpenCL accelerated decoders [?? openCL ref] can be used on a GPU (Graphics Processing Unit) which are even faster than MATLAB's implementation (See appendix [??] for the benchmark comparisons). In the subsequent sections simulating the memory model, the MATLAB built-in implementation of the LDPC decoder was used, allowing for substantially more blocks to be decoded in the same amount of time.
 
 \section{Modelling a memory-specific noise channel}
 There are many similarities between modelling a communications system and flash memory. Both are binary channels, subject to some binary input, distortion by some noise source, and subsequent decoding. However, the major difference in flash memory is the storage of binary data in the device for a length of time, unlike a communications system where the data is 'in transit'. When a bit is stored to a memory cell, the noise effect is cumulative over the lifetime of the stored bit. Therefore, two major parameters in modelling flash memory are time, and the number of read/write (or Program/Erase) cycles each cell is subject to.
 
-As stated previously in section [??], it is the threshold voltage of each gate that defines the binary value of the memory cell. In this project, the flash memory is assumed to be of SLC design, that is 1 bit per cell. It is also assumed that a low gate threshold voltage corresponds to a binary 0, whilst a higher threshold voltage corresponds to a binary 1. 
+As stated previously in section \ref{section:memtech}, it is the threshold voltage of each gate that defines the binary value of the memory cell. In this project, the flash memory is assumed to be of SLC design, that is 1 bit per cell. It is also assumed that a low gate threshold voltage corresponds to a binary 0, whilst a higher threshold voltage corresponds to a binary 1. 
 
 The primary noise source, which is caused by repeated P/E cycling, can be split into two physical phenomena: Electron capture and emission events, which result in a random variation of the threshold voltage, and interface trap recovery and electron de-trapping, which gradually reduces the gate threshold voltage over time. The former is known as `Random Telegraph Noise' (RTN), whilst the latter is often called the `Retention Noise', since it sets a time limit on how long data can be stored in a cell until the threshold voltage becomes too low.
 
@@ -526,23 +527,25 @@ That is, the probability density function resulting from the sum of independent 
 Performing such a convolution analytically, whilst possible, results in a function with a large number of terms. For example, the resultant PDF of the programmed state contains 6 exponential and 6 error ($\erf$) functions. Whilst using the full density function within the Log-Likelihood ratio gives the overall best performance, there may be ways to achieve similar performance by using a simpler approximation. In terms of the simulation, a simplified approximation would be able to run quicker in MATLAB, whilst in a real device, might be easier to implement. 
 
 \subsubsection{Full convolution: Retention Noise + RTN}
-The full convolution of the initial Uniform distribution with the retention noise and RTN density function, obtained from [Hachem ref], is shown below:
-\begin{equation}
-\text{(placeholder)}
-\end{equation}
+The full convolution of the initial Uniform distribution with the retention noise and RTN density function, the result of which was obtained from [Hachem ref], is shown below:
+\begin{dmath}[label={eq:full_func}]
+f_{prog}(\Delta V_{T}=x) = \frac{1}{4\Delta V_{pp}}e^{\frac{^{\sigma_{r}^{2}}}{2\lambda^{2}}}\left[e^{-\frac{x-Vp-\Delta V_{pp}-\mu_{r}}{\lambda}}\mathbf{\cdot erfc}\left(\frac{\sigma_{r}}{\sqrt{2}\lambda}-\frac{x-Vp-\Delta V_{pp}-\mu_{r}}{\sqrt{2}\sigma_{r}}\right)-e^{\frac{x-Vp-\Delta V_{pp}-\mu_{r}}{\lambda}}\mathbf{\cdot erfc}\left(\frac{\sigma_{r}}{\sqrt{2}\lambda}+\frac{x-Vp-\Delta V_{pp}-\mu_{r}}{\sqrt{2}\sigma_{r}}\right)\right]- \frac{1}{4\Delta V_{pp}}e^{\frac{\sigma_{r}^{2}}{2\lambda^{2}}}\left[e^{-\frac{x-Vp-\mu_{r}}{\lambda}}\mathbf{\cdot erfc}\left(\frac{\sigma_{r}}{\sqrt{2}\lambda}-\frac{x-Vp-\mu_{r}}{\sqrt{2}\sigma_{r}}\right)-e^{\frac{x-Vp-\mu_{r}}{\lambda}}\mathbf{\cdot erfc}\left(\frac{\sigma_{r}}{\sqrt{2}\lambda}+\frac{x-Vp-\mu_{r}}{\sqrt{2}\sigma_{r}}\right)\right]+\frac{1}{2\Delta V_{pp}}\mathbf{\cdot erfc}\left(\frac{x-Vp-\Delta V_{pp}-\mu_{r}}{\sqrt{2}\sigma_{r}}\right)- \frac{1}{2\Delta V_{pp}}\mathbf{\cdot erfc}\left(\frac{x-Vp-\mu_{r}}{\sqrt{2}\sigma_{r}}\right)
+\end{dmath}
+Equation \ref{eq:full_func} is the probability density function of the cell threshold voltage $V_{T}$ for the programmed state. $Vp$ is the initial programmed voltage, $\Delta V_{pp}$ is the programming step voltage, $\mu_{r}$ and $\sigma_{r}$ are the retention noise parameters from equation \ref{eq:retention}, and $\lambda$ is the parameter describing the RTN.
 
 \subsubsection{Full convolution: Retention Noise only}
-The magnitude of the RTN generated is substantially smaller than the magnitude of the retention noise. It therefore seems reasonable to ignore the effect of the RTN and perform the convolution of just the uniform and Gaussian distributions for the programmed state. The substantially simplified density function is then:
+The magnitude of the RTN generated is substantially smaller than the magnitude of the retention noise. It therefore seems reasonable to ignore the effect of the RTN and perform the convolution of just the uniform and Gaussian distributions for the programmed state. The substantially simplified density function was then calculated:
 \begin{equation}
 \text{(placeholder)}
 \end{equation}
 
 \subsubsection{Matched Gaussians}
-1234
+Placeholder
 
 \section{The memory channel: Simulation \& Results}
-
+Placeholder
 \section{Conclusions}
+Placeholder
 
 \phantomsection
 \addcontentsline{toc}{section}{Appendix A: Random Number Generation}
@@ -564,5 +567,9 @@ RandStream.setDefaultStream(RandStream('mt19937ar','seed',seed));
 \end{lstlisting}
 
 The commands in codebox \ref{code:rng} were used to seed the random number generator every time a new MATLAB process was created. On UNIX machines, there is a system random number source \mbox{`/dev/random'}, which ``gathers environmental noise from device drivers and other sources into an entropy pool [and] from this entropy pool random numbers are created." The numbers generated by this process originate from physical random processes such as hardware noise, and so it is assumed that when calling the function on a different machine, a different random number will be generated every time. These random numbers are then used to seed the pseudo-random stream in MATLAB. 
+
+\phantomsection
+\addcontentsline{toc}{section}{Appendix B: MATLAB code}
+\section*{Appendix B: MATLAB code}
 
 \end{document}

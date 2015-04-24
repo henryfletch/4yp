@@ -33,7 +33,7 @@ H = dvbs2ldpc(Rc);
 % Rc = 3367/4095;
 
 % MC Simulation Runs
-mc_iters = 2500000;
+mc_iters = 1000000;
 l = 50;
 
 % Loop to go over all values of EbNo, as well as perform MC Simulation
@@ -43,7 +43,7 @@ hEnc = comm.LDPCEncoder(H);
 hDec = ldpcdec(H, 'cl\Kernels_sp.cl', 0.875);
 hError = comm.ErrorRate;
 
-for N = 38500
+for N = 35000:1000:45000
     fprintf('N = %6.2f',N);
     fprintf('\n');
     tic;
@@ -57,7 +57,7 @@ for N = 38500
     %Output Matrix
     I = [I;N,mean(errRatio),mc_iters];
     %Save to file
-    save('temp2.mat','I');
+    save('temp.mat','I');
 end
 hDec.delete();
 clear hdec;
