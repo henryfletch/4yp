@@ -23,6 +23,7 @@
 \usepackage[numbered,framed]{matlab-prettifier}
 \renewcommand{\lstlistingname}{Codebox}% Listing -> Codebox
 \usepackage{breqn}
+\usepackage{mathtools}
 
 \newcommand\undermat[2]{%
   \makebox[0pt][l]{$\smash{\underbrace{\phantom{%
@@ -519,14 +520,14 @@ As said previously, obtaining an exact solution for the density functions is non
 
 To evaluate the overall probability density functions, given the individual PDF's of each noise source, requires using the convolution property:
 
-\begin{equation}
+\begin{equation} \label{eq:convProperty}
 f_{1+2+...+N}(x) = (f_1 \ast f_2 \ast .... \ast f_N)(x)
 \end{equation}
 That is, the probability density function resulting from the sum of independent random variables, is just the convolution of each random variable's own density function. In terms of the memory model, this means the overall density function representing the programmed state is the 3-way convolution of a Gaussian, Laplacian and Uniform distribution. For the erased state, it is the convolution between a Gaussian and Laplacian. 
 
 Performing such a convolution analytically, whilst possible, results in a function with a large number of terms. For example, the resultant PDF of the programmed state contains 6 exponential and 6 error ($\erf$) functions. Whilst using the full density function within the Log-Likelihood ratio gives the overall best performance, there may be ways to achieve similar performance by using a simpler approximation. In terms of the simulation, a simplified approximation would be able to run quicker in MATLAB, whilst in a real device, might be easier to implement. 
 
-\subsubsection{Full convolution: Retention Noise + RTN}
+\subsubsection{Full convolution: Retention Noise + RTN} \label{section:fullFunc}
 The full convolution of the initial Uniform distribution with the retention noise and RTN density function, the result of which was obtained from [Hachem ref], is shown below:
 \begin{dmath}[label={eq:full_func}]
 f_{prog}(\Delta V_{T}=x) = \frac{1}{4\Delta V_{pp}}e^{\frac{^{\sigma_{r}^{2}}}{2\lambda^{2}}}\left[e^{-\frac{x-Vp-\Delta V_{pp}-\mu_{r}}{\lambda}}\mathbf{\cdot erfc}\left(\frac{\sigma_{r}}{\sqrt{2}\lambda}-\frac{x-Vp-\Delta V_{pp}-\mu_{r}}{\sqrt{2}\sigma_{r}}\right)-e^{\frac{x-Vp-\Delta V_{pp}-\mu_{r}}{\lambda}}\mathbf{\cdot erfc}\left(\frac{\sigma_{r}}{\sqrt{2}\lambda}+\frac{x-Vp-\Delta V_{pp}-\mu_{r}}{\sqrt{2}\sigma_{r}}\right)\right]- \frac{1}{4\Delta V_{pp}}e^{\frac{\sigma_{r}^{2}}{2\lambda^{2}}}\left[e^{-\frac{x-Vp-\mu_{r}}{\lambda}}\mathbf{\cdot erfc}\left(\frac{\sigma_{r}}{\sqrt{2}\lambda}-\frac{x-Vp-\mu_{r}}{\sqrt{2}\sigma_{r}}\right)-e^{\frac{x-Vp-\mu_{r}}{\lambda}}\mathbf{\cdot erfc}\left(\frac{\sigma_{r}}{\sqrt{2}\lambda}+\frac{x-Vp-\mu_{r}}{\sqrt{2}\sigma_{r}}\right)\right]+\frac{1}{2\Delta V_{pp}}\mathbf{\cdot erfc}\left(\frac{x-Vp-\Delta V_{pp}-\mu_{r}}{\sqrt{2}\sigma_{r}}\right)- \frac{1}{2\Delta V_{pp}}\mathbf{\cdot erfc}\left(\frac{x-Vp-\mu_{r}}{\sqrt{2}\sigma_{r}}\right)
@@ -534,13 +535,61 @@ f_{prog}(\Delta V_{T}=x) = \frac{1}{4\Delta V_{pp}}e^{\frac{^{\sigma_{r}^{2}}}{2
 Equation \ref{eq:full_func} is the probability density function of the cell threshold voltage $V_{T}$ for the programmed state. $Vp$ is the initial programmed voltage, $\Delta V_{pp}$ is the programming step voltage, $\mu_{r}$ and $\sigma_{r}$ are the retention noise parameters from equation \ref{eq:retention}, and $\lambda$ is the parameter describing the RTN.
 
 \subsubsection{Full convolution: Retention Noise only}
-The magnitude of the RTN generated is substantially smaller than the magnitude of the retention noise. It therefore seems reasonable to ignore the effect of the RTN and perform the convolution of just the uniform and Gaussian distributions for the programmed state. The substantially simplified density function was then calculated:
+The magnitude of the RTN generated is substantially smaller than the magnitude of the retention noise. It therefore seems reasonable to ignore the effect of the RTN and perform the convolution of just the uniform and Gaussian distributions for the programmed state.
+Starting with the definitions of both the retention noise and initial programmed state PDF's:
+
 \begin{equation}
-\text{(placeholder)}
+\text{Retention Noise: } Y_{retention} \sim \mathcal{N}(\mu_r,\sigma_r) = \dfrac{1}{\sigma_r\sqrt{2\pi}} \exp\left\{{-\dfrac{(x-\mu_r)^2}{2\sigma_r^2}}\right\}
 \end{equation}
+\begin{equation}
+\text{Initial State: } V_{p_0} \sim \mathcal{U}(a,b) = \begin{dcases}
+    \dfrac{1}{b-a},& \text{ for } x \in [a,b]\\
+    0,              & \text{otherwise}
+\end{dcases}
+\end{equation}
+The convolution property from equation \ref{eq:convProperty} can now be used to obtain the overall PDF:
+\begin{equation} \label{eq:conv1}
+\begin{aligned}
+V_{p_0}(x) \ast Y_{ret}(x) &= \int_{-\infty}^{\infty} V(\tau)Y(t-\tau)\,\mathrm{d}\tau \\
+&= \dfrac{1}{b-a} \int_{a}^{b} \dfrac{1}{\sqrt{2\pi\sigma_r^2}} \exp\left\{{-\dfrac{(t-\tau-\mu_r)^2}{2\sigma_r^2}}\right\}\mathrm{d}\tau
+\end{aligned}
+\end{equation}
+By comparing the necessary convolution in \ref{eq:conv1} to that of the Normal distribution's cumulative distribution function (equation \ref{eq:normcdf}), the convolution can now be calculated as in equation \ref{eq:conv2}:
+\begin{equation} \label{eq:normcdf}
+\Phi(x) = \dfrac{1}{\sqrt{2\pi}} \int_{-\infty}^x e^{-t^2/2} \, \mathrm{d}t
+\end{equation}
+\begin{equation} \label{eq:conv2}
+V_{p_0}(x) \ast Y_{ret}(x) = \dfrac{1}{b-a}\left[ \Phi\left(\dfrac{(x-a)-\mu_r}{\sigma_r}\right) - \Phi\left(\dfrac{(x-b)-\mu_r}{\sigma_r}\right)\right]
+\end{equation}
+This result shows that by adding Gaussian noise to a Uniform distribution, you obtain the difference between two normal CDF's, scaled by the Uniform width.
+
+\begin{figure}[h]
+\centering
+\includegraphics[scale=0.6]{retention_convolution}
+\caption{Comparison of the distributions for different values of N}
+\label{fig:retentionVsFull}
+\end{figure}
+Figure \ref{fig:retentionVsFull} shows that the convolution method, when excluding RTN, produces the correct shape of distribution for small N, but as N increases the difference between the distribution widens. This is because the RTN increases as N increases.
 
 \subsubsection{Matched Gaussians}
-Placeholder
+Another approach to obtain the distribution of the threshold voltage, is to use a reasonable approximation of the function, rather than trying to obtain it directly. Using a simplified approximation also turns out to be faster [Around 5x faster when generating the LLR's in MATLAB compared to the full function in section \ref{section:fullFunc}].
+
+An obvious choice would be to use a Gaussian. Whilst the distribution starts off as a Uniform distribution, adding noise causes it to quickly degrade into a gaussian-like shape. Since the memory noise model, as explained in equation \ref{eq:additive_memory_noise_model}, is addition of independent random variables, the mean and variance of each random variable can simply be added together to obtain the overall mean and variance of the distribution. These values can then be used to generate a 'Matched Gaussian', which will have the same mean and variance as the actual underlying function, but just with a slightly different shape. 
+\begin{equation} \label{eq:matchedGaussians}
+\begin{aligned}
+\mu_p &= \mu_{p_0} + \mu_{rtn} + \mu_{retention} = \dfrac{2 V_p + \Delta V_{pp}}{2} + 0 +\mu_r \\
+\sigma_p^2 &= \sigma^2_{p_0} + \sigma^2_{rtn} + \sigma^2_{retention} = \dfrac{\Delta V_{pp}^2}{12} + 2\lambda^2 + \sigma^2_{r}
+\end{aligned}
+\end{equation}
+Thus, the equations in \ref{eq:matchedGaussians} show that the overall mean is just the mean of the uniform distribution plus the mean of the retention noise $\mu_r$, since the RTN distribution has a mean of zero. The variance is just the sum of the Uniform, Laplacian and Gaussian noise variances.
+\begin{figure}[ht]
+\centering
+\includegraphics[scale=0.6]{matched_gaussian}
+\caption{Comparison of the distributions for different values of N}
+\label{fig:MMGaussianVsFull}
+\end{figure}
+
+Figure \ref{fig:MMGaussianVsFull} shows that using an approximation of the actual distribution can give, at least by inspection, very close results. Whilst the shape of the uniform distribution for small values of N is not successfully captured, for larger values of N the distributions appear to be a close match. 
 
 \section{The memory channel: Simulation \& Results}
 Placeholder

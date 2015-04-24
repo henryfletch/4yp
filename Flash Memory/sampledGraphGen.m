@@ -6,7 +6,7 @@ Y = [];
 %parfor iN = 21:45;
 
 %N = iN*1000;
-N = 100000;
+N = 20000;
 
 % System Parameters
 alpha = 5000; % 5000 p/e cycles per year
