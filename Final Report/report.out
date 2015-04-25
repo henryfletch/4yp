@@ -25,6 +25,8 @@
 \BOOKMARK [3][-]{subsubsection.8.2.2}{Full convolution: Retention Noise only}{subsection.8.2}% 25
 \BOOKMARK [3][-]{subsubsection.8.2.3}{Matched Gaussians}{subsection.8.2}% 26
 \BOOKMARK [1][-]{section.9}{The memory channel: Simulation \046 Results}{}% 27
-\BOOKMARK [1][-]{section.10}{Conclusions}{}% 28
-\BOOKMARK [1][-]{section*.12}{Appendix A: Random Number Generation}{}% 29
-\BOOKMARK [1][-]{section*.14}{Appendix B: MATLAB code}{}% 30
+\BOOKMARK [2][-]{subsection.9.1}{Simulation Model}{section.9}% 28
+\BOOKMARK [2][-]{subsection.9.2}{Simulation Results}{section.9}% 29
+\BOOKMARK [1][-]{section.10}{Conclusions}{}% 30
+\BOOKMARK [1][-]{section*.16}{Appendix A: Random Number Generation}{}% 31
+\BOOKMARK [1][-]{section*.18}{Appendix B: MATLAB code}{}% 32

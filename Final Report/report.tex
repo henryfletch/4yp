@@ -436,7 +436,7 @@ The second noise source, the retention noise, is modelled as a Gaussian, $Y_{ret
 \end{equation}
 In equation \ref{eq:retention}, $V_p$ is the initial voltage of the programmed state, $V_e$ is the (mean) voltage of the erased state, $t$ is the current memory retention time, and $t_0$ is an initial starting time. $K_{s,d,m}$ are all constants. The retention noise therefore has a power-law relationship with the P/E cycling number $N$, a logarithmic relationship with retention time, and is also dependent on the initial threshold voltages. Figure \ref{figure:ret_graph} shows the probability density function of the retention noise for different values of $N$, with the remaining variables fixed. Also note that since the mean ($\mu_r$) is always negative, the effect of the Retention noise is to always reduce the gate threshold voltage. As $N$ increases, the programmed state voltage will therefore reduce and get closer to the erased state voltage. This is perhaps the main source of bit error: the interference between the erased and programmed states. 
 
-\subsection{Channel Model}
+\subsection{Channel Model} \label{section:memory_channel_model}
 Both the RTN and retention noise are independent random variables. Therefore the threshold voltage of any given cell is simply the sum of the random variables. As explained previously in section [??], each cell is either a binary 0 or 1, with a corresponding threshold voltage distribution for each. Therefore in the ideal case each cell will have a single voltage value, either $V_{p_0}$ for a programmed cell or $V_{e_0}$ for an erased cell. After noise, the final threshold voltage of the cell is then
 
 \begin{equation} \label{eq:additive_memory_noise_model}
@@ -466,7 +466,7 @@ Figure \ref{fig:mem_channel_model} shows the block diagram of the memory channel
 
 Figure \ref{fig:mem_channel_distribution} shows the probability density functions obtained from the memory model in figure \ref{fig:mem_channel_model}. Note that the $x$ axes are the gate threshold voltages. Various values for $N$ are displayed as well as showing the initial programmed state (the uniform distribution) when $N=0$. As the number of P/E cycles increases, the programmed distribution shifts left and widens, and interferes with the erased state. It is now clear that a simple hard-decision decoder without any error correction would generate a substantial number of errors when, in this case, $N > 50,000$. The distributions overlap, which would lead to incorrectly decoded bits.
 
-\section{Decoding for the memory model}
+\section{Decoding for the memory model} \label{section:memoryDecoding}
 
 In section \ref{decoding}, two primary methods for error correction decoding were presented: Soft decision decoding and hard decision decoding. For the memory model, both types of decoding can be used, however with some substantial changes compared to the simplistic AWGN case.
 
@@ -592,7 +592,48 @@ Thus, the equations in \ref{eq:matchedGaussians} show that the overall mean is j
 Figure \ref{fig:MMGaussianVsFull} shows that using an approximation of the actual distribution can give, at least by inspection, very close results. Whilst the shape of the uniform distribution for small values of N is not successfully captured, for larger values of N the distributions appear to be a close match. 
 
 \section{The memory channel: Simulation \& Results}
-Placeholder
+\subsection{Simulation Model}
+The process for simulating the error correcting performance of the flash memory model is similar to the AWGN channel model that was used earlier. For the memory channel, a block of random binary data was generated, encoded to form an LDPC codeword, mapped to a cell threshold voltage, subject to some form of noise, detected and then finally decoded by the Belief Propagation algorithm to obtain the output data. By performing repeated trials of this process (Monte-Carlo simulation), for any given value of N, we can count the total number of bit errors over all simulated blocks, and obtain a bit-error rate (BER). 
+
+\begin{figure}[h]
+\centering
+\includegraphics[scale=0.85]{memory_channel_model}
+\caption{Memory simulation model}
+\label{fig:mem_simulation_model}
+\end{figure}
+
+This simulation model is shown in figure \ref{fig:mem_simulation_model}. The 'Memory Noise Model' block encapsulates the entire process described in section \ref{section:memory_channel_model}, which includes mapping the input data to a cell threshold voltage, and then applying noise to that voltage, remembering that binary 1's and 0's are handled differently.
+
+In this particular model, there are 2 independent variables that can be chosen: 'N', the number of program/erase cycles that the cell has undergone, and 't', the time in seconds that the data has been stored in that cell (the retention time). In addition, there are a number of initial conditions, which don't vary during the simulation. For the remainder of this project, 't' was fixed to 5 years, meaning that we are simulating the data written to the memory cell as having been stored there for 5 years. In initial testing, the variation of 't' had a substantially smaller effect on the overall bit-error rate of the system than varying 'N', and for simplicity that value was fixed. This is shown in figure \ref{fig:retention_time_graph}, where the uncoded (variable boundary hard decision method) bit-error rate of the memory cell is shown, and using a fixed 't' of 5 years has close results to using a 't' that varies as 'N' increases $(t = N/5000)$. Using a fixed value for 't' gives us a 'worst case scenario' of data undergoing a long retention time, even if this is unlikely in an actual scenario.
+\begin{figure}[h]
+\centering
+\includegraphics[scale=0.45]{retention_time_graph}
+\caption{Comparing the effect of fixed t against using a variable t dependent on N}
+\label{fig:retention_time_graph}
+\end{figure}
+
+\subsection{Simulation Results}
+\begin{figure}[h]
+\centering
+\includegraphics[scale=0.5]{codedBER_NCycles}
+\caption{Graph of bit-error rate vs N for different decoding and LLR schemes}
+\label{fig:memory_results_graph}
+\end{figure}
+\begin{figure}[h]
+\centering
+\includegraphics[scale=0.64]{cber_uber_memory}
+\caption{Graph of uncoded vs coded bit-error rate for soft-decision cases}
+\label{fig:memory_results_graph2}
+\end{figure}
+
+Monte-Carlo simulations were run on a remote cluster computer for each of the different decoding schemes explained in section \ref{section:memoryDecoding}. The results are shown in both figures \ref{fig:memory_results_graph} and \ref{fig:memory_results_graph2}.
+
+Figure \ref{fig:memory_results_graph} shows the bit-error rate against a given 'N', the number of cell program/erase cycles. The solid lines all represent soft-decision decoding, each using a different approach when forming the LLR that is fed to the decoder. The 'Static Gaussian', whilst not explicitly declared earlier, uses a Gaussian centered about $V_{p_0}$, the initial programmed voltage. It is static since it doesn't move as N increases. This was the first attempt at performing soft-decision decoding for the system, and is essentially similar to the method of obtaining the LLR's for the AWGN channel (2 static Gaussian distributions).
+
+The two matched Gaussians, one including the Random Telegraph Noise and one without, are the next best performing curves. It is clear that by adding the variance of the RTN to the Gaussian, it substantially improves performance of the decoder.
+
+Finally, the two functions obtained through the convolution of the various PDF's have the best overall performance. The green line, which is effectively making use of the entire function in order to generate the LLR's, is therefore the upper bound on the performance of this system. 
+
 \section{Conclusions}
 Placeholder
 

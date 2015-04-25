@@ -25,6 +25,8 @@
 \contentsline {subsubsection}{\numberline {8.2.2}Full convolution: Retention Noise only}{29}{subsubsection.8.2.2}
 \contentsline {subsubsection}{\numberline {8.2.3}Matched Gaussians}{31}{subsubsection.8.2.3}
 \contentsline {section}{\numberline {9}The memory channel: Simulation \& Results}{33}{section.9}
-\contentsline {section}{\numberline {10}Conclusions}{34}{section.10}
-\contentsline {section}{Appendix A: Random Number Generation}{34}{section*.12}
-\contentsline {section}{Appendix B: MATLAB code}{36}{section*.14}
+\contentsline {subsection}{\numberline {9.1}Simulation Model}{33}{subsection.9.1}
+\contentsline {subsection}{\numberline {9.2}Simulation Results}{34}{subsection.9.2}
+\contentsline {section}{\numberline {10}Conclusions}{36}{section.10}
+\contentsline {section}{Appendix A: Random Number Generation}{36}{section*.16}
+\contentsline {section}{Appendix B: MATLAB code}{38}{section*.18}
