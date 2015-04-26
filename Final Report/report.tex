@@ -1,6 +1,6 @@
 \documentclass[11pt]{article}
 \usepackage[left=20mm, right=20mm, top=20mm, bottom=20mm]{geometry} %this sets the page margins 
-\usepackage[backend=bibtex]{biblatex}
+\usepackage[backend=bibtex,sorting=none]{biblatex}
 \addbibresource{references.bib}
 \usepackage{amsmath}
 \usepackage{amsfonts}
@@ -47,15 +47,49 @@
     urlcolor=black
 }
 %%
-
-
 \author{Henry Fletcher}
-
 \title{Making Flash Memory Work}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{document}
+\begin{titlepage}
 
+\newcommand{\HRule}{\rule{\linewidth}{0.5mm}}
+
+\center
+ 
+%----------------------------------------------------------------------------------------
+%	HEADING SECTIONS
+\textsc{\LARGE University of Oxford}\\[1.5cm] 
+\textsc{\Large Honour School of Engineering Science (Part C)}\\[0.5cm]
+\textsc{\large 4\textsuperscript{th} Year Project Report}\\[0.5cm]
+%----------------------------------------------------------------------------------------
+%	TITLE SECTION
+\HRule \\[0.4cm]
+{ \huge \bfseries Making Flash Memory Work}\\[0.4cm] % Title of your document
+\HRule \\[1.5cm]
+%----------------------------------------------------------------------------------------
+%	AUTHOR SECTION
+\begin{minipage}{0.4\textwidth}
+\begin{flushleft} \large
+\emph{Author:}\\
+Henry \textsc{Fletcher} % Your name
+\end{flushleft}
+\end{minipage}
+~
+\begin{minipage}{0.4\textwidth}
+\begin{flushright} \large
+\emph{Supervisor:} \\
+Dr. Justin \textsc{Coon} % Supervisor's Name
+\end{flushright}
+\end{minipage}\\[4cm]
+
+{\large \today}\\[3cm]
+
+\vfill 
+
+\end{titlepage}
+\includepdf[scale=0.9]{authorship_dec.pdf}
 \section{Executive Summary}
 
 Modern flash memory is reliant on error-correcting code to ensure error-free operation. Current flash memory architectures often use linear block codes for this purpose (e.g. Reed-Solomon, Hamming or BCH codes). However, the recent rediscovery of LDPC (Low Density Parity Check) codes, which can achieve superior performance close to the Shannon Limit, has generated much interest in the NAND memory industry. These codes could be used to further improve error correction capability in flash memory, thus allowing for more densely packed memory cells and thus larger capacity drives.
@@ -71,13 +105,13 @@ An obvious way to achieve low cost per Gigabyte is to increase the number of sto
 
 Current generation flash memory therefore makes extensive use of Error-Correcting Code, to offset the increased error rate caused by densely packed cells. However, recent advances in error-correction capability elsewhere have yet to be implemented in consumer flash memory devices. This project therefore aims to investigate the use of the latest generation error-correcting codes in flash memory. 
 
-Previous papers [??,??,??] on this topic have investigated the use of more modern error-correcting codes, including a type known as Low Density Parity Check (LDPC) codes, and have shown performance improvements over existing coding schemes. In addition, these papers present a more accurate noise model for flash memory, that takes into account the program/erase nature of the memory cells. Previous work on LDPC codes is extensive [??,??,??], particularly by MacKay who rediscovered them. The decoding method for these codes, the Belief Propagation algorithm, also features in a large number of papers [??........], and in addition methods for simplifying this decoding method through the use of approximations [??,??,??].
+Previous papers \cite{dong2012estimating,DBLP:journals/corr/abs-1210-0149} on this topic have investigated the use of more modern error-correcting codes, including a type known as Low Density Parity Check (LDPC) codes, and have shown performance improvements over existing coding schemes. In addition, these papers present a more accurate noise model for flash memory, that takes into account the program/erase nature of the memory cells. Previous work on LDPC codes is extensive \cite{mncisit,gallager1962low}, particularly by MacKay who rediscovered them. The decoding method for these codes, the Belief Propagation algorithm, is also widely used \cite{davey1998low,chen2002near}, and in addition methods for simplifying this decoding method through the use of approximations \cite{zhao2005implementation,chen2005reduced,islam2011optimized}.
 
 The majority of this project concerns the development of a MATLAB simulation, that includes both an error generation and error correction model. The flash memory error model, used to simulate the effects of noise and time-varying degradation in a memory cell, is mostly derived from existing work. So too are the methods for error correction, in the form of LDPC and the Belief Propagation algorithm. However, the novelty of this project is investigating how varying degrees of prior information provided to the decoder can alter error performance, through using approximations of the underlying noise assumptions. It also seeks to show the importance of modelling the noise correctly, since having an accurate noise model will result in superior system performance.
 
 \section{Overview of Linear Block Codes}
 
-Linear block codes are one of the two main classes of forward error correction (FEC), with the other main type being convolutional coding. A linear block code essentially takes a block of binary data, and adds additional redundant data onto it. This block can then be transmitted over a noisy channel, and subsequently decoded at the receiver. The redundant bits in the block are used as parity check equations, which allows a linear block code to both detect and correct errors. 
+Linear block codes are one of the two main classes of forward error correction (FEC), with the other main type being convolutional coding. A linear block code essentially takes a block of binary data, and adds additional redundant data onto it. This block can then be transmitted over a noisy channel, and subsequently decoded at the receiver. The redundant bits in the block are used as parity check equations, which allows a linear block code to both detect and correct errors \cite{tse2005fundamentals,proakis2001digital,haykin2008communication}.
 
 \subsection{Definitions for Linear Block Codes} \label{3.1:definitions}
 All linear block codes can be described using a set of standard terms and symbols. For this project, all codes use a binary alphabet of $\{0,1\}$ and hence all operations are over this binary field. $n$ is the block length, the total size of the output codeword. $k$ is the message length, the size of the information vector prior to encoding. An $(n,k)$ error correcting \textit{code} $\mathcal{C}$, will produce a set of $2^k$ output \textit{codewords} $\mathbf{c}$. Hence, $\mathbf{c} \in \mathcal{C}$. 
@@ -124,7 +158,7 @@ Notice the identity matrix in the right portion of the generator matrix. This me
 
 \subsection{Hamming weight, distance, and error correction capability}
 
-An important metric when discussing error correcting codes is the concept of the Hamming weight. 
+An important metric when discussing error correcting codes is the concept of the Hamming weight \cite{coon15}. 
 For any codeword, the Hamming weight is defined as the total number of non-zero elements in a given codeword. 
 Another metric, the minimum weight ($w_{min}$), is simply the minimum value from the set of all Hamming weight's for a given code, excluding the all-zero case.
 
@@ -143,7 +177,7 @@ Message (2 bits) & Codeword (6 bits) & Hamming weight \\
 \end{center}
 For this code, the minimum weight ($w_{min}$) is 2, since that is the smallest value of the Hamming weight's excluding the all-zero case.
 
-Another metric used is the Hamming distance. The Hamming distance defines how `close' any two codewords are to each other. Codewords that are `far away' from each other are less likely to be decoded in error, and hence the Hamming distance determines how `good' a code is at error detection and correction. Formally, the Hamming distance is defined as the number of (binary) places that any 2 codewords differ. Analogous to the minimum weight, there is also a minimum distance ($d_{min}$), which is the minimum value from the set of all Hamming distances for a given code, excluding the trivial case of comparing a codeword to itself.
+Another metric used is the Hamming distance \cite{coon15}. The Hamming distance defines how `close' any two codewords are to each other. Codewords that are `far away' from each other are less likely to be decoded in error, and hence the Hamming distance determines how `good' a code is at error detection and correction. Formally, the Hamming distance is defined as the number of (binary) places that an-y 2 codewords differ. Analogous to the minimum weight, there is also a minimum distance ($d_{min}$), which is the minimum value from the set of all Hamming distances for a given code, excluding the trivial case of comparing a codeword to itself.
 
 An important result arises because of the use of binary arithmetic, in that the minimum Hamming weight is in fact equal to the minimum Hamming distance:
 \begin{equation}
@@ -168,17 +202,17 @@ e_{correctable} = \dfrac{w_{min} - 1}{2}
 \end{equation}
 
 \subsection{Low Density Parity Check codes}
-A particular class of codes, known as ``Low Density Parity Check" (LDPC) codes, are of particular interest and relevance to this project. LDPC codes are generally considered to be some of the best performing linear block codes available, in terms of error performance, with some codes getting within a fraction of the Shannon Limit. Additionally, LDPC codes have no patent and hence no licensing costs, making them attractive for real world use.(??!).
+A particular class of codes, known as ``Low Density Parity Check" (LDPC) codes, are of particular interest and relevance to this project. LDPC codes are generally considered to be some of the best performing linear block codes available, in terms of error performance, with some codes getting within a fraction of the Shannon Limit. Additionally, LDPC codes have no patent and hence no licensing costs, making them attractive for real world use.
 
-LDPC codes were originally discovered by R.G. Gallager in 1962. Then known as ``Gallager codes", they were defined by a sparse parity check matrix with low column weights. Gallager also worked on a probabilty based decoding method for these codes, which proved to have promising performance. However for various reasons, these codes were essentially lost in favour of other more practical codes. It is possible that the decoding complexity for LDPC was, at the time, too great for the computational power then available.\footnote{Personal opinion. Even today, decoding LDPC using near-optimum belief propagation on a PC is computationally expensive, whilst on dedicated ASIC hardware consumes large amounts of power.}
+LDPC codes were originally discovered by R.G. Gallager in 1962 \cite{gallager1962low}. Then known as ``Gallager codes", they were defined by a sparse parity check matrix with low column weights. Gallager also worked on a probabilty based decoding method for these codes, which proved to have promising performance. However for various reasons, these codes were essentially lost in favour of other more practical codes. It is possible that the decoding complexity for LDPC was, at the time, too great for the computational power then available.\footnote{Personal opinion. Even today, decoding LDPC using near-optimum belief propagation on a PC is computationally expensive, whilst on dedicated ASIC hardware consumes large amounts of power.}
 
-Modern LDPC codes were re-discovered by J.C. MacKay in 1996. MacKay demonstrated that LDPC codes could be decoded using probabilistic methods, even beyond the bound set by their minimum distance. Today, LDPC codes are seeing a resurgence in various applications. Most notably in the DVB-S2 standards for digital HD satellite broadcast, 10GBase-T Ethernet and as optional `add-ons' to the 802.11n/ac wi-fi standards.
+Modern LDPC codes were re-discovered by J.C. MacKay in 1996 \cite{mncisit}. MacKay demonstrated that LDPC codes could be decoded using probabilistic methods, even beyond the bound set by their minimum distance. Today, LDPC codes are seeing a resurgence in various applications. Most notably in the DVB-S2 standards for digital HD satellite broadcast, 10GBase-T Ethernet and as optional `add-ons' to the 802.11n/ac wi-fi standards.
 
-Disadvantages of LDPC include the fact that there still exists a small (often in the region of $10^{-6}$ to $10^{-9}$) probability of error after decoding, known as the `error-floor'. This can be avoided by using a second high rate, `inner' Error Correcting Code such as BCH or Reed-Solomon to remove the last few bit errors. Other issues include decoding complexity. Whilst decoding time is linear with block length, decoding using the belief propagation algorithm is still problematic, especially for low power mobile devices. Most applications of LDPC so far have been on mains-powered equipment.
+Disadvantages of LDPC include the fact that there still exists a small (often in the region of $10^{-6}$ to $10^{-9}$) probability of error after decoding, known as the `error-floor' \cite{richardson2003error}. This can be avoided by using a second high rate, `inner' Error Correcting Code such as BCH or Reed-Solomon to remove the last few bit errors. Other issues include decoding complexity. Whilst decoding time is linear with block length, decoding using the belief propagation algorithm is still problematic, especially for low power mobile devices. Most applications of LDPC so far have been on mains-powered equipment.
 
 
 \textbf{Example:}
-A specific DVB-S2 code, with $n = 64800$ and $r = 0.9$, has a total of $194,399$ non-zero elements in it's parity check matrix $\mathbf{H}$. However, the non-zero elements account for just 0.04\% of the total matrix: The vast majority of $\mathbf{H}$ is empty. It is therefore easy to see why they are called ``Low Density". In this project, this specific high-rate code is used extensively, especially when modelling the memory-specific case in section ?????????.
+A specific DVB-S2 code, with $n = 64800$ and $r = 0.9$, has a total of $194,399$ non-zero elements in it's parity check matrix $\mathbf{H}$. However, the non-zero elements account for just 0.04\% of the total matrix: The vast majority of $\mathbf{H}$ is empty. It is therefore easy to see why they are called ``Low Density". In this project, this specific high-rate code is used extensively, especially when modelling the memory-specific case in section \ref{section:memory}.
 
 \subsection{Channel Capacity}
 
@@ -206,7 +240,7 @@ With hard decision decoding, the obvious boundary would be $x = 0$, half way bet
 Soft decision decoding seeks to improve on hard decision decoding, by making use of the actual received voltage value, rather than discarding it. The messages are now the conditional \textit{probabilites} of being a 1 or 0, instead of being just binary values. This allows the error correction decoder to know the degree of certainty that the message sent was a 1 or a 0.
 
 \subsection{Hard decision decoding}
-The message passing algorithm can be best understood with hard decision decoding. As an example, eq \ref{8,4 code} shows the parity check matrix $\mathbf{H}$ of an (8,4) code. This code can also be displayed, as in figure \ref{figure:tanner graph}, as a visual graph representation known as a tanner graph. [Reference: LDPC Leiner tutorial]
+The message passing algorithm can be best understood with hard decision decoding. As an example, eq \ref{8,4 code} shows the parity check matrix $\mathbf{H}$ of an (8,4) code. This code can also be displayed, as in figure \ref{figure:tanner graph}, as a visual graph representation known as a tanner graph. \cite{leiner2005ldpc}
 
 \begin{equation} \label{8,4 code} 
 \mathbf{H} = 
@@ -227,7 +261,7 @@ The message passing algorithm can be best understood with hard decision decoding
 \label{figure:tanner graph}
 \end{figure}
 
-The tanner graph is a bipartite graph with 2 types of node: Check nodes and Message nodes. The check nodes represent the $(n-k)$ parity check equations, whilst the message nodes represent the $n$ codeword bits. It is directly related to $\mathbf{H}$: Check node $f_j$ connects to message node $c_i$ if element $h_{ji}$ is $1$. Using the tanner graph, the hard decision decoding algorithm can now be explained as follows:
+The tanner graph is a bipartite graph with 2 types of node: Check nodes and Message nodes. The check nodes represent the $(n-k)$ parity check equations, whilst the message nodes represent the $n$ codeword bits. It is directly related to $\mathbf{H}$: Check node $f_j$ connects to message node $c_i$ if element $h_{ji}$ is $1$. Using the tanner graph, the hard decision decoding algorithm can now be explained as follows \cite{ldpc-tutorial1}:
 \begin{enumerate}
 \item All message nodes $c_i$, having been initialised to the received codeword $y$, send their value to their connected check nodes $f_j$.
 \item Each check node $f_j$ calculates a separate reply back to each message node $c_i$, with the binary value that it believes the message node should be. The parity check equation at each check node must satisfy $\lvert \sum f_j \rvert_{mod2} = 0$. From the example, check node $f_0$ receives values from $c_{1,3,4,7}$. When sending it's reply back to variable node $c_1$, it uses the values from nodes 3, 4 \& 7 along with the parity check constraint, to calculate the outbound message. Note that it does not use the information received from $c_1$ to send a reply back to $c_1$. This process continues: At each check node, a separate reply is calculated back to each connected message node.
@@ -251,13 +285,13 @@ The tanner graph is a bipartite graph with 2 types of node: Check nodes and Mess
 \subsection{The Log-likelihood ratio} \label{section:LLR}
 Whilst hard decision decoding is a good way to demonstrate how the iterative message passing algorithm works, soft decision decoding yields substantially better error correction performance, and is therefore the main method used in decoding LDPC.
 
-In soft decision decoding, the message nodes no longer represent binary 1's or 0's, but instead can take a continuous range of probability values. These probability values are initially calculated using two sources of information: The received voltage value of each bit, and the underlying probability distribution of the received bit. Before being able to describe the soft decision decoding algorithm, this information needs to be formed into a useful metric: the \textit{Log-likelihood ratio}, [Reference: LLR computation.pdf]
+In soft decision decoding, the message nodes no longer represent binary 1's or 0's, but instead can take a continuous range of probability values. These probability values are initially calculated using two sources of information: The received voltage value of each bit, and the underlying probability distribution of the received bit. Before being able to describe the soft decision decoding algorithm, this information needs to be formed into a useful metric: the \textit{Log-likelihood ratio}.
 
 \begin{equation} \label{eq:LLR}
 \mathcal{L}(c|y) = log_e \left[ \dfrac{f(c=+1|y)}{f(c=-1|y)} \right]
 \end{equation}
 
-\noindent The term $\mathcal{L}(c|y)$ is the likelihood of $c$ being transmitted given that $y$ was received. The log-ratio is able to tell us if $c=+1$ or $c=-1$ was the most likely transmitted symbol, given the received value $y$. A positive LLR indicates it is more likely that $c=+1$ was transmitted, and a negative LLR that $c=-1$ was transmitted. Additionally, the LLR has a range of $-\infty$ to $+\infty$, which provides the degree of certainty of a given symbol.
+\noindent The term $\mathcal{L}(c|y)$ \cite{cho2012analysis} is the likelihood of $c$ being transmitted given that $y$ was received. The log-ratio is able to tell us if $c=+1$ or $c=-1$ was the most likely transmitted symbol, given the received value $y$. A positive LLR indicates it is more likely that $c=+1$ was transmitted, and a negative LLR that $c=-1$ was transmitted. Additionally, the LLR has a range of $-\infty$ to $+\infty$, which provides the degree of certainty of a given symbol.
 
 To make use of the LLR, it is necessary to manipulate it into a more useful form. Using Bayes' rule\footnote{$P(A|B) = \dfrac{P(B|A) P(A)}{P(B)}$}, and the assumption that the transmitted bits are equiprobable\footnote{i.e. $f(c=+1) = f(c=-1)$},
 
@@ -273,7 +307,7 @@ To make use of the LLR, it is necessary to manipulate it into a more useful form
 
 \noindent The LLR can now be calculated for each received value of $y$. Note that it is necessary to have the underlying density functions of the received symbols. By inserting the received value $y$ into each PDF, you obtain a numerical probability of $y$ representing either +1 or -1. The ratio of these 2 probabilities then gives us the likelihood ratio.
 
-The LLR method applies in general to all noisy channels, that is, the probability density functions can take any form. However when dealing with the AWGN channel, converting from a received symbol amplitude $y$ into the LLR is much simpler, since the probability density function in both cases is a gaussian,
+The LLR method applies in general to all noisy channels, that is, the probability density functions can take any form. However when dealing with the AWGN channel, converting from a received symbol amplitude $y$ into the LLR is much simpler, since the probability density function in both cases is a gaussian, \cite{cho2012analysis},
 
 \begin{equation} \label{eq:LLR_awgn}
 \begin{aligned}
@@ -292,7 +326,7 @@ The LLR method applies in general to all noisy channels, that is, the probabilit
 \subsection{Soft decision decoding}
 The Belief Propagation algorithm for soft decision decoding follows a similar process to that of hard decision decoding. Messages are passed between check and variable nodes defined by the tanner graph. The main difference is what happens at each of the nodes, since now the messages are LLR's rather than binary bits. 
 
-[Papers such as ??, ?? and ??] have all proved the set of equations that are used at both the message nodes and check nodes. The belief propagation algorithm can be distilled into just 2 equations: The message node update equation, and the check node update equation. The reason why it is often called the 'Sum-Product' algorithm, is since the message node update equation involves summing the LLR's, and the check node update equation involves taking their product.
+\cite{ldpc-tutorial1,mncisit,gallager1962low} have all proved the set of equations that are used at both the message nodes and check nodes. The belief propagation algorithm can be distilled into just 2 equations: The message node update equation, and the check node update equation. The reason why it is often called the 'Sum-Product' algorithm, is since the message node update equation involves summing the LLR's, and the check node update equation involves taking their product.
 
 \begin{equation} \label{eq:msgNode}
 m_{ij}^{(l)} = L_i+\sum\limits_{j'\in C_i \ne j}m_{j'i}^{(l-1)}
@@ -321,7 +355,7 @@ Equation \ref{eq:chkNode} is the check node update equation. $m_{ji}^{(l)}$ is t
 Min sum to go here (0.5 pages)
 
 \section{The AWGN channel: Simulation \& Results}
-One of the most important noisy channels used in communications theory, and already mentioned previously, is the Additive White Gaussian Noise (AWGN) channel. Whilst this noise channel is not really applicable to model Flash Memory, which is the aim of this project, it is however a useful benchmarking tool to ensure that the MATLAB decoder is working correctly. It is also a good method of demonstrating the power of LDPC, soft decision decoding, and error-correcting codes generally. This section presents the work done in modelling the encoder, AWGN channel, and decoder, and compares the results to known data sets.
+One of the most important noisy channels used in communications theory, and already mentioned previously, is the Additive White Gaussian Noise (AWGN) channel \cite{johnson2009iterative,tse2005fundamentals,proakis2001digital,haykin2008communication}. Whilst this noise channel is not really applicable to model Flash Memory, which is the aim of this project, it is however a useful benchmarking tool to ensure that the MATLAB decoder is working correctly. It is also a good method of demonstrating the power of LDPC, soft decision decoding, and error-correcting codes generally. This section presents the work done in modelling the encoder, AWGN channel, and decoder, and compares the results to known data sets.
 
 \subsection{Simulation model}
 \begin{figure}[h]
@@ -340,7 +374,7 @@ One of the most important noisy channels used in communications theory, and alre
 \item Finally, the channel decoder performs error correction using the Belief Propagation algorithm, and outputs the corrected codeword (Note: The encoded message can be extracted from the codeword if a systematic generator matrix was used).
 \end{itemize}
 
-To simulate the error correction performance of this system, and compare it to other results, there needs to be a standardised quantity to describe the error rate and the channel noise. Whilst the noise variance is one such quantity, it doesn't take into account the relative difference between signal power and noise power. A far more useful metric would be Signal-to-noise ratio (SNR), or more specifically in this case $\dfrac{E_b}{N_0}$ (energy per bit/noise power). Like SNR, this is usually given in decibels\footnote{For the conversion calculations, $\dfrac{E_b}{N_0}$ must be a linear, not logarithmic, value. i.e: $\dfrac{E_b}{N_0}(\text{dB}) = 10\log_{10}\left[\dfrac{E_b}{N_0}(\text{lin})\right]$}. 
+To simulate the error correction performance of this system \cite{gilley2003bit}, and compare it to other results, there needs to be a standardised quantity to describe the error rate and the channel noise. Whilst the noise variance is one such quantity, it doesn't take into account the relative difference between signal power and noise power. A far more useful metric would be Signal-to-noise ratio (SNR), or more specifically in this case $\dfrac{E_b}{N_0}$ (energy per bit/noise power). Like SNR, this is usually given in decibels\footnote{For the conversion calculations, $\dfrac{E_b}{N_0}$ must be a linear, not logarithmic, value. i.e: $\dfrac{E_b}{N_0}(\text{dB}) = 10\log_{10}\left[\dfrac{E_b}{N_0}(\text{lin})\right]$}. 
 \vspace{3mm} \\
 \noindent
 Converting between $\sigma^2$ and $\dfrac{E_b}{N_0}$ is relatively trivial:
@@ -394,20 +428,20 @@ Longer block length codes generally achieve superior performance and greater 'cu
 \subsection{Conclusion}
 Simulating the AWGN channel, and then comparing the results to the known data published by MacKay, allows for some degree of verification of the MATLAB program. The AWGN channel is one of the common channels simulated when dealing with error correcting code, since it simulates the effect of random noise that often occurs in the environment. 
 
-One issue identified with the simulation program was the speed of the decoder. In the first version of the decoder program [?? Matlab appendix section], there were a substantial number of 'for' loops, which are generally slow in MATLAB. Subsequent versions of the decoder attempted to fix this by vectorising the code [?? Matlab appendix section 2], resulting in approximately a 4x speed increase. However, even with these improvements, the decoder was still much slower compared to MATLAB's built-in LDPC decoder [?? matlab reference page]. In addition, freely available OpenCL accelerated decoders [?? openCL ref] can be used on a GPU (Graphics Processing Unit) which are even faster than MATLAB's implementation (See appendix [??] for the benchmark comparisons). In the subsequent sections simulating the memory model, the MATLAB built-in implementation of the LDPC decoder was used, allowing for substantially more blocks to be decoded in the same amount of time.
+One issue identified with the simulation program was the speed of the decoder. In the first version of the decoder program [?? Matlab appendix section], there were a substantial number of 'for' loops, which are generally slow in MATLAB. Subsequent versions of the decoder attempted to fix this by vectorising the code [?? Matlab appendix section 2], resulting in approximately a 4x speed increase. However, even with these improvements, the decoder was still much slower compared to MATLAB's built-in LDPC decoder \cite{matlab-ldpc}. In addition, freely available OpenCL accelerated decoders \cite{openCL} can be used on a GPU (Graphics Processing Unit) which are even faster than MATLAB's implementation (See appendix [??] for the benchmark comparisons). In the subsequent sections simulating the memory model, the MATLAB built-in implementation of the LDPC decoder was used, allowing for substantially more blocks to be decoded in the same amount of time.
 
-\section{Modelling a memory-specific noise channel}
+\section{Modelling a memory-specific noise channel} \label{section:memory}
 There are many similarities between modelling a communications system and flash memory. Both are binary channels, subject to some binary input, distortion by some noise source, and subsequent decoding. However, the major difference in flash memory is the storage of binary data in the device for a length of time, unlike a communications system where the data is 'in transit'. When a bit is stored to a memory cell, the noise effect is cumulative over the lifetime of the stored bit. Therefore, two major parameters in modelling flash memory are time, and the number of read/write (or Program/Erase) cycles each cell is subject to.
 
 As stated previously in section \ref{section:memtech}, it is the threshold voltage of each gate that defines the binary value of the memory cell. In this project, the flash memory is assumed to be of SLC design, that is 1 bit per cell. It is also assumed that a low gate threshold voltage corresponds to a binary 0, whilst a higher threshold voltage corresponds to a binary 1. 
 
-The primary noise source, which is caused by repeated P/E cycling, can be split into two physical phenomena: Electron capture and emission events, which result in a random variation of the threshold voltage, and interface trap recovery and electron de-trapping, which gradually reduces the gate threshold voltage over time. The former is known as `Random Telegraph Noise' (RTN), whilst the latter is often called the `Retention Noise', since it sets a time limit on how long data can be stored in a cell until the threshold voltage becomes too low.
+The primary noise source, which is caused by repeated P/E cycling, can be split into two physical phenomena \cite{dong2012estimating}: Electron capture and emission events, which result in a random variation of the threshold voltage, and interface trap recovery and electron de-trapping, which gradually reduces the gate threshold voltage over time. The former is known as `Random Telegraph Noise' (RTN), whilst the latter is often called the `Retention Noise', since it sets a time limit on how long data can be stored in a cell until the threshold voltage becomes too low.
 
 Another noise source, known as `Cell-to-cell interference', which as the name implies is the result of neighbouring memory cells interfering with each other. This dependence between neighbouring cells adds additional complexity when modelling the system, since it is no longer possible to model one cell at a time. As a result, it was decided for this project not to include this noise source, instead focusing on an individual memory cell.
 
 \subsection{Description of Noise Sources}
 
-The first noise source in the memory channel, the random telegraph noise (RTN), can be modelled as a Laplacian distribution, $Y_{rtn} \sim \mathcal{L}(\lambda_{rtn})$, whose probability density function is
+The first noise source in the memory channel, the random telegraph noise (RTN), can be modelled as a Laplacian distribution, $Y_{rtn} \sim \mathcal{L}(\lambda_{rtn})$, whose probability density function is \cite{dong2012estimating}:
 \begin{equation} \label{eq:RTN}
 p_{rtn}(x) = \dfrac{1}{2\lambda_{rtn}}e^{-\lvert x \rvert / \lambda_{rtn}}
 \end{equation}
@@ -429,7 +463,7 @@ In equation \ref{eq:RTN}, $x$ is the value of the voltage fluctuation, and $\lam
 \endminipage
 \end{figure}
 
-The second noise source, the retention noise, is modelled as a Gaussian, $Y_{retention} \sim \mathcal{N}(\mu_r,\sigma_r^2)$, with the mean and variance defined as
+The second noise source, the retention noise, is modelled as a Gaussian, $Y_{retention} \sim \mathcal{N}(\mu_r,\sigma_r^2)$, with the mean and variance defined as \cite{dong2012estimating}:
 \begin{equation} \label{eq:retention}
 \begin{aligned}
 \mu_r &= -K_sK_d(V_p-V_e)N^{0.5}\ln\left(1+\dfrac{t}{t_0}\right)\\
@@ -439,7 +473,7 @@ The second noise source, the retention noise, is modelled as a Gaussian, $Y_{ret
 In equation \ref{eq:retention}, $V_p$ is the initial voltage of the programmed state, $V_e$ is the (mean) voltage of the erased state, $t$ is the current memory retention time, and $t_0$ is an initial starting time. $K_{s,d,m}$ are all constants. The retention noise therefore has a power-law relationship with the P/E cycling number $N$, a logarithmic relationship with retention time, and is also dependent on the initial threshold voltages. Figure \ref{figure:ret_graph} shows the probability density function of the retention noise for different values of $N$, with the remaining variables fixed. Also note that since the mean ($\mu_r$) is always negative, the effect of the Retention noise is to always reduce the gate threshold voltage. As $N$ increases, the programmed state voltage will therefore reduce and get closer to the erased state voltage. This is perhaps the main source of bit error: the interference between the erased and programmed states. 
 
 \subsection{Channel Model} \label{section:memory_channel_model}
-Both the RTN and retention noise are independent random variables. Therefore the threshold voltage of any given cell is simply the sum of the random variables. As explained previously in section [??], each cell is either a binary 0 or 1, with a corresponding threshold voltage distribution for each. Therefore in the ideal case each cell will have a single voltage value, either $V_{p_0}$ for a programmed cell or $V_{e_0}$ for an erased cell. After noise, the final threshold voltage of the cell is then
+Both the RTN and retention noise are independent random variables. Therefore the threshold voltage of any given cell is simply the sum of the random variables. As explained previously in section \ref{section:memtech}, each cell is either a binary 0 or 1, with a corresponding threshold voltage distribution for each. Therefore in the ideal case each cell will have a single voltage value, either $V_{p_0}$ for a programmed cell or $V_{e_0}$ for an erased cell. After noise, the final threshold voltage of the cell is then
 
 \begin{equation} \label{eq:additive_memory_noise_model}
 \begin{aligned}
@@ -530,7 +564,7 @@ That is, the probability density function resulting from the sum of independent 
 Performing such a convolution analytically, whilst possible, results in a function with a large number of terms. For example, the resultant PDF of the programmed state contains 6 exponential and 6 error ($\erf$) functions. Whilst using the full density function within the Log-Likelihood ratio gives the overall best performance, there may be ways to achieve similar performance by using a simpler approximation. In terms of the simulation, a simplified approximation would be able to run quicker in MATLAB, whilst in a real device, might be easier to implement. 
 
 \subsubsection{Full convolution: Retention Noise + RTN} \label{section:fullFunc}
-The full convolution of the initial Uniform distribution with the retention noise and RTN density function, the result of which was obtained from [Hachem ref], is shown below:
+The full convolution of the initial Uniform distribution with the retention noise and RTN density function, the result of which was obtained from \cite{hachem}, is shown below:
 \begin{dmath}[label={eq:full_func}]
 f_{prog}(\Delta V_{T}=x) = \frac{1}{4\Delta V_{pp}}e^{\frac{^{\sigma_{r}^{2}}}{2\lambda^{2}}}\left[e^{-\frac{x-Vp-\Delta V_{pp}-\mu_{r}}{\lambda}}\mathbf{\cdot erfc}\left(\frac{\sigma_{r}}{\sqrt{2}\lambda}-\frac{x-Vp-\Delta V_{pp}-\mu_{r}}{\sqrt{2}\sigma_{r}}\right)-e^{\frac{x-Vp-\Delta V_{pp}-\mu_{r}}{\lambda}}\mathbf{\cdot erfc}\left(\frac{\sigma_{r}}{\sqrt{2}\lambda}+\frac{x-Vp-\Delta V_{pp}-\mu_{r}}{\sqrt{2}\sigma_{r}}\right)\right]- \frac{1}{4\Delta V_{pp}}e^{\frac{\sigma_{r}^{2}}{2\lambda^{2}}}\left[e^{-\frac{x-Vp-\mu_{r}}{\lambda}}\mathbf{\cdot erfc}\left(\frac{\sigma_{r}}{\sqrt{2}\lambda}-\frac{x-Vp-\mu_{r}}{\sqrt{2}\sigma_{r}}\right)-e^{\frac{x-Vp-\mu_{r}}{\lambda}}\mathbf{\cdot erfc}\left(\frac{\sigma_{r}}{\sqrt{2}\lambda}+\frac{x-Vp-\mu_{r}}{\sqrt{2}\sigma_{r}}\right)\right]+\frac{1}{2\Delta V_{pp}}\mathbf{\cdot erfc}\left(\frac{x-Vp-\Delta V_{pp}-\mu_{r}}{\sqrt{2}\sigma_{r}}\right)- \frac{1}{2\Delta V_{pp}}\mathbf{\cdot erfc}\left(\frac{x-Vp-\mu_{r}}{\sqrt{2}\sigma_{r}}\right)
 \end{dmath}

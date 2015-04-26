@@ -16,6 +16,541 @@
   {}
 \endgroup
 
+\entry{dong2012estimating}{article}{}
+  \name{author}{5}{}{%
+    {{}%
+     {Dong}{D.}%
+     {Guiqiang}{G.}%
+     {}{}%
+     {}{}}%
+    {{}%
+     {Pan}{P.}%
+     {Yangyang}{Y.}%
+     {}{}%
+     {}{}}%
+    {{}%
+     {Xie}{X.}%
+     {Ningde}{N.}%
+     {}{}%
+     {}{}}%
+    {{}%
+     {Varanasi}{V.}%
+     {Chandra}{C.}%
+     {}{}%
+     {}{}}%
+    {{}%
+     {Zhang}{Z.}%
+     {Tong}{T.}%
+     {}{}%
+     {}{}}%
+  }
+  \list{publisher}{1}{%
+    {IEEE}%
+  }
+  \strng{namehash}{DG+1}
+  \strng{fullhash}{DGPYXNVCZT1}
+  \field{number}{9}
+  \field{pages}{1705\bibrangedash 1714}
+  \field{title}{Estimating information-theoretical NAND flash memory storage
+  capacity and its implication to memory system design space exploration}
+  \field{volume}{20}
+  \field{journaltitle}{Very Large Scale Integration (VLSI) Systems, IEEE
+  Transactions on}
+  \field{year}{2012}
+\endentry
+
+\entry{DBLP:journals/corr/abs-1210-0149}{article}{}
+  \name{author}{6}{}{%
+    {{}%
+     {Wang}{W.}%
+     {Jiadong}{J.}%
+     {}{}%
+     {}{}}%
+    {{}%
+     {Dong}{D.}%
+     {Guiqiang}{G.}%
+     {}{}%
+     {}{}}%
+    {{}%
+     {Courtade}{C.}%
+     {Thomas~A.}{T.~A.}%
+     {}{}%
+     {}{}}%
+    {{}%
+     {Shankar}{S.}%
+     {Hari}{H.}%
+     {}{}%
+     {}{}}%
+    {{}%
+     {Zhang}{Z.}%
+     {Tong}{T.}%
+     {}{}%
+     {}{}}%
+    {{}%
+     {Wesel}{W.}%
+     {Richard~D.}{R.~D.}%
+     {}{}%
+     {}{}}%
+  }
+  \strng{namehash}{WJ+1}
+  \strng{fullhash}{WJDGCTASHZTWRD1}
+  \field{title}{{LDPC} Decoding with Limited-Precision Soft Information in
+  Flash Memories}
+  \verb{url}
+  \verb http://arxiv.org/abs/1210.0149
+  \endverb
+  \field{volume}{abs/1210.0149}
+  \field{journaltitle}{CoRR}
+  \field{year}{2012}
+\endentry
+
+\entry{mncisit}{inproceedings}{}
+  \name{author}{1}{}{%
+    {{}%
+     {MacKay}{M.}%
+     {D.~J.~C.}{D.~J.~C.}%
+     {}{}%
+     {}{}}%
+  }
+  \strng{namehash}{MDJC1}
+  \strng{fullhash}{MDJC1}
+  \field{booktitle}{Proceedings of 1997 IEEE International Symposium on
+  Information Theory. Ulm, Germany.}
+  \field{pages}{113}
+  \field{title}{Good Error--Correcting Codes based on Very Sparse Matrices}
+  \field{annotation}{%
+  Date submitted: Sep 24 96; Date accepted: Feb 97; Collaborating institutes:
+  University of Toronto. MRAO number:%
+  }
+  \field{year}{1997}
+\endentry
+
+\entry{gallager1962low}{article}{}
+  \name{author}{1}{}{%
+    {{}%
+     {Gallager}{G.}%
+     {Robert~G}{R.~G.}%
+     {}{}%
+     {}{}}%
+  }
+  \list{publisher}{1}{%
+    {IEEE}%
+  }
+  \strng{namehash}{GRG1}
+  \strng{fullhash}{GRG1}
+  \field{number}{1}
+  \field{pages}{21\bibrangedash 28}
+  \field{title}{Low-density parity-check codes}
+  \field{volume}{8}
+  \field{journaltitle}{Information Theory, IRE Transactions on}
+  \field{year}{1962}
+\endentry
+
+\entry{davey1998low}{inproceedings}{}
+  \name{author}{2}{}{%
+    {{}%
+     {Davey}{D.}%
+     {Matthew~C}{M.~C.}%
+     {}{}%
+     {}{}}%
+    {{}%
+     {MacKay}{M.}%
+     {David~JC}{D.~J.}%
+     {}{}%
+     {}{}}%
+  }
+  \list{organization}{1}{%
+    {IEEE}%
+  }
+  \strng{namehash}{DMCMDJ1}
+  \strng{fullhash}{DMCMDJ1}
+  \field{booktitle}{Information Theory Workshop, 1998}
+  \field{pages}{70\bibrangedash 71}
+  \field{title}{Low density parity check codes over GF (q)}
+  \field{year}{1998}
+\endentry
+
+\entry{chen2002near}{article}{}
+  \name{author}{2}{}{%
+    {{}%
+     {Chen}{C.}%
+     {Jinghu}{J.}%
+     {}{}%
+     {}{}}%
+    {{}%
+     {Fossorier}{F.}%
+     {Marc~PC}{M.~P.}%
+     {}{}%
+     {}{}}%
+  }
+  \list{publisher}{1}{%
+    {IEEE}%
+  }
+  \strng{namehash}{CJFMP1}
+  \strng{fullhash}{CJFMP1}
+  \field{number}{3}
+  \field{pages}{406\bibrangedash 414}
+  \field{title}{Near optimum universal belief propagation based decoding of
+  low-density parity check codes}
+  \field{volume}{50}
+  \field{journaltitle}{Communications, IEEE Transactions on}
+  \field{year}{2002}
+\endentry
+
+\entry{zhao2005implementation}{article}{}
+  \name{author}{3}{}{%
+    {{}%
+     {Zhao}{Z.}%
+     {Jianguang}{J.}%
+     {}{}%
+     {}{}}%
+    {{}%
+     {Zarkeshvari}{Z.}%
+     {Farhad}{F.}%
+     {}{}%
+     {}{}}%
+    {{}%
+     {Banihashemi}{B.}%
+     {Amir~H}{A.~H.}%
+     {}{}%
+     {}{}}%
+  }
+  \list{publisher}{1}{%
+    {IEEE}%
+  }
+  \strng{namehash}{ZJZFBAH1}
+  \strng{fullhash}{ZJZFBAH1}
+  \field{number}{4}
+  \field{pages}{549\bibrangedash 554}
+  \field{title}{On implementation of min-sum algorithm and its modifications
+  for decoding low-density parity-check (LDPC) codes}
+  \field{volume}{53}
+  \field{journaltitle}{Communications, IEEE Transactions on}
+  \field{year}{2005}
+\endentry
+
+\entry{chen2005reduced}{article}{}
+  \name{author}{5}{}{%
+    {{}%
+     {Chen}{C.}%
+     {Jinghu}{J.}%
+     {}{}%
+     {}{}}%
+    {{}%
+     {Dholakia}{D.}%
+     {Ajay}{A.}%
+     {}{}%
+     {}{}}%
+    {{}%
+     {Eleftheriou}{E.}%
+     {Evangelos}{E.}%
+     {}{}%
+     {}{}}%
+    {{}%
+     {Fossorier}{F.}%
+     {Marc~PC}{M.~P.}%
+     {}{}%
+     {}{}}%
+    {{}%
+     {Hu}{H.}%
+     {Xiao-Yu}{X.-Y.}%
+     {}{}%
+     {}{}}%
+  }
+  \list{publisher}{1}{%
+    {IEEE}%
+  }
+  \strng{namehash}{CJ+1}
+  \strng{fullhash}{CJDAEEFMPHXY1}
+  \field{number}{8}
+  \field{pages}{1288\bibrangedash 1299}
+  \field{title}{Reduced-complexity decoding of LDPC codes}
+  \field{volume}{53}
+  \field{journaltitle}{Communications, IEEE Transactions on}
+  \field{year}{2005}
+\endentry
+
+\entry{islam2011optimized}{article}{}
+  \name{author}{4}{}{%
+    {{}%
+     {Islam}{I.}%
+     {Mohammad~Rakibul}{M.~R.}%
+     {}{}%
+     {}{}}%
+    {{}%
+     {Shafiullah}{S.}%
+     {Dewan~Siam}{D.~S.}%
+     {}{}%
+     {}{}}%
+    {{}%
+     {Faisal}{F.}%
+     {Muhammad Mostafa~Amir}{M.~M.~A.}%
+     {}{}%
+     {}{}}%
+    {{}%
+     {Rahman}{R.}%
+     {Imran}{I.}%
+     {}{}%
+     {}{}}%
+  }
+  \strng{namehash}{IMR+1}
+  \strng{fullhash}{IMRSDSFMMARI1}
+  \field{number}{12}
+  \field{title}{Optimized Min-Sum Decoding Algorithm for Low Density Parity
+  Check Codes}
+  \field{volume}{2}
+  \field{journaltitle}{International Journal of Advanced Computer Science and
+  Applications (IJACSA)}
+  \field{year}{2011}
+\endentry
+
+\entry{tse2005fundamentals}{book}{}
+  \name{author}{2}{}{%
+    {{}%
+     {Tse}{T.}%
+     {David}{D.}%
+     {}{}%
+     {}{}}%
+    {{}%
+     {Viswanath}{V.}%
+     {Pramod}{P.}%
+     {}{}%
+     {}{}}%
+  }
+  \list{publisher}{1}{%
+    {Cambridge university press}%
+  }
+  \strng{namehash}{TDVP1}
+  \strng{fullhash}{TDVP1}
+  \field{title}{Fundamentals of wireless communication}
+  \field{year}{2005}
+\endentry
+
+\entry{proakis2001digital}{book}{}
+  \name{author}{1}{}{%
+    {{}%
+     {Proakis}{P.}%
+     {J.G.}{J.}%
+     {}{}%
+     {}{}}%
+  }
+  \list{publisher}{1}{%
+    {McGraw-Hill}%
+  }
+  \strng{namehash}{PJ1}
+  \strng{fullhash}{PJ1}
+  \field{series}{McGraw-Hill Series in Electrical and Computer Engineering.
+  Computer Engineering}
+  \field{title}{Digital Communications}
+  \field{year}{2001}
+\endentry
+
+\entry{haykin2008communication}{book}{}
+  \name{author}{1}{}{%
+    {{}%
+     {Haykin}{H.}%
+     {Simon}{S.}%
+     {}{}%
+     {}{}}%
+  }
+  \list{publisher}{1}{%
+    {John Wiley \& Sons}%
+  }
+  \strng{namehash}{HS1}
+  \strng{fullhash}{HS1}
+  \field{title}{Communication systems}
+  \field{year}{2008}
+\endentry
+
+\entry{coon15}{misc}{}
+  \name{author}{1}{}{%
+    {{}%
+     {Coon}{C.}%
+     {Justin}{J.}%
+     {}{}%
+     {}{}}%
+  }
+  \list{organization}{1}{%
+    {Department of Engineering Science, University of Oxford}%
+  }
+  \strng{namehash}{CJ1}
+  \strng{fullhash}{CJ1}
+  \field{title}{C16: Advanced Communications (Lecture Notes)}
+  \field{year}{2015}
+\endentry
+
+\entry{richardson2003error}{inproceedings}{}
+  \name{author}{1}{}{%
+    {{}%
+     {Richardson}{R.}%
+     {Tom}{T.}%
+     {}{}%
+     {}{}}%
+  }
+  \list{organization}{1}{%
+    {The University; 1998}%
+  }
+  \strng{namehash}{RT1}
+  \strng{fullhash}{RT1}
+  \field{booktitle}{Proceedings of the annual Allerton conference on
+  communication control and computing}
+  \field{number}{3}
+  \field{pages}{1426\bibrangedash 1435}
+  \field{title}{Error floors of LDPC codes}
+  \field{volume}{41}
+  \field{year}{2003}
+\endentry
+
+\entry{leiner2005ldpc}{article}{}
+  \name{author}{1}{}{%
+    {{}%
+     {Leiner}{L.}%
+     {Bernhard~MJ}{B.~M.}%
+     {}{}%
+     {}{}}%
+  }
+  \strng{namehash}{LBM1}
+  \strng{fullhash}{LBM1}
+  \field{number}{8}
+  \field{title}{LDPC Codes--a brief Tutorial}
+  \field{volume}{8}
+  \field{journaltitle}{Stud. ID.: 53418L April}
+  \field{year}{2005}
+\endentry
+
+\entry{ldpc-tutorial1}{article}{}
+  \name{author}{1}{}{%
+    {{}%
+     {Ta}{T.}%
+     {Tuan}{T.}%
+     {}{}%
+     {}{}}%
+  }
+  \strng{namehash}{TT1}
+  \strng{fullhash}{TT1}
+  \field{title}{A Tutorial on Low Density Parity-Check Codes}
+  \field{journaltitle}{The University of Texas at Austrin}
+\endentry
+
+\entry{cho2012analysis}{article}{}
+  \name{author}{3}{}{%
+    {{}%
+     {Cho}{C.}%
+     {Junho}{J.}%
+     {}{}%
+     {}{}}%
+    {{}%
+     {Xie}{X.}%
+     {Chongjin}{C.}%
+     {}{}%
+     {}{}}%
+    {{}%
+     {Winzer}{W.}%
+     {Peter~J}{P.~J.}%
+     {}{}%
+     {}{}}%
+  }
+  \list{publisher}{1}{%
+    {Optical Society of America}%
+  }
+  \strng{namehash}{CJXCWPJ1}
+  \strng{fullhash}{CJXCWPJ1}
+  \field{number}{7}
+  \field{pages}{7915\bibrangedash 7928}
+  \field{title}{Analysis of soft-decision FEC on non-AWGN channels}
+  \field{volume}{20}
+  \field{journaltitle}{Optics express}
+  \field{year}{2012}
+\endentry
+
+\entry{johnson2009iterative}{book}{}
+  \name{author}{1}{}{%
+    {{}%
+     {Johnson}{J.}%
+     {Sarah~J}{S.~J.}%
+     {}{}%
+     {}{}}%
+  }
+  \list{publisher}{1}{%
+    {Cambridge University Press}%
+  }
+  \strng{namehash}{JSJ1}
+  \strng{fullhash}{JSJ1}
+  \field{title}{Iterative error correction: Turbo, low-density parity-check and
+  repeat-accumulate codes}
+  \field{year}{2009}
+\endentry
+
+\entry{gilley2003bit}{article}{}
+  \name{author}{1}{}{%
+    {{}%
+     {Gilley}{G.}%
+     {James~E}{J.~E.}%
+     {}{}%
+     {}{}}%
+  }
+  \strng{namehash}{GJE1}
+  \strng{fullhash}{GJE1}
+  \field{title}{Bit-error-rate simulation using Matlab}
+  \field{journaltitle}{Transcrypt International, Inc}
+  \field{year}{2003}
+\endentry
+
+\entry{matlab-ldpc}{online}{}
+  \name{author}{1}{}{%
+    {{}%
+     {Mathworks}{M.}%
+     {}{}%
+     {}{}%
+     {}{}}%
+  }
+  \strng{namehash}{M1}
+  \strng{fullhash}{M1}
+  \field{title}{{MATLAB} Documentation: LDPC Decoder}
+  \verb{url}
+  \verb http://www.mathworks.com/help/comm/ref/comm.ldpcdecoder-class.html
+  \endverb
+  \field{urlday}{25}
+  \field{urlmonth}{04}
+  \field{urlyear}{2015}
+\endentry
+
+\entry{openCL}{online}{}
+  \name{author}{1}{}{%
+    {{}%
+     {"Levyfan"}{L.}%
+     {}{}%
+     {}{}%
+     {}{}}%
+  }
+  \strng{namehash}{L1}
+  \strng{fullhash}{L1}
+  \field{title}{OpenCL LDPC Decoder}
+  \verb{url}
+  \verb https://github.com/levyfan/opencl-LDPC-decoder
+  \endverb
+  \field{urlday}{25}
+  \field{urlmonth}{04}
+  \field{urlyear}{2015}
+\endentry
+
+\entry{hachem}{misc}{}
+  \name{author}{1}{}{%
+    {{}%
+     {Yassine}{Y.}%
+     {Hachem}{H.}%
+     {}{}%
+     {}{}}%
+  }
+  \list{organization}{1}{%
+    {Communications Research Group, Department of Engineering Science,
+  University of Oxford}%
+  }
+  \strng{namehash}{YH1}
+  \strng{fullhash}{YH1}
+  \field{title}{Convolution of Uniform, Gaussian and Laplacian distributions}
+\endentry
+
 \lossort
 \endlossort
 
