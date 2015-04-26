@@ -1,5 +1,7 @@
 \documentclass[11pt]{article}
 \usepackage[left=20mm, right=20mm, top=20mm, bottom=20mm]{geometry} %this sets the page margins 
+\usepackage[backend=bibtex]{biblatex}
+\addbibresource{references.bib}
 \usepackage{amsmath}
 \usepackage{amsfonts}
 \usepackage{amssymb}
@@ -18,12 +20,12 @@
 \usepackage{float}
 \usepackage{helvet}
 \renewcommand{\familydefault}{\sfdefault}
-\usepackage[hyphens]{url}
 \usepackage{listings,xcolor}
 \usepackage[numbered,framed]{matlab-prettifier}
 \renewcommand{\lstlistingname}{Codebox}% Listing -> Codebox
 \usepackage{breqn}
 \usepackage{mathtools}
+
 
 \newcommand\undermat[2]{%
   \makebox[0pt][l]{$\smash{\underbrace{\phantom{%
@@ -605,7 +607,7 @@ The process for simulating the error correcting performance of the flash memory 
 This simulation model is shown in figure \ref{fig:mem_simulation_model}. The 'Memory Noise Model' block encapsulates the entire process described in section \ref{section:memory_channel_model}, which includes mapping the input data to a cell threshold voltage, and then applying noise to that voltage, remembering that binary 1's and 0's are handled differently.
 
 In this particular model, there are 2 independent variables that can be chosen: 'N', the number of program/erase cycles that the cell has undergone, and 't', the time in seconds that the data has been stored in that cell (the retention time). In addition, there are a number of initial conditions, which don't vary during the simulation. For the remainder of this project, 't' was fixed to 5 years, meaning that we are simulating the data written to the memory cell as having been stored there for 5 years. In initial testing, the variation of 't' had a substantially smaller effect on the overall bit-error rate of the system than varying 'N', and for simplicity that value was fixed. This is shown in figure \ref{fig:retention_time_graph}, where the uncoded (variable boundary hard decision method) bit-error rate of the memory cell is shown, and using a fixed 't' of 5 years has close results to using a 't' that varies as 'N' increases $(t = N/5000)$. Using a fixed value for 't' gives us a 'worst case scenario' of data undergoing a long retention time, even if this is unlikely in an actual scenario.
-\begin{figure}[h]
+\begin{figure}[ht]
 \centering
 \includegraphics[scale=0.45]{retention_time_graph}
 \caption{Comparing the effect of fixed t against using a variable t dependent on N}
@@ -613,15 +615,15 @@ In this particular model, there are 2 independent variables that can be chosen: 
 \end{figure}
 
 \subsection{Simulation Results}
-\begin{figure}[h]
+\begin{figure}[ht]
 \centering
-\includegraphics[scale=0.5]{codedBER_NCycles}
+\includegraphics[scale=0.52]{codedBER_NCycles}
 \caption{Graph of bit-error rate vs N for different decoding and LLR schemes}
 \label{fig:memory_results_graph}
 \end{figure}
-\begin{figure}[h]
+\begin{figure}[ht]
 \centering
-\includegraphics[scale=0.64]{cber_uber_memory}
+\includegraphics[scale=0.66]{cber_uber_memory}
 \caption{Graph of uncoded vs coded bit-error rate for soft-decision cases}
 \label{fig:memory_results_graph2}
 \end{figure}
@@ -630,9 +632,13 @@ Monte-Carlo simulations were run on a remote cluster computer for each of the di
 
 Figure \ref{fig:memory_results_graph} shows the bit-error rate against a given 'N', the number of cell program/erase cycles. The solid lines all represent soft-decision decoding, each using a different approach when forming the LLR that is fed to the decoder. The 'Static Gaussian', whilst not explicitly declared earlier, uses a Gaussian centered about $V_{p_0}$, the initial programmed voltage. It is static since it doesn't move as N increases. This was the first attempt at performing soft-decision decoding for the system, and is essentially similar to the method of obtaining the LLR's for the AWGN channel (2 static Gaussian distributions).
 
-The two matched Gaussians, one including the Random Telegraph Noise and one without, are the next best performing curves. It is clear that by adding the variance of the RTN to the Gaussian, it substantially improves performance of the decoder.
+The two matched Gaussians, one including the Random Telegraph Noise and one without, are the next best performing curves. It is clear that by adding the variance of the RTN to the Gaussian, it substantially improves performance of the decoder. However, the two functions obtained through the convolution of the various PDF's have the best overall performance. The green line, which is effectively making use of the exact underlying function in order to generate the LLR's, is therefore the upper bound on the performance of this system. 
 
-Finally, the two functions obtained through the convolution of the various PDF's have the best overall performance. The green line, which is effectively making use of the entire function in order to generate the LLR's, is therefore the upper bound on the performance of this system. 
+Finally, the dotted line shows the performance of hard decision decoding. It is substantially worse performing than any of the soft decision methods, and only improves error performance against the uncoded case (the blue dashed line) by a relatively small margin, and only up to 20,000 cycles. Beyond this point, introducing error correction actually worsens the error performance of the system. 
+
+Figure \ref{fig:memory_results_graph2} displays the same set of results for the soft decision schemes, but in a different format. The Coded vs Uncoded graph is a standard method used in industry to compare relative performance of error correction schemes. Essentially, given an uncoded system's bit error rate , it is possible to determine what the BER would be if an error correcting scheme is used. The uncoded BER in this case is taken from the hard decision, variable boundary method (the blue dashed line in the previous graph).
+
+This particular graph construction is useful in comparing different systems, since it does not depend on the exact type of noise used. Instead, it allows us to easily compare what the error rate of the memory cell would be given a specific input error rate and coding scheme. For example, if the target bit error rate at the output of the system is to be $10^{-6}$, then an error rate of around $1\%$ in the memory cell is acceptable if using the Static Gaussian model. However, using the full PDF of the underlying noise in the decoder, an error rate of around $1.5\%$ is acceptable. Whilst this seems only a very small gain, by looking at figure \ref{fig:memory_results_graph} again, it actually results in the cell being able to endure an additional 10,000 cycles.
 
 \section{Conclusions}
 Placeholder
@@ -656,10 +662,12 @@ seed = fread(fid, 1, 'uint32');
 RandStream.setDefaultStream(RandStream('mt19937ar','seed',seed));
 \end{lstlisting}
 
-The commands in codebox \ref{code:rng} were used to seed the random number generator every time a new MATLAB process was created. On UNIX machines, there is a system random number source \mbox{`/dev/random'}, which ``gathers environmental noise from device drivers and other sources into an entropy pool [and] from this entropy pool random numbers are created." The numbers generated by this process originate from physical random processes such as hardware noise, and so it is assumed that when calling the function on a different machine, a different random number will be generated every time. These random numbers are then used to seed the pseudo-random stream in MATLAB. 
+The commands in codebox \ref{code:rng} were used to seed the random number generator every time a new MATLAB process was created. On UNIX machines, there is a system random number source \mbox{`/dev/random'}, which ``gathers environmental noise from device drivers and other sources into an entropy pool [and] from this entropy pool random numbers are created." The numbers generated by this process originate from physical random processes such as hardware noise, and so it is assumed that when calling the function on a different machine, a different random number will be generated every time. These random numbers are then used to seed the pseudo-random stream in MATLAB.
 
 \phantomsection
 \addcontentsline{toc}{section}{Appendix B: MATLAB code}
 \section*{Appendix B: MATLAB code}
+
+\printbibliography
 
 \end{document}
