@@ -339,8 +339,7 @@
   }
   \strng{namehash}{PJ1}
   \strng{fullhash}{PJ1}
-  \field{series}{McGraw-Hill Series in Electrical and Computer Engineering.
-  Computer Engineering}
+  \field{series}{McGraw-Hill Series in Electrical and Computer Engineering}
   \field{title}{Digital Communications}
   \field{year}{2001}
 \endentry
@@ -387,9 +386,6 @@
      {}{}%
      {}{}}%
   }
-  \list{organization}{1}{%
-    {The University; 1998}%
-  }
   \strng{namehash}{RT1}
   \strng{fullhash}{RT1}
   \field{booktitle}{Proceedings of the annual Allerton conference on
@@ -401,7 +397,7 @@
   \field{year}{2003}
 \endentry
 
-\entry{leiner2005ldpc}{article}{}
+\entry{leiner2005ldpc}{online}{}
   \name{author}{1}{}{%
     {{}%
      {Leiner}{L.}%
@@ -411,10 +407,10 @@
   }
   \strng{namehash}{LBM1}
   \strng{fullhash}{LBM1}
-  \field{number}{8}
   \field{title}{LDPC Codes--a brief Tutorial}
-  \field{volume}{8}
-  \field{journaltitle}{Stud. ID.: 53418L April}
+  \verb{url}
+  \verb http://www.bernh.net/media/download/papers/ldpc.pdf
+  \endverb
   \field{year}{2005}
 \endentry
 
@@ -550,6 +546,63 @@
   \strng{namehash}{YH1}
   \strng{fullhash}{YH1}
   \field{title}{Convolution of Uniform, Gaussian and Laplacian distributions}
+\endentry
+
+\entry{matlab-rng}{online}{}
+  \name{author}{1}{}{%
+    {{}%
+     {Mathworks}{M.}%
+     {}{}%
+     {}{}%
+     {}{}}%
+  }
+  \strng{namehash}{M1}
+  \strng{fullhash}{M1}
+  \field{title}{{MATLAB} Documentation: Random number generator algorithms}
+  \verb{url}
+  \verb http://www.mathworks.com/help/matlab/ref/randstream.list.html
+  \endverb
+  \field{urlday}{27}
+  \field{urlmonth}{04}
+  \field{urlyear}{2015}
+\endentry
+
+\entry{randomblog}{online}{}
+  \name{author}{1}{}{%
+    {{}%
+     {Croucher}{C.}%
+     {Mike}{M.}%
+     {}{}%
+     {}{}}%
+  }
+  \strng{namehash}{CM1}
+  \strng{fullhash}{CM1}
+  \field{title}{Parallel Random Numbers in MATLAB}
+  \verb{url}
+  \verb http://www.walkingrandomly.com/?p=2755
+  \endverb
+  \field{urlday}{27}
+  \field{urlmonth}{04}
+  \field{urlyear}{2015}
+\endentry
+
+\entry{devrandom}{online}{}
+  \name{author}{1}{}{%
+    {{}%
+     {Repository}{R.}%
+     {Ubuntu~Manpage}{U.~M.}%
+     {}{}%
+     {}{}}%
+  }
+  \strng{namehash}{RUM1}
+  \strng{fullhash}{RUM1}
+  \field{title}{Manual page on: dev/random}
+  \verb{url}
+  \verb http://manpages.ubuntu.com/manpages/lucid/man4/random.4.html
+  \endverb
+  \field{urlday}{27}
+  \field{urlmonth}{04}
+  \field{urlyear}{2015}
 \endentry
 
 \lossort

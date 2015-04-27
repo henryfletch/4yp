@@ -105,10 +105,11 @@ Modern flash memory is reliant on error-correcting code to ensure error-free ope
 
 The general aim of this project was to produce a MATLAB simulation of how an error correction system using LDPC codes works for flash memory.  By combining both an error generation and an error correction model, it was possible to benchmark these rediscovered codes against current coding schemes.
 
-The results also showed the importance of accurately modelling the underlying noise process, since by doing so increases the performance of any soft-decision decoder. However, even close approximations to the noise process result in improved performance over existing hard-decision schemes.
+The results showed the importance of accurately modelling the underlying noise process, since by doing so increases the performance of any soft-decision decoder. However, even close approximations to the noise process result in improved performance over existing hard-decision schemes.
 
+\singlespacing
 \tableofcontents
-
+\doublespacing
 \section{Introduction}
 [Disclaimer: Intro needs further work!] Flash Memory is a multi-billion dollar industry, and is almost certainly set to grow in the future. It is also a highly competitive one, with consumers eager for low cost yet high volume storage. Innovation in the industry therefore seeks to increase the capacity and performance of these drives whilst keeping manufacturing costs low. 
 
@@ -235,7 +236,7 @@ A fairly brief overview of the low-level transistor construction as well as the 
 \section{Decoding of LDPC Codes} \label{decoding}
 Using syndrome lookup decoding as described in section \ref{3.1:definitions} would be nearly impossible for longer block lengths. There is a much better, iterative decoding method that can be used for any linear block code, and which is linear in block length. It is called the belief propagation algorithm (also known as the sum-product algorithm or the message passing algorithm). 
 
-There are two distinct methods of belief propagation: Hard decision decoding and soft decision decoding. In hard decision decoding, the error correction algorithm only receives binary data (i.e. \{1,0\}). In soft decision decoding, the error correction algorithm receives a numerical likelihood of the data being either a 0 or 1. Soft decision decoding will therefore result in superior performance, since it is able to make use of the additional 'soft' information that is otherwise discarded.
+There are two distinct methods of belief propagation: Hard decision decoding and soft decision decoding. In hard decision decoding, the error correction algorithm only receives binary data (i.e. \{1,0\}). In soft decision decoding, the error correction algorithm receives a numerical likelihood of the data being either a 0 or 1. Soft decision decoding will therefore result in superior performance, since it is able to make use of the additional `soft' information that is otherwise discarded.
 
 \begin{figure}[h]
 \centering
@@ -337,7 +338,7 @@ The LLR method applies in general to all noisy channels, that is, the probabilit
 \subsection{Soft decision decoding}
 The Belief Propagation algorithm for soft decision decoding follows a similar process to that of hard decision decoding. Messages are passed between check and variable nodes defined by the tanner graph. The main difference is what happens at each of the nodes, since now the messages are LLR's rather than binary bits. 
 
-\cite{ldpc-tutorial1,mncisit,gallager1962low} have all proved the set of equations that are used at both the message nodes and check nodes. The belief propagation algorithm can be distilled into just 2 equations: The message node update equation, and the check node update equation. The reason why it is often called the 'Sum-Product' algorithm, is since the message node update equation involves summing the LLR's, and the check node update equation involves taking their product.
+\cite{ldpc-tutorial1,mncisit,gallager1962low} have all proved the set of equations that are used at both the message nodes and check nodes. The belief propagation algorithm can be distilled into just 2 equations: The message node update equation, and the check node update equation. The reason why it is often called the `Sum-Product' algorithm, is since the message node update equation involves summing the LLR's, and the check node update equation involves taking their product.
 
 \begin{equation} \label{eq:msgNode}
 m_{ij}^{(l)} = L_i+\sum\limits_{j'\in C_i \ne j}m_{j'i}^{(l-1)}
@@ -434,15 +435,15 @@ A short block length, rate $\dfrac{1}{2}$ LDPC code was used to produce the resu
 \label{figure:64k_LDPC_graph}
 \end{figure}
 
-Longer block length codes generally achieve superior performance and greater 'cut-off' compared to shorter codes. Figure \ref{figure:64k_LDPC_graph} demonstrates a code with a block length of $64000$, and a substantially higher rate ($R=0.9$). This particular code is a standardised construction, used in the DVB-S2 (Satellite broadcasting) specifications. This code is also the primary one used in this project for the memory error correction later. One benefit of using this code is its sharp 'cut-off', compared to the previous code in figure \ref{figure:96_48_LDPC_graph}.
+Longer block length codes generally achieve superior performance and greater `cut-off' compared to shorter codes. Figure \ref{figure:64k_LDPC_graph} demonstrates a code with a block length of $64000$, and a substantially higher rate ($R=0.9$). This particular code is a standardised construction, used in the DVB-S2 (Satellite broadcasting) specifications. This code is also the primary one used in this project for the memory error correction later. One benefit of using this code is its sharp `cut-off', compared to the previous code in figure \ref{figure:96_48_LDPC_graph}.
 
 \subsection{Conclusion}
 Simulating the AWGN channel, and then comparing the results to the known data published by MacKay, allows for some degree of verification of the MATLAB program. The AWGN channel is one of the common channels simulated when dealing with error correcting code, since it simulates the effect of random noise that often occurs in the environment. 
 
-One issue identified with the simulation program was the speed of the decoder. In the first version of the decoder program [Appendix A, codebox \ref{code:sp1}], there were a substantial number of 'for' loops, which are generally slow in MATLAB. Subsequent versions of the decoder attempted to fix this by vectorising the code [Appendix A, codebox \ref{code:sp2}], resulting in approximately a 2x speed increase. However, even with these improvements, the decoder was still much slower compared to MATLAB's built-in LDPC decoder \cite{matlab-ldpc}. In addition, freely available OpenCL accelerated decoders \cite{openCL} can be used on a GPU (Graphics Processing Unit) which are even faster than MATLAB's implementation (See appendix [??] for the benchmark comparisons). In the subsequent sections simulating the memory model, the MATLAB built-in implementation of the LDPC decoder was used, allowing for substantially more blocks to be decoded in the same amount of time.
+One issue identified with the simulation program was the speed of the decoder. In the first version of the decoder program [Appendix A, codebox \ref{code:sp1}], there were a substantial number of `for' loops, which are generally slow in MATLAB. Subsequent versions of the decoder attempted to fix this by vectorising the code [Appendix A, codebox \ref{code:sp2}], resulting in approximately a 2x speed increase. However, even with these improvements, the decoder was still much slower compared to MATLAB's built-in LDPC decoder \cite{matlab-ldpc}. In addition, freely available OpenCL accelerated decoders \cite{openCL} can be used on a GPU (Graphics Processing Unit) which are even faster than MATLAB's implementation (See appendix [??] for the benchmark comparisons). In the subsequent sections simulating the memory model, the MATLAB built-in implementation of the LDPC decoder was used, allowing for substantially more blocks to be decoded in the same amount of time.
 
 \section{Modelling a memory-specific noise channel} \label{section:memory}
-There are many similarities between modelling a communications system and flash memory. Both are binary channels, subject to some binary input, distortion by some noise source, and subsequent decoding. However, the major difference in flash memory is the storage of binary data in the device for a length of time, unlike a communications system where the data is 'in transit'. When a bit is stored to a memory cell, the noise effect is cumulative over the lifetime of the stored bit. Therefore, two major parameters in modelling flash memory are time, and the number of read/write (or Program/Erase) cycles each cell is subject to.
+There are many similarities between modelling a communications system and flash memory. Both are binary channels, subject to some binary input, distortion by some noise source, and subsequent decoding. However, the major difference in flash memory is the storage of binary data in the device for a length of time, unlike a communications system where the data is `in transit'. When a bit is stored to a memory cell, the noise effect is cumulative over the lifetime of the stored bit. Therefore, two major parameters in modelling flash memory are time, and the number of read/write (or Program/Erase) cycles each cell is subject to.
 
 As stated previously in section \ref{section:memtech}, it is the threshold voltage of each gate that defines the binary value of the memory cell. In this project, the flash memory is assumed to be of SLC design, that is 1 bit per cell. It is also assumed that a low gate threshold voltage corresponds to a binary 0, whilst a higher threshold voltage corresponds to a binary 1. 
 
@@ -553,7 +554,7 @@ Figure \ref{fig:hard_decision_variable_boundary} shows the results of the numeri
 Figure \ref{fig:hard_decision_variable_example} is an example of both the erased and programmed distributions for a specific P/E cycle number, $N=20,000$. The dotted black line shows the optimal decision boundary, taken from the approximate exponential fit in figure \ref{fig:hard_decision_variable_boundary} ($V \approx 2.31$).
 
 \subsection{Soft decision decoding: Gaussian approximations \& non-Gaussian functions}
-As shown previously, soft decision decoding makes use of additional 'soft' information in order to improve the decoding performance. The main premise with SDD is to introduce probabilities into the decoding process, harnessing the \textit{a priori} probabilities of the underlying distributions, in order to construct a probabilistic decoder.
+As shown previously, soft decision decoding makes use of additional `soft' information in order to improve the decoding performance. The main premise with SDD is to introduce probabilities into the decoding process, harnessing the \textit{a priori} probabilities of the underlying distributions, in order to construct a probabilistic decoder.
 
 Simply obtaining the exact threshold voltage of the memory cell is not sufficient to perform SDD. As with the AWGN model, some prior information (in that case the noise variance) is required in order to convert the received raw data into a likelihood value. Once a likelihood \textit{ratio} of the received data has been calculated, exactly the same Sum-Product algorithm can be used as before. The difficulty in the memory model case, is obtaining this likelihood ratio.
 
@@ -621,7 +622,7 @@ Figure \ref{fig:retentionVsFull} shows that the convolution method, when excludi
 \subsubsection{Matched Gaussians}
 Another approach to obtain the distribution of the threshold voltage, is to use a reasonable approximation of the function, rather than trying to obtain it directly. Using a simplified approximation also turns out to be faster [Around 5x faster when generating the LLR's in MATLAB compared to the full function in section \ref{section:fullFunc}].
 
-An obvious choice would be to use a Gaussian. Whilst the distribution starts off as a Uniform distribution, adding noise causes it to quickly degrade into a gaussian-like shape. Since the memory noise model, as explained in equation \ref{eq:additive_memory_noise_model}, is addition of independent random variables, the mean and variance of each random variable can simply be added together to obtain the overall mean and variance of the distribution. These values can then be used to generate a 'Matched Gaussian', which will have the same mean and variance as the actual underlying function, but just with a slightly different shape. 
+An obvious choice would be to use a Gaussian. Whilst the distribution starts off as a Uniform distribution, adding noise causes it to quickly degrade into a gaussian-like shape. Since the memory noise model, as explained in equation \ref{eq:additive_memory_noise_model}, is addition of independent random variables, the mean and variance of each random variable can simply be added together to obtain the overall mean and variance of the distribution. These values can then be used to generate a `Matched Gaussian', which will have the same mean and variance as the actual underlying function, but just with a slightly different shape. 
 \begin{equation} \label{eq:matchedGaussians}
 \begin{aligned}
 \mu_p &= \mu_{p_0} + \mu_{rtn} + \mu_{retention} = \dfrac{2 V_p + \Delta V_{pp}}{2} + 0 +\mu_r \\
@@ -649,9 +650,9 @@ The process for simulating the error correcting performance of the flash memory 
 \label{fig:mem_simulation_model}
 \end{figure}
 
-This simulation model is shown in figure \ref{fig:mem_simulation_model}. The 'Memory Noise Model' block encapsulates the entire process described in section \ref{section:memory_channel_model}, which includes mapping the input data to a cell threshold voltage, and then applying noise to that voltage, remembering that binary 1's and 0's are handled differently.
+This simulation model is shown in figure \ref{fig:mem_simulation_model}. The `Memory Noise Model' block encapsulates the entire process described in section \ref{section:memory_channel_model}, which includes mapping the input data to a cell threshold voltage, and then applying noise to that voltage, remembering that binary 1's and 0's are handled differently.
 
-In this particular model, there are 2 independent variables that can be chosen: 'N', the number of program/erase cycles that the cell has undergone, and 't', the time in seconds that the data has been stored in that cell (the retention time). In addition, there are a number of initial conditions, which don't vary during the simulation. For the remainder of this project, 't' was fixed to 5 years, meaning that we are simulating the data written to the memory cell as having been stored there for 5 years. In initial testing, the variation of 't' had a substantially smaller effect on the overall bit-error rate of the system than varying 'N', and for simplicity that value was fixed. This is shown in figure \ref{fig:retention_time_graph}, where the uncoded (variable boundary hard decision method) bit-error rate of the memory cell is shown, and using a fixed 't' of 5 years has close results to using a 't' that varies as 'N' increases $(t_{yrs} = N/5000)$. Using a fixed value for 't' gives us a 'worst case scenario' of data undergoing a long retention time, even if this is unlikely in an actual scenario.
+In this particular model, there are 2 independent variables that can be chosen: `N', the number of program/erase cycles that the cell has undergone, and `t', the time in seconds that the data has been stored in that cell (the retention time). In addition, there are a number of initial conditions, which don't vary during the simulation. For the remainder of this project, `t' was fixed to 5 years, meaning that we are simulating the data written to the memory cell as having been stored there for 5 years. In initial testing, the variation of `t' had a substantially smaller effect on the overall bit-error rate of the system than varying `N', and for simplicity that value was fixed. This is shown in figure \ref{fig:retention_time_graph}, where the uncoded (variable boundary hard decision method) bit-error rate of the memory cell is shown, and using a fixed `t' of 5 years has close results to using a `t' that varies as `N' increases $(t_{yrs} = N/5000)$. Using a fixed value for `t' gives us a `worst case scenario' of data undergoing a long retention time, even if this is unlikely in an actual scenario.
 \begin{figure}[ht]
 \centering
 \includegraphics[scale=0.45]{retention_time_graph}
@@ -675,7 +676,7 @@ In this particular model, there are 2 independent variables that can be chosen: 
 
 Monte-Carlo simulations were run on a remote cluster computer for each of the different decoding schemes explained in section \ref{section:memoryDecoding}. The results are shown in both figures \ref{fig:memory_results_graph} and \ref{fig:memory_results_graph2}.
 
-Figure \ref{fig:memory_results_graph} shows the bit-error rate against a given 'N', the number of cell program/erase cycles. The solid lines all represent soft-decision decoding, each using a different approach when forming the LLR that is fed to the decoder. The 'Static Gaussian', whilst not explicitly declared earlier, uses a Gaussian centered about $V_{p_0}$, the initial programmed voltage. It is static since both the mean and variance of this Gaussian don't vary as N increases. This was the first attempt at performing soft-decision decoding for the system, and is essentially similar to the method of obtaining the LLR's for the AWGN channel (2 static Gaussian distributions).
+Figure \ref{fig:memory_results_graph} shows the bit-error rate against a given `N', the number of cell program/erase cycles. The solid lines all represent soft-decision decoding, each using a different approach when forming the LLR that is fed to the decoder. The `Static Gaussian', whilst not explicitly declared earlier, uses a Gaussian centered about $V_{p_0}$, the initial programmed voltage. It is static since both the mean and variance of this Gaussian don't vary as N increases. This was the first attempt at performing soft-decision decoding for the system, and is essentially similar to the method of obtaining the LLR's for the AWGN channel (2 static Gaussian distributions).
 
 The two matched Gaussians, one including the Random Telegraph Noise and one without, are the next best performing curves. It is clear that by adding the variance of the RTN to the Gaussian, it substantially improves performance of the decoder. However, the two functions obtained through the convolution of the various PDF's have the best overall performance. The green line, which is effectively making use of the exact underlying function in order to generate the LLR's, is therefore the upper bound on the performance of this system. 
 
@@ -694,7 +695,7 @@ Placeholder
 \subsection*{Random Number Generation}
 When performing any sort of Monte Carlo simulation, and particularly if running the same program in parallel across multiple computers, it is important to ensure that the random numbers being generated are as random as possible. Even more crucially, there must be no dependence between the parallel task's random numbers if we are to combine result sets.
 
-MATLAB, like many other software packages, cannot generate truly random numbers. Instead, it uses a pseudo-random number generator, such as the Mersenne Twister algorithm. This is just a function that produces numbers which, for most purposes, are considered to be pseudo-random and pseudo-independent. That is, if you generate numbers from this algorithm, they will appear to be random samples from a uniform distribution. 
+MATLAB, like many other software packages, cannot generate truly random numbers. Instead, it uses a pseudo-random number generator, such as the Mersenne Twister algorithm \cite{matlab-rng}. This is just a function that produces numbers which, for most purposes, are considered to be pseudo-random and pseudo-independent. That is, if you generate numbers from this algorithm, they will appear to be random samples from a uniform distribution. 
 
 However, the Mersenne Twister algorithm actually has a finite period. After generating $2^{19937}$ random numbers, the output begins to repeat itself. More importantly, every time MATLAB starts, the random generator is reset to the same position. This means if you try to generate a large set of random numbers in MATLAB, you will always get exactly the same numbers. Effectively, MATLAB uses the same \textit{seed} to the random number generator on every start-up. This is meant to be useful for debugging purposes, however when running simulations in parallel, it causes all the result to no longer be independent. This means you cannot combine results made in parallel, since the output from each parallel stream will actually be identical.
 
@@ -708,7 +709,7 @@ seed = fread(fid, 1, 'uint32');
 RandStream.setDefaultStream(RandStream('mt19937ar','seed',seed));
 \end{lstlisting}
 
-The commands in codebox \ref{code:rng} were used to seed the random number generator every time a new MATLAB process was created. On UNIX machines, there is a system random number source \mbox{`/dev/random'}, which ``gathers environmental noise from device drivers and other sources into an entropy pool [and] from this entropy pool random numbers are created." The numbers generated by this process originate from physical random processes such as hardware noise, and so it is assumed that when calling the function on a different machine, a different random number will be generated every time. These random numbers are then used to seed the pseudo-random stream in MATLAB.
+The commands in codebox \ref{code:rng} were used to seed the random number generator every time a new MATLAB process was created \cite{randomblog}. On UNIX machines, there is a system random number source \mbox{`/dev/random'}, which ``gathers environmental noise from device drivers and other sources into an entropy pool [and] from this entropy pool random numbers are created" \cite{devrandom}. The numbers generated by this process originate from physical random processes such as hardware noise, and so it is assumed that when calling the function on a different machine, a different random number will be generated every time. These random numbers are then used to seed the pseudo-random stream in MATLAB.
 
 \subsection*{Sum-Product decoders}
 \singlespacing
@@ -924,5 +925,8 @@ Full function (Convolution of Uniform, Laplacian \& Gaussian \cite{hachem}) & 2.
 \end{table}
 
 \printbibliography
-
+\begin{center}
+-
+\end{center}
+Some \LaTeX\ code, used to format this report, obtained from: \url{http://en.wikibooks.org} (Licensed under CC BY-SA 3.0).
 \end{document}
