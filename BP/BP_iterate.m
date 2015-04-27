@@ -1,28 +1,24 @@
 % Belief Propogation Iteration Function
 
 function [y,iterations] = BP_iterate(x,H,l)
-
 iterations = l;
-
 % x = Input LLR vector
 % H = Graph connection matrix/Parity Check Matrix
 % l = # Iterations
 % y = Output LLR vector
-
 %i = Message Nodes;
 %j = Check Nodes;
 
 % Need to calculate number of CHK and MSG nodes from H
 [j_max,i_max] = size(H);
 nonzeros = nnz(H);
-
 %Preallocate M_IJ and M_JI as sparse matrices
 m_IJ = spalloc(j_max,i_max,nonzeros);
 m_JI = spalloc(j_max,i_max,nonzeros);
 
 H_ = H';
 for iter = 0:l
-    
+   
     %All Message nodes:
     if iter == 0 % on initial iteration:
         m_IJ = bsxfun(@times,x,H);

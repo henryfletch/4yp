@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.15 (TeX Live 2014/W32TeX) (preloaded format=pdflatex 2015.1.26)  26 APR 2015 17:55
+This is pdfTeX, Version 3.14159265-2.6-1.40.15 (TeX Live 2014/W32TeX) (preloaded format=pdflatex 2015.1.26)  27 APR 2015 16:38
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -1088,7 +1088,7 @@ File: umsb.fd 2013/01/14 v3.01 AMS symbols B
 LaTeX Font Info:    Font shape `OT1/phv/bx/n' in size <20.74> not available
 (Font)              Font shape `OT1/phv/b/n' tried instead on input line 69.
 LaTeX Font Info:    Font shape `OT1/phv/m/it' in size <12> not available
-(Font)              Font shape `OT1/phv/m/sl' tried instead on input line 75.
+(Font)              Font shape `OT1/phv/m/sl' tried instead on input line 76.
  [1
 
 {c:/texlive/2014/texmf-var/fonts/map/pdftex/updmap/pdftex.map}]
@@ -1096,92 +1096,94 @@ LaTeX Font Info:    Font shape `OT1/phv/m/it' in size <12> not available
 File: authorship_dec.pdf Graphic file (type pdf)
 
 <use authorship_dec.pdf>
-Package pdftex.def Info: authorship_dec.pdf used on input line 92.
+Package pdftex.def Info: authorship_dec.pdf used on input line 93.
 (pdftex.def)             Requested size: 597.551pt x 845.07512pt.
 File: authorship_dec.pdf Graphic file (type pdf)
  <use authorship_dec.pdf>
-Package pdftex.def Info: authorship_dec.pdf used on input line 92.
+Package pdftex.def Info: authorship_dec.pdf used on input line 93.
 (pdftex.def)             Requested size: 597.551pt x 845.07512pt.
 
 <authorship_dec.pdf, id=143, page=1, 597.55246pt x 845.07718pt>
 File: authorship_dec.pdf Graphic file (type pdf)
 
 <use authorship_dec.pdf, page 1>
-Package pdftex.def Info: authorship_dec.pdf, page1 used on input line 92.
+Package pdftex.def Info: authorship_dec.pdf, page1 used on input line 93.
 (pdftex.def)             Requested size: 597.551pt x 845.07512pt.
 File: authorship_dec.pdf Graphic file (type pdf)
  <use authorship_dec.pdf, page 1>
-Package pdftex.def Info: authorship_dec.pdf, page1 used on input line 92.
+Package pdftex.def Info: authorship_dec.pdf, page1 used on input line 93.
 (pdftex.def)             Requested size: 537.79224pt x 760.56244pt.
 File: authorship_dec.pdf Graphic file (type pdf)
 
 <use authorship_dec.pdf, page 1>
-Package pdftex.def Info: authorship_dec.pdf, page1 used on input line 92.
+Package pdftex.def Info: authorship_dec.pdf, page1 used on input line 93.
 (pdftex.def)             Requested size: 537.79224pt x 760.56244pt.
 File: authorship_dec.pdf Graphic file (type pdf)
  <use authorship_dec.pdf, page 1>
-Package pdftex.def Info: authorship_dec.pdf, page1 used on input line 92.
+Package pdftex.def Info: authorship_dec.pdf, page1 used on input line 93.
 (pdftex.def)             Requested size: 537.79224pt x 760.56244pt.
 File: authorship_dec.pdf Graphic file (type pdf)
 
 <use authorship_dec.pdf, page 1>
-Package pdftex.def Info: authorship_dec.pdf, page1 used on input line 92.
+Package pdftex.def Info: authorship_dec.pdf, page1 used on input line 93.
 (pdftex.def)             Requested size: 537.79224pt x 760.56244pt.
 pdfTeX warning (ext4): destination with the same identifier (name{page.1}) has 
 been already used, duplicate ignored
 <to be read again> 
                    \relax 
-l.92 \includepdf[scale=0.9]{authorship_dec.pdf}
+l.93 \includepdf[scale=0.9]{authorship_dec.pdf}
                                                 [1 <./authorship_dec.pdf>]
 LaTeX Font Info:    Font shape `OT1/phv/bx/n' in size <14.4> not available
-(Font)              Font shape `OT1/phv/b/n' tried instead on input line 93.
+(Font)              Font shape `OT1/phv/b/n' tried instead on input line 95.
 
 [2
+
+] [3
 
 ] (./report.toc
 LaTeX Font Info:    Font shape `OT1/phv/bx/n' in size <10.95> not available
 (Font)              Font shape `OT1/phv/b/n' tried instead on input line 3.
- [3
+ [4
 
 ])
 \tf@toc=\write6
 \openout6 = `report.toc'.
 
- [4] [5
+ [5] [6
 
 ]
 LaTeX Font Info:    Font shape `OT1/phv/bx/n' in size <12> not available
-(Font)              Font shape `OT1/phv/b/n' tried instead on input line 116.
+(Font)              Font shape `OT1/phv/b/n' tried instead on input line 127.
 LaTeX Font Info:    Font shape `OT1/phv/m/it' in size <10.95> not available
-(Font)              Font shape `OT1/phv/m/sl' tried instead on input line 117.
- [6
+(Font)              Font shape `OT1/phv/m/sl' tried instead on input line 128.
+ [7
 
-] [7]pdfTeX warning (ext4): destination with the same identifier (name{equation
+] [8]pdfTeX warning (ext4): destination with the same identifier (name{equation
 .3.1}) has been already used, duplicate ignored
 <to be read again> 
                    \relax 
-l.183 \begin{equation}
+l.194 \begin{equation}
                       pdfTeX warning (ext4): destination with the same identifi
 er (name{equation.3.2}) has been already used, duplicate ignored
 <to be read again> 
                    \relax 
-l.193 \begin{equation}
+l.204 \begin{equation}
                       pdfTeX warning (ext4): destination with the same identifi
 er (name{equation.3.3}) has been already used, duplicate ignored
 <to be read again> 
                    \relax 
-l.200 \begin{equation}
-                       [8] [9] [10] [11
+l.211 \begin{equation}
+                       [9] [10] [11] [12
 
 ]
-LaTeX Font Info:    Try loading font information for OMS+phv on input line 227.
+LaTeX Font Info:    Try loading font information for OMS+phv on input line 238.
 
 
 (c:/texlive/2014/texmf-dist/tex/latex/psnfss/omsphv.fd
 File: omsphv.fd 
 )
 LaTeX Font Info:    Font shape `OMS/phv/m/n' in size <10.95> not available
-(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 227.
+(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 238.
 Package epstopdf Info: Source file: <BPSK_channel_graph.eps>
 (epstopdf)                    date: 2015-04-09 21:30:30
 (epstopdf)                    size: 28127 bytes
@@ -1190,58 +1192,58 @@ Package epstopdf Info: Source file: <BPSK_channel_graph.eps>
 (epstopdf)                    size: 9307 bytes
 (epstopdf)             Command: <repstopdf --outfile=BPSK_channel_graph-eps-con
 verted-to.pdf BPSK_channel_graph.eps>
-(epstopdf)             \includegraphics on input line 231.
+(epstopdf)             \includegraphics on input line 242.
 Package epstopdf Info: Output file is already uptodate.
 
-<BPSK_channel_graph-eps-converted-to.pdf, id=319, 419.5675pt x 157.58875pt>
+<BPSK_channel_graph-eps-converted-to.pdf, id=324, 419.5675pt x 157.58875pt>
 File: BPSK_channel_graph-eps-converted-to.pdf Graphic file (type pdf)
 
 <use BPSK_channel_graph-eps-converted-to.pdf>
 Package pdftex.def Info: BPSK_channel_graph-eps-converted-to.pdf used on input 
-line 231.
+line 242.
 (pdftex.def)             Requested size: 419.56647pt x 157.58835pt.
- [12
+ [13
 
- <./BPSK_channel_graph-eps-converted-to.pdf>] <tannergraph.pdf, id=339, 563.354
+ <./BPSK_channel_graph-eps-converted-to.pdf>] <tannergraph.pdf, id=343, 563.354
 69pt x 430.35782pt>
 File: tannergraph.pdf Graphic file (type pdf)
 
 <use tannergraph.pdf>
-Package pdftex.def Info: tannergraph.pdf used on input line 259.
+Package pdftex.def Info: tannergraph.pdf used on input line 270.
 (pdftex.def)             Requested size: 338.01543pt x 258.21667pt.
- [13 <./tannergraph.pdf>]
-LaTeX Font Info:    Try loading font information for TS1+phv on input line 274.
+ [14 <./tannergraph.pdf>]
+LaTeX Font Info:    Try loading font information for TS1+phv on input line 285.
 
 
 (c:/texlive/2014/texmf-dist/tex/latex/psnfss/ts1phv.fd
 File: ts1phv.fd 2001/06/04 scalable font definitions for TS1/phv.
-) [14]pdfTeX warning (ext4): destination with the same identifier (name{equatio
+) [15]pdfTeX warning (ext4): destination with the same identifier (name{equatio
 n.5.1}) has been already used, duplicate ignored
 <to be read again> 
                    \relax 
-l.290 \begin{equation}
-                       \label{eq:LLR} [15]pdfTeX warning (ext4): destination wi
+l.301 \begin{equation}
+                       \label{eq:LLR} [16]pdfTeX warning (ext4): destination wi
 th the same identifier (name{equation.5.1}) has been already used, duplicate ig
 nored
 <to be read again> 
                    \relax 
-l.331 \begin{equation}
-                       \label{eq:msgNode} [16]pdfTeX warning (ext4): destinatio
+l.342 \begin{equation}
+                       \label{eq:msgNode} [17]pdfTeX warning (ext4): destinatio
 n with the same identifier (name{equation.5.2}) has been already used, duplicat
 e ignored
 <to be read again> 
                    \relax 
-l.337 \begin{equation}
-                       \label{eq:chkNode} [17]
-<awgn_channel_model.pdf, id=469, 570.13pt x 115.43124pt>
+l.348 \begin{equation}
+                       \label{eq:chkNode} [18]
+<awgn_channel_model.pdf, id=474, 570.13pt x 115.43124pt>
 File: awgn_channel_model.pdf Graphic file (type pdf)
 
 <use awgn_channel_model.pdf>
-Package pdftex.def Info: awgn_channel_model.pdf used on input line 363.
+Package pdftex.def Info: awgn_channel_model.pdf used on input line 374.
 (pdftex.def)             Requested size: 500.57632pt x 101.34906pt.
- [18
+ [19
 
- <./awgn_channel_model.pdf>] [19]
+ <./awgn_channel_model.pdf>] [20]
 Package epstopdf Info: Source file: <96_48_LDPC.eps>
 (epstopdf)                    date: 2015-04-22 17:15:21
 (epstopdf)                    size: 42033 bytes
@@ -1250,17 +1252,17 @@ Package epstopdf Info: Source file: <96_48_LDPC.eps>
 (epstopdf)                    size: 13115 bytes
 (epstopdf)             Command: <repstopdf --outfile=96_48_LDPC-eps-converted-t
 o.pdf 96_48_LDPC.eps>
-(epstopdf)             \includegraphics on input line 412.
+(epstopdf)             \includegraphics on input line 423.
 Package epstopdf Info: Output file is already uptodate.
 
-<96_48_LDPC-eps-converted-to.pdf, id=552, 973.6375pt x 674.52pt>
+<96_48_LDPC-eps-converted-to.pdf, id=556, 973.6375pt x 674.52pt>
 File: 96_48_LDPC-eps-converted-to.pdf Graphic file (type pdf)
 
 <use 96_48_LDPC-eps-converted-to.pdf>
-Package pdftex.def Info: 96_48_LDPC-eps-converted-to.pdf used on input line 412
+Package pdftex.def Info: 96_48_LDPC-eps-converted-to.pdf used on input line 423
 .
 (pdftex.def)             Requested size: 486.81755pt x 337.25917pt.
- [20 <./96_48_LDPC-eps-converted-to.pdf>]
+ [21 <./96_48_LDPC-eps-converted-to.pdf>]
 Package epstopdf Info: Source file: <dvbs2_graph.eps>
 (epstopdf)                    date: 2015-04-22 17:15:21
 (epstopdf)                    size: 41618 bytes
@@ -1269,17 +1271,17 @@ Package epstopdf Info: Source file: <dvbs2_graph.eps>
 (epstopdf)                    size: 12261 bytes
 (epstopdf)             Command: <repstopdf --outfile=dvbs2_graph-eps-converted-
 to.pdf dvbs2_graph.eps>
-(epstopdf)             \includegraphics on input line 421.
+(epstopdf)             \includegraphics on input line 432.
 Package epstopdf Info: Output file is already uptodate.
 
-<dvbs2_graph-eps-converted-to.pdf, id=564, 780.9175pt x 520.94624pt>
+<dvbs2_graph-eps-converted-to.pdf, id=568, 780.9175pt x 520.94624pt>
 File: dvbs2_graph-eps-converted-to.pdf Graphic file (type pdf)
 
 <use dvbs2_graph-eps-converted-to.pdf>
-Package pdftex.def Info: dvbs2_graph-eps-converted-to.pdf used on input line 42
-1.
+Package pdftex.def Info: dvbs2_graph-eps-converted-to.pdf used on input line 43
+2.
 (pdftex.def)             Requested size: 468.55411pt x 312.57016pt.
- [21 <./dvbs2_graph-eps-converted-to.pdf>] [22] [23
+ [22 <./dvbs2_graph-eps-converted-to.pdf>] [23] [24
 
 ]
 Package epstopdf Info: Source file: <RTN_graph.eps>
@@ -1290,13 +1292,13 @@ Package epstopdf Info: Source file: <RTN_graph.eps>
 (epstopdf)                    size: 37672 bytes
 (epstopdf)             Command: <repstopdf --outfile=RTN_graph-eps-converted-to
 .pdf RTN_graph.eps>
-(epstopdf)             \includegraphics on input line 454.
+(epstopdf)             \includegraphics on input line 465.
 Package epstopdf Info: Output file is already uptodate.
- <RTN_graph-eps-converted-to.pdf, id=596, 586.19pt x 442.65375pt>
+ <RTN_graph-eps-converted-to.pdf, id=605, 586.19pt x 442.65375pt>
 File: RTN_graph-eps-converted-to.pdf Graphic file (type pdf)
 
 <use RTN_graph-eps-converted-to.pdf>
-Package pdftex.def Info: RTN_graph-eps-converted-to.pdf used on input line 454.
+Package pdftex.def Info: RTN_graph-eps-converted-to.pdf used on input line 465.
 
 (pdftex.def)             Requested size: 246.19812pt x 185.9133pt.
 Package epstopdf Info: Source file: <retention_noise_graph.eps>
@@ -1308,27 +1310,27 @@ Package epstopdf Info: Source file: <retention_noise_graph.eps>
 (epstopdf)                    size: 31593 bytes
 (epstopdf)             Command: <repstopdf --outfile=retention_noise_graph-eps-
 converted-to.pdf retention_noise_graph.eps>
-(epstopdf)             \includegraphics on input line 460.
+(epstopdf)             \includegraphics on input line 471.
 Package epstopdf Info: Output file is already uptodate.
 
-<retention_noise_graph-eps-converted-to.pdf, id=597, 637.38126pt x 488.82625pt>
+<retention_noise_graph-eps-converted-to.pdf, id=606, 637.38126pt x 488.82625pt>
 File: retention_noise_graph-eps-converted-to.pdf Graphic file (type pdf)
 <use retention_noise_graph-eps-converted-to.pdf>
 Package pdftex.def Info: retention_noise_graph-eps-converted-to.pdf used on inp
-ut line 460.
+ut line 471.
 (pdftex.def)             Requested size: 240.93333pt x 184.77878pt.
- [24 <./RTN_graph-eps-converted-to.pdf> <./retention_noise_graph-eps-converted-
+ [25 <./RTN_graph-eps-converted-to.pdf> <./retention_noise_graph-eps-converted-
 to.pdf>]pdfTeX warning (ext4): destination with the same identifier (name{equat
 ion.7.1}) has been already used, duplicate ignored
 <to be read again> 
                    \relax 
-l.478 \begin{equation}
+l.489 \begin{equation}
                        \label{eq:additive_memory_noise_model}
-<memory_channel.pdf, id=619, 518.93875pt x 209.78375pt>
+<memory_channel.pdf, id=627, 518.93875pt x 209.78375pt>
 File: memory_channel.pdf Graphic file (type pdf)
 
 <use memory_channel.pdf>
-Package pdftex.def Info: memory_channel.pdf used on input line 489.
+Package pdftex.def Info: memory_channel.pdf used on input line 500.
 (pdftex.def)             Requested size: 498.18346pt x 201.3933pt.
 Package epstopdf Info: Source file: <memory_voltage_distribution.eps>
 (epstopdf)                    date: 2015-04-22 17:15:21
@@ -1339,18 +1341,18 @@ to.pdf>
 (epstopdf)                    size: 118489 bytes
 (epstopdf)             Command: <repstopdf --outfile=memory_voltage_distributio
 n-eps-converted-to.pdf memory_voltage_distribution.eps>
-(epstopdf)             \includegraphics on input line 498.
+(epstopdf)             \includegraphics on input line 509.
 Package epstopdf Info: Output file is already uptodate.
 
-<memory_voltage_distribution-eps-converted-to.pdf, id=621, 626.34pt x 668.4975p
+<memory_voltage_distribution-eps-converted-to.pdf, id=629, 626.34pt x 668.4975p
 t>
 File: memory_voltage_distribution-eps-converted-to.pdf Graphic file (type pdf)
  <use memory_voltage_distribution-eps-converted-to.pdf>
 Package pdftex.def Info: memory_voltage_distribution-eps-converted-to.pdf used 
-on input line 498.
+on input line 509.
 (pdftex.def)             Requested size: 469.75383pt x 501.37189pt.
- [25 <./memory_channel.pdf>] [26 <./memory_voltage_distribution-eps-converted-t
-o.pdf>] [27
+ [26 <./memory_channel.pdf>] [27 <./memory_voltage_distribution-eps-converted-t
+o.pdf>] [28
 
 ]
 Package epstopdf Info: Source file: <variable_boundary_graph.eps>
@@ -1362,15 +1364,15 @@ df>
 (epstopdf)                    size: 18166 bytes
 (epstopdf)             Command: <repstopdf --outfile=variable_boundary_graph-ep
 s-converted-to.pdf variable_boundary_graph.eps>
-(epstopdf)             \includegraphics on input line 528.
+(epstopdf)             \includegraphics on input line 539.
 Package epstopdf Info: Output file is already uptodate.
 
-<variable_boundary_graph-eps-converted-to.pdf, id=697, 458.71375pt x 400.49625p
+<variable_boundary_graph-eps-converted-to.pdf, id=705, 458.71375pt x 400.49625p
 t>
 File: variable_boundary_graph-eps-converted-to.pdf Graphic file (type pdf)
  <use variable_boundary_graph-eps-converted-to.pdf>
 Package pdftex.def Info: variable_boundary_graph-eps-converted-to.pdf used on i
-nput line 528.
+nput line 539.
 (pdftex.def)             Requested size: 238.53252pt x 208.25925pt.
 Package epstopdf Info: Source file: <variable_boundary_example.eps>
 (epstopdf)                    date: 2015-04-22 17:15:21
@@ -1381,23 +1383,23 @@ Package epstopdf Info: Source file: <variable_boundary_example.eps>
 (epstopdf)                    size: 18088 bytes
 (epstopdf)             Command: <repstopdf --outfile=variable_boundary_example-
 eps-converted-to.pdf variable_boundary_example.eps>
-(epstopdf)             \includegraphics on input line 534.
+(epstopdf)             \includegraphics on input line 545.
 Package epstopdf Info: Output file is already uptodate.
 
-<variable_boundary_example-eps-converted-to.pdf, id=698, 415.5525pt x 352.31625
+<variable_boundary_example-eps-converted-to.pdf, id=706, 415.5525pt x 352.31625
 pt>
 File: variable_boundary_example-eps-converted-to.pdf Graphic file (type pdf)
  <use variable_boundary_example-eps-converted-to.pdf>
 Package pdftex.def Info: variable_boundary_example-eps-converted-to.pdf used on
- input line 534.
+ input line 545.
 (pdftex.def)             Requested size: 249.33342pt x 211.39137pt.
- [28 <./variable_boundary_graph-eps-converted-to.pdf> <./variable_boundary_exam
+ [29 <./variable_boundary_graph-eps-converted-to.pdf> <./variable_boundary_exam
 ple-eps-converted-to.pdf>]pdfTeX warning (ext4): destination with the same iden
 tifier (name{equation.8.1}) has been already used, duplicate ignored
 <to be read again> 
                    \relax 
-l.549 \begin{equation}
-                       \label{eq:llr_memory} [29] [30]
+l.560 \begin{equation}
+                       \label{eq:llr_memory} [30] [31]
 Package epstopdf Info: Source file: <retention_convolution.eps>
 (epstopdf)                    date: 2015-04-24 16:58:06
 (epstopdf)                    size: 426143 bytes
@@ -1407,17 +1409,17 @@ Package epstopdf Info: Source file: <retention_convolution.eps>
 (epstopdf)                    size: 67271 bytes
 (epstopdf)             Command: <repstopdf --outfile=retention_convolution-eps-
 converted-to.pdf retention_convolution.eps>
-(epstopdf)             \includegraphics on input line 604.
+(epstopdf)             \includegraphics on input line 615.
 Package epstopdf Info: Output file is already uptodate.
 
-<retention_convolution-eps-converted-to.pdf, id=748, 578.16pt x 486.81876pt>
+<retention_convolution-eps-converted-to.pdf, id=756, 578.16pt x 486.81876pt>
 File: retention_convolution-eps-converted-to.pdf Graphic file (type pdf)
 
 <use retention_convolution-eps-converted-to.pdf>
 Package pdftex.def Info: retention_convolution-eps-converted-to.pdf used on inp
-ut line 604.
+ut line 615.
 (pdftex.def)             Requested size: 346.89867pt x 292.0935pt.
- [31 <./retention_convolution-eps-converted-to.pdf>]
+ [32 <./retention_convolution-eps-converted-to.pdf>]
 Package epstopdf Info: Source file: <matched_gaussian.eps>
 (epstopdf)                    date: 2015-04-24 17:11:54
 (epstopdf)                    size: 432602 bytes
@@ -1426,22 +1428,22 @@ Package epstopdf Info: Source file: <matched_gaussian.eps>
 (epstopdf)                    size: 74799 bytes
 (epstopdf)             Command: <repstopdf --outfile=matched_gaussian-eps-conve
 rted-to.pdf matched_gaussian.eps>
-(epstopdf)             \includegraphics on input line 623.
+(epstopdf)             \includegraphics on input line 634.
 Package epstopdf Info: Output file is already uptodate.
 
-<matched_gaussian-eps-converted-to.pdf, id=767, 592.2125pt x 477.785pt>
+<matched_gaussian-eps-converted-to.pdf, id=775, 592.2125pt x 477.785pt>
 File: matched_gaussian-eps-converted-to.pdf Graphic file (type pdf)
 
 <use matched_gaussian-eps-converted-to.pdf>
 Package pdftex.def Info: matched_gaussian-eps-converted-to.pdf used on input li
-ne 623.
-(pdftex.def)             Requested size: 355.33023pt x 286.6732pt.
- [32] [33 <./matched_gaussian-eps-converted-to.pdf>] <memory_channel_model.pdf,
- id=784, 570.13pt x 80.3pt>
+ne 634.
+(pdftex.def)             Requested size: 414.54591pt x 334.44722pt.
+ [33] [34 <./matched_gaussian-eps-converted-to.pdf>] <memory_channel_model.pdf,
+ id=792, 570.13pt x 80.3pt>
 File: memory_channel_model.pdf Graphic file (type pdf)
 
 <use memory_channel_model.pdf>
-Package pdftex.def Info: memory_channel_model.pdf used on input line 636.
+Package pdftex.def Info: memory_channel_model.pdf used on input line 647.
 (pdftex.def)             Requested size: 484.6128pt x 68.25531pt.
 Package epstopdf Info: Source file: <retention_time_graph.eps>
 (epstopdf)                    date: 2015-04-25 15:44:13
@@ -1452,15 +1454,15 @@ Package epstopdf Info: Source file: <retention_time_graph.eps>
 (epstopdf)                    size: 9431 bytes
 (epstopdf)             Command: <repstopdf --outfile=retention_time_graph-eps-c
 onverted-to.pdf retention_time_graph.eps>
-(epstopdf)             \includegraphics on input line 646.
+(epstopdf)             \includegraphics on input line 657.
 Package epstopdf Info: Output file is already uptodate.
 
-<retention_time_graph-eps-converted-to.pdf, id=788, 523.9575pt x 432.61626pt>
+<retention_time_graph-eps-converted-to.pdf, id=796, 523.9575pt x 432.61626pt>
 File: retention_time_graph-eps-converted-to.pdf Graphic file (type pdf)
 
 <use retention_time_graph-eps-converted-to.pdf>
 Package pdftex.def Info: retention_time_graph-eps-converted-to.pdf used on inpu
-t line 646.
+t line 657.
 (pdftex.def)             Requested size: 235.77869pt x 194.6755pt.
 Package epstopdf Info: Source file: <codedBER_NCycles.eps>
 (epstopdf)                    date: 2015-04-25 16:26:59
@@ -1470,17 +1472,17 @@ Package epstopdf Info: Source file: <codedBER_NCycles.eps>
 (epstopdf)                    size: 15011 bytes
 (epstopdf)             Command: <repstopdf --outfile=codedBER_NCycles-eps-conve
 rted-to.pdf codedBER_NCycles.eps>
-(epstopdf)             \includegraphics on input line 654.
+(epstopdf)             \includegraphics on input line 665.
 Package epstopdf Info: Output file is already uptodate.
 
-<codedBER_NCycles-eps-converted-to.pdf, id=789, 837.1275pt x 622.325pt>
+<codedBER_NCycles-eps-converted-to.pdf, id=797, 837.1275pt x 622.325pt>
 File: codedBER_NCycles-eps-converted-to.pdf Graphic file (type pdf)
 
 <use codedBER_NCycles-eps-converted-to.pdf>
 Package pdftex.def Info: codedBER_NCycles-eps-converted-to.pdf used on input li
-ne 654.
+ne 665.
 (pdftex.def)             Requested size: 435.3088pt x 323.61086pt.
- [34
+ [35
 
  <./memory_channel_model.pdf>]
 Package epstopdf Info: Source file: <cber_uber_memory.eps>
@@ -1491,57 +1493,59 @@ Package epstopdf Info: Source file: <cber_uber_memory.eps>
 (epstopdf)                    size: 12050 bytes
 (epstopdf)             Command: <repstopdf --outfile=cber_uber_memory-eps-conve
 rted-to.pdf cber_uber_memory.eps>
-(epstopdf)             \includegraphics on input line 660.
+(epstopdf)             \includegraphics on input line 671.
 Package epstopdf Info: Output file is already uptodate.
 
-<cber_uber_memory-eps-converted-to.pdf, id=841, 625.33624pt x 457.71pt>
+<cber_uber_memory-eps-converted-to.pdf, id=849, 625.33624pt x 457.71pt>
 File: cber_uber_memory-eps-converted-to.pdf Graphic file (type pdf)
 
 <use cber_uber_memory-eps-converted-to.pdf>
 Package pdftex.def Info: cber_uber_memory-eps-converted-to.pdf used on input li
-ne 660.
-(pdftex.def)             Requested size: 412.72319pt x 302.08954pt.
- [35 <./retention_time_graph-eps-converted-to.pdf>] [36 <./codedBER_NCycles-eps
--converted-to.pdf>] [37 <./cber_uber_memory-eps-converted-to.pdf>] [38
+ne 671.
+(pdftex.def)             Requested size: 469.00104pt x 343.28166pt.
+ [36 <./retention_time_graph-eps-converted-to.pdf>] [37 <./codedBER_NCycles-eps
+-converted-to.pdf>] [38 <./cber_uber_memory-eps-converted-to.pdf>] [39
 
 ]
-LaTeX Font Info:    Try loading font information for OT1+pcr on input line 691.
+LaTeX Font Info:    Try loading font information for OT1+pcr on input line 703.
 
 
 (c:/texlive/2014/texmf-dist/tex/latex/psnfss/ot1pcr.fd
 File: ot1pcr.fd 2001/06/04 font definitions for OT1/pcr.
 )
-LaTeX Font Info:    Try loading font information for TS1+pcr on input line 694.
+LaTeX Font Info:    Try loading font information for TS1+pcr on input line 706.
 
 
 (c:/texlive/2014/texmf-dist/tex/latex/psnfss/ts1pcr.fd
 File: ts1pcr.fd 2001/06/04 font definitions for TS1/pcr.
-) [39
+) [40
 
-] [40] [41
+] [41] [42] [43]
+[44] [45
+
+] [46
 
 ]
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 707.
- [42]
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 707.
-
-(./report.aux)
-Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 707.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 707.
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 928.
+ [47]
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 928.
+ (./report.aux)
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 928.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 928.
 Package rerunfilecheck Info: File `report.out' has not changed.
-(rerunfilecheck)             Checksum: 18DF6925E01FB4EC71BBCF39DFE41ABA;2353.
+(rerunfilecheck)             Checksum: AD4B5EA9F4E689BFB6F1BC36F919FEDF;2335.
 Package logreq Info: Writing requests to 'report.run.xml'.
 \openout1 = `report.run.xml'.
 
  ) 
 Here is how much of TeX's memory you used:
- 23068 strings out of 493109
- 386060 string characters out of 6138587
- 592963 words of memory out of 5000000
- 26057 multiletter control sequences out of 15000+600000
+ 23310 strings out of 493109
+ 389086 string characters out of 6138587
+ 710963 words of memory out of 5000000
+ 26129 multiletter control sequences out of 15000+600000
  46384 words of font info for 92 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 42i,26n,56p,10379b,1600s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 42i,26n,56p,10379b,1936s stack positions out of 5000i,500n,10000p,200000b,80000s
 {c:/texlive/2014/texmf-dist/fonts/enc/dvips/base/8r.enc}<c:/texlive/2014/texm
 f-dist/fonts/type1/public/amsfonts/cm/cmbx10.pfb><c:/texlive/2014/texmf-dist/fo
 nts/type1/public/amsfonts/cm/cmex10.pfb><c:/texlive/2014/texmf-dist/fonts/type1
@@ -1561,10 +1565,10 @@ live/2014/texmf-dist/fonts/type1/public/amsfonts/symbols/msam10.pfb><c:/texlive
 /fonts/type1/urw/helvetic/uhvb8a.pfb><c:/texlive/2014/texmf-dist/fonts/type1/ur
 w/helvetic/uhvr8a.pfb><c:/texlive/2014/texmf-dist/fonts/type1/urw/helvetic/uhvr
 o8a.pfb>
-Output written on report.pdf (43 pages, 1015764 bytes).
+Output written on report.pdf (48 pages, 1036781 bytes).
 PDF statistics:
- 1030 PDF objects out of 1200 (max. 8388607)
- 823 compressed objects within 9 object streams
- 153 named destinations out of 1000 (max. 500000)
+ 1255 PDF objects out of 1440 (max. 8388607)
+ 1041 compressed objects within 11 object streams
+ 323 named destinations out of 1000 (max. 500000)
  362 words of extra memory for PDF output out of 10000 (max. 10000000)
 

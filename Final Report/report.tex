@@ -65,9 +65,10 @@
 \textsc{\large 4\textsuperscript{th} Year Project Report}\\[0.5cm]
 %----------------------------------------------------------------------------------------
 %	TITLE SECTION
-\HRule \\[0.4cm]
-{ \huge \bfseries Making Flash Memory Work}\\[0.4cm] % Title of your document
-\HRule \\[1.5cm]
+\HRule \\[0.7cm]
+{ \huge \bfseries Making Flash Memory Work}\\[0.2cm] % Title of your document
+{ \large Investigating error-correcting codes in Flash Memory devices}
+\HRule \\[0.7cm]
 %----------------------------------------------------------------------------------------
 %	AUTHOR SECTION
 \begin{minipage}{0.4\textwidth}
@@ -82,19 +83,29 @@ Henry \textsc{Fletcher} % Your name
 \emph{Supervisor:} \\
 Dr. Justin \textsc{Coon} % Supervisor's Name
 \end{flushright}
-\end{minipage}\\[4cm]
+\end{minipage}\\[13cm]
 
-{\large \today}\\[3cm]
+{\large \today}\\[1cm]
 
 \vfill 
 
 \end{titlepage}
 \includepdf[scale=0.9]{authorship_dec.pdf}
+
+\section*{Acknowledgements}
+I would like to express my utmost gratitude towards my supervisor, Justin Coon, for all of the assistance he has provided over this past year, both for the project as well as in his related lecture series.
+
+I would also like to thank Mohamed Ismail and Toshiba Research Europe Ltd. for providing the use of compute resources for this project.
+
+Finally I wish to thank Hachem Yassine for his assistance in code debugging, and the discussions surrounding the project area.
+
 \section{Executive Summary}
 
 Modern flash memory is reliant on error-correcting code to ensure error-free operation. Current flash memory architectures often use linear block codes for this purpose (e.g. Reed-Solomon, Hamming or BCH codes). However, the recent rediscovery of LDPC (Low Density Parity Check) codes, which can achieve superior performance close to the Shannon Limit, has generated much interest in the NAND memory industry. These codes could be used to further improve error correction capability in flash memory, thus allowing for more densely packed memory cells and thus larger capacity drives.
 
-The general aim of this project is to produce a MATLAB simulation of how an error correction system using LDPC codes would work for flash memory.  By combining both an error generation and an error correction model, it will be possible to benchmark these rediscovered codes, and subsequently compare them to current generation technologies.
+The general aim of this project was to produce a MATLAB simulation of how an error correction system using LDPC codes works for flash memory.  By combining both an error generation and an error correction model, it was possible to benchmark these rediscovered codes against current coding schemes.
+
+The results also showed the importance of accurately modelling the underlying noise process, since by doing so increases the performance of any soft-decision decoder. However, even close approximations to the noise process result in improved performance over existing hard-decision schemes.
 
 \tableofcontents
 
@@ -428,7 +439,7 @@ Longer block length codes generally achieve superior performance and greater 'cu
 \subsection{Conclusion}
 Simulating the AWGN channel, and then comparing the results to the known data published by MacKay, allows for some degree of verification of the MATLAB program. The AWGN channel is one of the common channels simulated when dealing with error correcting code, since it simulates the effect of random noise that often occurs in the environment. 
 
-One issue identified with the simulation program was the speed of the decoder. In the first version of the decoder program [?? Matlab appendix section], there were a substantial number of 'for' loops, which are generally slow in MATLAB. Subsequent versions of the decoder attempted to fix this by vectorising the code [?? Matlab appendix section 2], resulting in approximately a 4x speed increase. However, even with these improvements, the decoder was still much slower compared to MATLAB's built-in LDPC decoder \cite{matlab-ldpc}. In addition, freely available OpenCL accelerated decoders \cite{openCL} can be used on a GPU (Graphics Processing Unit) which are even faster than MATLAB's implementation (See appendix [??] for the benchmark comparisons). In the subsequent sections simulating the memory model, the MATLAB built-in implementation of the LDPC decoder was used, allowing for substantially more blocks to be decoded in the same amount of time.
+One issue identified with the simulation program was the speed of the decoder. In the first version of the decoder program [Appendix A, codebox \ref{code:sp1}], there were a substantial number of 'for' loops, which are generally slow in MATLAB. Subsequent versions of the decoder attempted to fix this by vectorising the code [Appendix A, codebox \ref{code:sp2}], resulting in approximately a 2x speed increase. However, even with these improvements, the decoder was still much slower compared to MATLAB's built-in LDPC decoder \cite{matlab-ldpc}. In addition, freely available OpenCL accelerated decoders \cite{openCL} can be used on a GPU (Graphics Processing Unit) which are even faster than MATLAB's implementation (See appendix [??] for the benchmark comparisons). In the subsequent sections simulating the memory model, the MATLAB built-in implementation of the LDPC decoder was used, allowing for substantially more blocks to be decoded in the same amount of time.
 
 \section{Modelling a memory-specific noise channel} \label{section:memory}
 There are many similarities between modelling a communications system and flash memory. Both are binary channels, subject to some binary input, distortion by some noise source, and subsequent decoding. However, the major difference in flash memory is the storage of binary data in the device for a length of time, unlike a communications system where the data is 'in transit'. When a bit is stored to a memory cell, the noise effect is cumulative over the lifetime of the stored bit. Therefore, two major parameters in modelling flash memory are time, and the number of read/write (or Program/Erase) cycles each cell is subject to.
@@ -620,7 +631,7 @@ An obvious choice would be to use a Gaussian. Whilst the distribution starts off
 Thus, the equations in \ref{eq:matchedGaussians} show that the overall mean is just the mean of the uniform distribution plus the mean of the retention noise $\mu_r$, since the RTN distribution has a mean of zero. The variance is just the sum of the Uniform, Laplacian and Gaussian noise variances.
 \begin{figure}[ht]
 \centering
-\includegraphics[scale=0.6]{matched_gaussian}
+\includegraphics[scale=0.7]{matched_gaussian}
 \caption{Comparison of the distributions for different values of N}
 \label{fig:MMGaussianVsFull}
 \end{figure}
@@ -640,7 +651,7 @@ The process for simulating the error correcting performance of the flash memory 
 
 This simulation model is shown in figure \ref{fig:mem_simulation_model}. The 'Memory Noise Model' block encapsulates the entire process described in section \ref{section:memory_channel_model}, which includes mapping the input data to a cell threshold voltage, and then applying noise to that voltage, remembering that binary 1's and 0's are handled differently.
 
-In this particular model, there are 2 independent variables that can be chosen: 'N', the number of program/erase cycles that the cell has undergone, and 't', the time in seconds that the data has been stored in that cell (the retention time). In addition, there are a number of initial conditions, which don't vary during the simulation. For the remainder of this project, 't' was fixed to 5 years, meaning that we are simulating the data written to the memory cell as having been stored there for 5 years. In initial testing, the variation of 't' had a substantially smaller effect on the overall bit-error rate of the system than varying 'N', and for simplicity that value was fixed. This is shown in figure \ref{fig:retention_time_graph}, where the uncoded (variable boundary hard decision method) bit-error rate of the memory cell is shown, and using a fixed 't' of 5 years has close results to using a 't' that varies as 'N' increases $(t = N/5000)$. Using a fixed value for 't' gives us a 'worst case scenario' of data undergoing a long retention time, even if this is unlikely in an actual scenario.
+In this particular model, there are 2 independent variables that can be chosen: 'N', the number of program/erase cycles that the cell has undergone, and 't', the time in seconds that the data has been stored in that cell (the retention time). In addition, there are a number of initial conditions, which don't vary during the simulation. For the remainder of this project, 't' was fixed to 5 years, meaning that we are simulating the data written to the memory cell as having been stored there for 5 years. In initial testing, the variation of 't' had a substantially smaller effect on the overall bit-error rate of the system than varying 'N', and for simplicity that value was fixed. This is shown in figure \ref{fig:retention_time_graph}, where the uncoded (variable boundary hard decision method) bit-error rate of the memory cell is shown, and using a fixed 't' of 5 years has close results to using a 't' that varies as 'N' increases $(t_{yrs} = N/5000)$. Using a fixed value for 't' gives us a 'worst case scenario' of data undergoing a long retention time, even if this is unlikely in an actual scenario.
 \begin{figure}[ht]
 \centering
 \includegraphics[scale=0.45]{retention_time_graph}
@@ -657,14 +668,14 @@ In this particular model, there are 2 independent variables that can be chosen: 
 \end{figure}
 \begin{figure}[ht]
 \centering
-\includegraphics[scale=0.66]{cber_uber_memory}
+\includegraphics[scale=0.75]{cber_uber_memory}
 \caption{Graph of uncoded vs coded bit-error rate for soft-decision cases}
 \label{fig:memory_results_graph2}
 \end{figure}
 
 Monte-Carlo simulations were run on a remote cluster computer for each of the different decoding schemes explained in section \ref{section:memoryDecoding}. The results are shown in both figures \ref{fig:memory_results_graph} and \ref{fig:memory_results_graph2}.
 
-Figure \ref{fig:memory_results_graph} shows the bit-error rate against a given 'N', the number of cell program/erase cycles. The solid lines all represent soft-decision decoding, each using a different approach when forming the LLR that is fed to the decoder. The 'Static Gaussian', whilst not explicitly declared earlier, uses a Gaussian centered about $V_{p_0}$, the initial programmed voltage. It is static since it doesn't move as N increases. This was the first attempt at performing soft-decision decoding for the system, and is essentially similar to the method of obtaining the LLR's for the AWGN channel (2 static Gaussian distributions).
+Figure \ref{fig:memory_results_graph} shows the bit-error rate against a given 'N', the number of cell program/erase cycles. The solid lines all represent soft-decision decoding, each using a different approach when forming the LLR that is fed to the decoder. The 'Static Gaussian', whilst not explicitly declared earlier, uses a Gaussian centered about $V_{p_0}$, the initial programmed voltage. It is static since both the mean and variance of this Gaussian don't vary as N increases. This was the first attempt at performing soft-decision decoding for the system, and is essentially similar to the method of obtaining the LLR's for the AWGN channel (2 static Gaussian distributions).
 
 The two matched Gaussians, one including the Random Telegraph Noise and one without, are the next best performing curves. It is clear that by adding the variance of the RTN to the Gaussian, it substantially improves performance of the decoder. However, the two functions obtained through the convolution of the various PDF's have the best overall performance. The green line, which is effectively making use of the exact underlying function in order to generate the LLR's, is therefore the upper bound on the performance of this system. 
 
@@ -678,8 +689,9 @@ This particular graph construction is useful in comparing different systems, sin
 Placeholder
 
 \phantomsection
-\addcontentsline{toc}{section}{Appendix A: Random Number Generation}
-\section*{Appendix A: Random Number Generation}
+\addcontentsline{toc}{section}{Appendix A: MATLAB code}
+\section*{Appendix A: MATLAB code}
+\subsection*{Random Number Generation}
 When performing any sort of Monte Carlo simulation, and particularly if running the same program in parallel across multiple computers, it is important to ensure that the random numbers being generated are as random as possible. Even more crucially, there must be no dependence between the parallel task's random numbers if we are to combine result sets.
 
 MATLAB, like many other software packages, cannot generate truly random numbers. Instead, it uses a pseudo-random number generator, such as the Mersenne Twister algorithm. This is just a function that produces numbers which, for most purposes, are considered to be pseudo-random and pseudo-independent. That is, if you generate numbers from this algorithm, they will appear to be random samples from a uniform distribution. 
@@ -698,9 +710,218 @@ RandStream.setDefaultStream(RandStream('mt19937ar','seed',seed));
 
 The commands in codebox \ref{code:rng} were used to seed the random number generator every time a new MATLAB process was created. On UNIX machines, there is a system random number source \mbox{`/dev/random'}, which ``gathers environmental noise from device drivers and other sources into an entropy pool [and] from this entropy pool random numbers are created." The numbers generated by this process originate from physical random processes such as hardware noise, and so it is assumed that when calling the function on a different machine, a different random number will be generated every time. These random numbers are then used to seed the pseudo-random stream in MATLAB.
 
+\subsection*{Sum-Product decoders}
+\singlespacing
+\begin{lstlisting}[style=Matlab-editor,caption = {Sum-Product decoder, first version},label=code:sp1]
+function [y,iterations] = BP_iterate(x,H,l)
+iterations = l;
+% x = Input LLR vector
+% H = Graph connection matrix/Parity Check Matrix
+% l = # Iterations
+% y = Output LLR vector
+%i = Message Nodes;
+%j = Check Nodes;
+
+% Need to calculate number of CHK and MSG nodes from H
+[j_max,i_max] = size(H);
+nonzeros = nnz(H);
+%Preallocate M_IJ and M_JI as sparse matrices
+m_IJ = spalloc(j_max,i_max,nonzeros);
+m_JI = spalloc(j_max,i_max,nonzeros);
+
+for iter = 0:l
+    %All Message nodes:
+    for i = 1:i_max
+        % At each Message node:
+        h = H(:,i);% Column vector of connections to check nodes
+        if iter == 0 % on initial iteration:
+            m_IJ(find(h),i) = x(i); % Message sent = initial conditions
+        else % subsequently:
+            w = m_JI(:,i);
+            % This single line of code below was debugged by Hachem Yassine
+            m_IJ(:,i) = h*x(i) + h*sum(w) - w; %SUM step
+        end
+    end
+    
+    m_IJ_2 = m_IJ'; %Transpose: Memory access is then much quicker!
+    
+    %All Check nodes:
+    for j = 1:j_max
+        % At each Check node:
+        w = m_IJ_2(:,j);
+        [row,~,v] = find(w); % v is non-zero elements. row is the data
+        m_JI(j,row) = 2*atanh(prod(tanh(v./2))./(tanh(v./2))); % PROD step
+    end
+    
+    %Clipping function: prevents overflow
+    m_JI((m_JI) > 1000)=999;
+    m_JI((m_JI) < -1000)=-999;
+    
+    %Get current variable node values
+    sumVector = sum(m_JI);
+    y = x + sumVector;
+    
+    %Check: Is a valid codeword? i.e. y*H' == 0
+    %Hard Decision:
+    for i = 1:length(y)
+        if y(i) > 0
+            y2(i) = 0;
+        else
+            y2(i) = 1;
+        end
+    end
+    %Parity Check:
+    test = sum(mod(y2*H',2));
+    if test == 0
+        iterations = iter;
+        return
+    end
+end
+end
+\end{lstlisting}
+
+\begin{lstlisting}[style=Matlab-editor,caption = {Sum-Product decoder, second version (Vectorised)},label=code:sp2]
+function [y,iterations] = BP_iterate(x,H,l)
+iterations = l;
+
+% Need to calculate number of CHK and MSG nodes from H
+[j_max,i_max] = size(H);
+nonzeros = nnz(H);
+%Preallocate M_IJ and M_JI as sparse matrices
+m_IJ = spalloc(j_max,i_max,nonzeros);
+m_JI = spalloc(j_max,i_max,nonzeros);
+H_ = H';
+
+for iter = 0:l
+    %All Message nodes:
+    if iter == 0 % on initial iteration:
+        m_IJ = bsxfun(@times,x,H);
+    else % subsequently:
+        a = (x + sum(m_JI)); % SUM step
+        b = bsxfun(@times,a,H);
+        m_IJ = b - m_JI;
+    end
+    
+    m_IJ_2 = m_IJ'./2; %Transpose: Memory access is then much quicker!
+    
+    %All check nodes:
+    %Uses logarithm for element-wise division of 2 matrices
+    %i.e. subtraction of logs is division
+    c = tanh(m_IJ_2);
+    d = spfun(@log,c);
+    e = sum(d);
+    f = bsxfun(@times,e,H_);
+    g = f - d;
+    g = spfun(@exp,g);
+    m_JI = 2*atanh(g);
+    m_JI = m_JI';
+
+    % Clipping function
+    m_JI((m_JI) > 1000)=999;
+    m_JI((m_JI) < -1000)=-999;
+    
+    %Get current variable node values
+    sumVector = sum(m_JI);
+    y = x + sumVector;
+    
+    %Stop check: Is a valid codeword? i.e. y*H' == 0
+    %Hard Decision:
+    y2(y>0) = 0;
+    y2(y<0) = 1;
+    
+    %Parity Check:
+    test = sum(mod(y2*H_,2));
+    if test == 0
+        iterations = iter;
+        return
+    end
+end
+end
+\end{lstlisting}
+
+\subsection*{Simulation run script}
+\begin{lstlisting}[style=Matlab-editor,caption = {Top-level Monte-Carlo simulation run script for the Memory channel},label=code:mem_simulator]
+% LDPC Run Script for memory model
+% FIXED t, VARIABLE N
+% System Parameters
+SystemParams.tYrs = 5;
+SystemParams.Verased = 1.4;
+SystemParams.Vp = 2.8;
+SystemParams.deltaVp = 0.25;
+SystemParams.tSecs = SystemParams.tYrs*365*24*3600;
+
+%%% DVB-S2 CODES %%%
+%Code Rate
+Rc = 9/10;
+%Code size
+Nc = 64800;
+%DVB-S2 Parity check matrix
+H = dvbs2ldpc(Rc);
+
+% MonteCarlo Simulation Runs
+mc_iters = 100000; %Number of blocks
+l = 50; %SumProduct max iterations
+
+% Loop to go over all values of N, as well as perform MC Simulation
+I = [];
+for N = 0:1000:45000
+    hEnc = comm.LDPCEncoder(H);
+    hDec = comm.LDPCDecoder('ParityCheckMatrix',H,'IterationTerminationCondition',...
+        'Parity check satisfied','OutputValue','Whole codeword');
+    hError = comm.ErrorRate;
+    SystemParams.N = N;
+
+    %Parallel 'for' loop: Run simultaneously on multi-cores
+    parfor i = 1:mc_iters
+        errRatio(i) = ldpc_BER_memoryN_coded(Rc,Nc,hEnc,hDec,...
+        hError,SystemParams,H,l);
+    end
+
+    %Output Matrix
+    I = [I;N,mean(errRatio)];
+end
+\end{lstlisting}
+\doublespacing
+Codebox \ref{code:mem_simulator} shows the top level script when running locally. When submitting to a compute cluster, the code was changed slightly (e.g. to include the Random Number Generation setup).
+
 \phantomsection
-\addcontentsline{toc}{section}{Appendix B: MATLAB code}
-\section*{Appendix B: MATLAB code}
+\addcontentsline{toc}{section}{Appendix B: Tables}
+\section*{Appendix B: Tables}
+
+\begin{table}[ht]
+\caption{Speed benchmark comparison of various Sum-Product decoders (Timed over 100x64k blocks)}
+\centering
+\doublespacing
+\begin{tabular}{| c | c | c |}
+\hline
+Decoder Type & Time to run (s) & Relative Speed \\
+\hline
+Matlab built-in (on Toshiba Cluster) 160x CPU & 0.25 & 2430x \\
+OpenCL, AMD GPU & 2.02 & 301x \\
+OpenCL, 8x CPU & 6.32 & 96x \\
+Matlab built-in, 8x CPU & 7.63 & 80x \\
+OpenCL, iGPU (Intel) & 8.14 & 75x \\
+Matlab built-in, 1x CPU & 28.4 & 21x \\
+Personal decoder v2, 8x CPU & 123.4 & 5x \\
+Personal decoder v1, 8x CPU & 608.52 & 1x \\
+\hline
+\end{tabular}
+\end{table}
+
+\begin{table}[ht]
+\caption{Speed benchmark comparison of the different schemes used to obtain the LLR's for the memory model decoding}
+\centering
+\doublespacing
+\begin{tabular}{| c | c | c |}
+\hline
+Function Used & Time to run (s) & Relative Speed \\
+\hline
+Moment-Matched Gaussian & 0.495 & 5.5x \\
+Partial function (Convolution of Uniform \& Gaussian) & 1.841 & 1.5x \\
+Full function (Convolution of Uniform, Laplacian \& Gaussian \cite{hachem}) & 2.732 & 1x \\
+\hline
+\end{tabular}
+\end{table}
 
 \printbibliography
 
