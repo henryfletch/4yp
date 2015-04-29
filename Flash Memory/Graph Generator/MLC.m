@@ -4,7 +4,7 @@ clear
 close
 
 x = -5:0.0001:5;
-N = 10000;
+N = 100000;
 Verased = 1.4;
 VpList = [2.6,3.4,4.2];
 deltaVp = 0.25;
@@ -40,12 +40,12 @@ area4 = trapz(x,output4);
 output4 = output4/area4;
 
 % Noisy PDFs
-subplot(2,1,2)
-plot(x,output2)
-hold on
-plot(x,output4)
-axis([0 5 0 10])
-title(['t = ',num2str(timeYrs),' yrs, N = ',num2str(N),' P/E cycles'])
+% subplot(2,1,2)
+% plot(x,output2)
+% hold on
+% plot(x,output4)
+% axis([0 5 0 10])
+% title(['t = ',num2str(timeYrs),' yrs, N = ',num2str(N),' P/E cycles'])
 
 % Original PDFs
 subplot(2,1,1)

@@ -121,6 +121,32 @@ Previous papers \cite{dong2012estimating,DBLP:journals/corr/abs-1210-0149} on th
 
 The majority of this project concerns the development of a MATLAB simulation, that includes both an error generation and error correction model. The flash memory error model, used to simulate the effects of noise and time-varying degradation in a memory cell, is mostly derived from existing work. So too are the methods for error correction, in the form of LDPC and the Belief Propagation algorithm. However, the novelty of this project is investigating how varying degrees of prior information provided to the decoder can alter error performance, through using approximations of the underlying noise assumptions. It also seeks to show the importance of modelling the noise correctly, since having an accurate noise model will result in superior system performance.
 
+\section{Overview of Flash Memory Technology} \label{section:memtech}
+A NAND flash memory cell is essentially just a floating gate transistor. The threshold voltage of each transistor can be individually programmed to determine what data is stored in that cell. A Single-Level Cell (SLC) has 2 states: Erased and Programmed. Whereas a Multi-Level Cell (MLC) often has 4 states (Erased and 3 different programmed levels), allowing it to store 2 bits of information.
+\begin{figure}[h]
+\centering
+\includegraphics[scale=0.65]{floating_gate_transistor}
+\caption[]{Floating gate transistor\\ \footnotesize[Image licensed under CC BY-SA 4.0, via Wikimedia Commons]}
+\label{figure:floating_gate}
+\end{figure}
+
+The floating gate transistor, shown here in figure \ref{figure:floating_gate}, looks like a traditional MOSFET, except it has two gates, separated by an oxide layer. The principal of operation is that when charge is placed onto the floating gate, it shields the control gate from the channel of the device. If the floating gate is negatively charged through addition of electrons, to make the channel conductive, a larger gate voltage is now required. Therefore, the addition or removal of charge onto the floating gate ``modulates" the effective threshold voltage $(V_t)$ of the device \cite{bez2003introduction}.
+
+To determine the threshold voltage of each cell, a voltage is applied to the control gate, and the subsequent drain current is then measured. A current comparator for each cell can then detect the current \cite{DBLP:journals/corr/abs-1210-0149}, and classify if the cell was in the conductive or cut-off region. If the channel becomes conductive after applying a specific gate voltage, it means that there was not sufficient charge on the floating gate, and so the effective threshold voltage of the device is low - the erased state. Conversely, if the channel does not conduct after applying the gate voltage, then the floating gate is charged and shielding the channel, and the effective threshold voltage of the device is now high - the programmed state.
+
+Programming the memory cell is done through a process known as incremental step pulse programming (ISPP) \cite{dong2012estimating}. A target programmed voltage, $V_p$, is reached through a repeated ``program-and-verify" strategy: A high-voltage pulse, starting at some value below the target, is applied to the control gate. The read process as above then determines the effective threshold voltage. If the target voltage is not reached, this pulse is increased by an amount $\Delta V_{pp}$, the ``Pulse Width", and applied again. This continues until the threshold voltage of the cell is correct. This programming process therefore results in the cell's threshold voltage taking on a uniform distribution, between $[V_p, V_p + \Delta V_{pp}]$. 
+
+Whilst the programmed state caused by ISPP takes on the shape of a uniform distribution, the erased state is assumed to be a wide Gaussian \cite{dong2012estimating}. The voltage probability distribution for an ideal programmed MLC device is shown below in figure \ref{figure:mlc_distribution}. An SLC device would only have a single uniform distribution, causing 2 discrete states, and therefore could only store 1 bit of information per cell.
+
+\begin{figure}[h]
+\centering
+\includegraphics[scale=0.75]{memory_voltage_mlc}
+\caption[]{Ideal voltage distribution for MLC. This cell can store 2 bits of data, dependent on $V_t$ being $\sim 1.4, 2.6, 3.4$ or $4.2$ volts. Here, the pulse width $\Delta V_{pp}$ is 0.25 volts.}
+\label{figure:mlc_distribution}
+\end{figure}
+
+Since no dielectric is perfect, charge stored on the floating gate transistor will slowly ``leak out" of the gate over time. This generally results in the threshold voltage of cells decreasing over time. This process is one of the causes of noise generation that is used in this project, and is described in full in section \ref{section:memory}.
+
 \section{Overview of Linear Block Codes}
 
 Linear block codes are one of the two main classes of forward error correction (FEC), with the other main type being convolutional coding. A linear block code essentially takes a block of binary data, and adds additional redundant data onto it. This block can then be transmitted over a noisy channel, and subsequently decoded at the receiver. The redundant bits in the block are used as parity check equations, which allows a linear block code to both detect and correct errors \cite{tse2005fundamentals,proakis2001digital,haykin2008communication}.
@@ -213,6 +239,10 @@ e_{detectable} = w_{min} - 1
 e_{correctable} = \dfrac{w_{min} - 1}{2}
 \end{equation}
 
+\subsection{Channel Capacity}
+
+Channel capacity overview here. Will probably go before LDPC page(1 page). Lorem ipsum 1234567889012. Placeholder!!!!!
+
 \subsection{Low Density Parity Check codes}
 A particular class of codes, known as ``Low Density Parity Check" (LDPC) codes, are of particular interest and relevance to this project. LDPC codes are generally considered to be some of the best performing linear block codes available, in terms of error performance, with some codes getting within a fraction of the Shannon Limit. Additionally, LDPC codes have no patent and hence no licensing costs, making them attractive for real world use.
 
@@ -226,12 +256,6 @@ Disadvantages of LDPC include the fact that there still exists a small (often in
 \textbf{Example:}
 A specific DVB-S2 code, with $n = 64800$ and $r = 0.9$, has a total of $194,399$ non-zero elements in it's parity check matrix $\mathbf{H}$. However, the non-zero elements account for just 0.04\% of the total matrix: The vast majority of $\mathbf{H}$ is empty. It is therefore easy to see why they are called ``Low Density". In this project, this specific high-rate code is used extensively, especially when modelling the memory-specific case in section \ref{section:memory}.
 
-\subsection{Channel Capacity}
-
-Channel capacity overview here. Will probably go before LDPC page(1 page)
-
-\section{Overview of Flash Memory Technology} \label{section:memtech}
-A NAND flash memory cell is essentially just a floating gate transistor. The threshold voltage of each transistor can be individually programmed to determine what data is stored in that cell. 
 
 \section{Decoding of LDPC Codes} \label{decoding}
 Using syndrome lookup decoding as described in section \ref{3.1:definitions} would be nearly impossible for longer block lengths. There is a much better, iterative decoding method that can be used for any linear block code, and which is linear in block length. It is called the belief propagation algorithm (also known as the sum-product algorithm or the message passing algorithm). 
@@ -892,8 +916,8 @@ Codebox \ref{code:mem_simulator} shows the top level script when running locally
 \begin{table}[ht]
 \caption{Speed benchmark comparison of various Sum-Product decoders (Timed over 100x64k blocks)}
 \centering
-\doublespacing
-\begin{tabular}{| c | c | c |}
+\singlespacing
+\begin{tabular}{| l | c | c |}
 \hline
 Decoder Type & Time to run (s) & Relative Speed \\
 \hline
@@ -912,8 +936,7 @@ Personal decoder v1, 8x CPU & 608.52 & 1x \\
 \begin{table}[ht]
 \caption{Speed benchmark comparison of the different schemes used to obtain the LLR's for the memory model decoding}
 \centering
-\doublespacing
-\begin{tabular}{| c | c | c |}
+\begin{tabular}{| l | c | c |}
 \hline
 Function Used & Time to run (s) & Relative Speed \\
 \hline
@@ -924,6 +947,27 @@ Full function (Convolution of Uniform, Laplacian \& Gaussian \cite{hachem}) & 2.
 \end{tabular}
 \end{table}
 
+\begin{table}[ht]
+\caption{Value of variables used in the memory simulations}
+\centering
+\begin{tabular}{| c | l | l |}
+\hline
+Symbol & Name & Value \\
+\hline
+$V_{p0}$ & Initial programmed voltage & 2.8 V  \\
+$\Delta V_{pp}$ & ISPP step voltage & 0.25 V  \\
+$V_{e0}$ & Mean initial erased voltage & 1.4 V \\
+$\sigma^2_e$ & Variance of erased state & 0.35 V \\
+$t_{Yrs}$ & Retention time & 5 Years \\
+$K_s$ & Retention noise parameter & 0.38 \\
+$K_d$ & Retention noise parameter & $4\times 10^{-4}$ \\
+$K_m$ & Retention noise parameter & $4\times 10^{-6}$ \\
+$t_0$ & Retention noise parameter & 3600 s\\
+$K_{rtn}$ & RTN constant ($\lambda_{rtn} = K \sqrt{N}$) & 0.00025 \\
+\hline
+\end{tabular}
+\end{table}
+\doublespacing
 \printbibliography
 \begin{center}
 -

@@ -304,6 +304,42 @@
   \field{year}{2011}
 \endentry
 
+\entry{bez2003introduction}{article}{}
+  \name{author}{4}{}{%
+    {{}%
+     {Bez}{B.}%
+     {Roberto}{R.}%
+     {}{}%
+     {}{}}%
+    {{}%
+     {Camerlenghi}{C.}%
+     {Emilio}{E.}%
+     {}{}%
+     {}{}}%
+    {{}%
+     {Modelli}{M.}%
+     {Alberto}{A.}%
+     {}{}%
+     {}{}}%
+    {{}%
+     {Visconti}{V.}%
+     {Angelo}{A.}%
+     {}{}%
+     {}{}}%
+  }
+  \list{publisher}{1}{%
+    {IEEE}%
+  }
+  \strng{namehash}{BR+1}
+  \strng{fullhash}{BRCEMAVA1}
+  \field{number}{4}
+  \field{pages}{489\bibrangedash 502}
+  \field{title}{Introduction to flash memory}
+  \field{volume}{91}
+  \field{journaltitle}{Proceedings of the IEEE}
+  \field{year}{2003}
+\endentry
+
 \entry{tse2005fundamentals}{book}{}
   \name{author}{2}{}{%
     {{}%

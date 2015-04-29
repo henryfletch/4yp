@@ -4,7 +4,7 @@ clear all
 close all
 I = [];
 x = -5:0.0001:5;
-NVector = [20000];
+NVector = [];
 Verased = 1.4;
 Vp = 2.8;
 deltaVp = 0.25;
@@ -49,7 +49,7 @@ subplot(numplots,1,1)
 plot(x,yProgrammed)
 hold on
 plot(x,yErased)
-axis([0 3.5 0 5])
+axis([0 5 0 5])
 title('t=0,N=0');
 
 for i  = 2:numplots
