@@ -90,7 +90,7 @@ Dr. Justin \textsc{Coon} % Supervisor's Name
 \vfill 
 
 \end{titlepage}
-\includepdf[scale=0.9]{authorship_dec.pdf}
+\includepdf{authorship_dec.pdf}
 
 \section*{Acknowledgements}
 I would like to express my utmost gratitude towards my supervisor, Justin Coon, for all of the assistance he has provided over this past year, both for the project as well as in his related lecture series.
@@ -111,9 +111,9 @@ The results showed the importance of accurately modelling the underlying noise p
 \tableofcontents
 \doublespacing
 \section{Introduction}
-[Disclaimer: Intro needs further work!] Flash Memory is a multi-billion dollar industry, and is almost certainly set to grow in the future. It is also a highly competitive one, with consumers eager for low cost yet high volume storage. Innovation in the industry therefore seeks to increase the capacity and performance of these drives whilst keeping manufacturing costs low. 
+Flash Memory is a multi-billion dollar industry, and is almost certainly set to grow in the future \cite{dong2012estimating}. It is also a highly competitive one, with consumers eager for low cost yet high volume storage. Innovation in the industry therefore seeks to increase the capacity and performance of these drives whilst keeping manufacturing costs low. 
 
-An obvious way to achieve low cost per Gigabyte is to increase the number of stored bits per cell without increasing the number of physical memory cells. Indeed, most consumer high capacity solid-state drives use this approach, making use of MLC (Multi-level cell) or TLC technology where 2 or 3 bits of information are stored per cell. However this comes at the cost of reducing read/write speeds, as well as increasing the occurrence of bit-errors on the device. 
+An obvious way to achieve low cost per Gigabyte is to increase the number of stored bits per cell without increasing the number of physical memory cells. Indeed, most consumer high capacity solid-state drives use this approach, making use of MLC (Multi-level cell) or TLC technology where 2 or 3 bits of information are stored per cell \cite{dong2012estimating}. However this comes at the cost of reducing read/write speeds, as well as increasing the occurrence of bit-errors on the device. 
 
 Current generation flash memory therefore makes extensive use of Error-Correcting Code, to offset the increased error rate caused by densely packed cells. However, recent advances in error-correction capability elsewhere have yet to be implemented in consumer flash memory devices. This project therefore aims to investigate the use of the latest generation error-correcting codes in flash memory. 
 
@@ -231,7 +231,7 @@ A specific DVB-S2 code, with $n = 64800$ and $r = 0.9$, has a total of $194,399$
 Channel capacity overview here. Will probably go before LDPC page(1 page)
 
 \section{Overview of Flash Memory Technology} \label{section:memtech}
-A fairly brief overview of the low-level transistor construction as well as the voltage levels to go here (1.5 pages)
+A NAND flash memory cell is essentially just a floating gate transistor. The threshold voltage of each transistor can be individually programmed to determine what data is stored in that cell. 
 
 \section{Decoding of LDPC Codes} \label{decoding}
 Using syndrome lookup decoding as described in section \ref{3.1:definitions} would be nearly impossible for longer block lengths. There is a much better, iterative decoding method that can be used for any linear block code, and which is linear in block length. It is called the belief propagation algorithm (also known as the sum-product algorithm or the message passing algorithm). 
@@ -440,7 +440,7 @@ Longer block length codes generally achieve superior performance and greater `cu
 \subsection{Conclusion}
 Simulating the AWGN channel, and then comparing the results to the known data published by MacKay, allows for some degree of verification of the MATLAB program. The AWGN channel is one of the common channels simulated when dealing with error correcting code, since it simulates the effect of random noise that often occurs in the environment. 
 
-One issue identified with the simulation program was the speed of the decoder. In the first version of the decoder program [Appendix A, codebox \ref{code:sp1}], there were a substantial number of `for' loops, which are generally slow in MATLAB. Subsequent versions of the decoder attempted to fix this by vectorising the code [Appendix A, codebox \ref{code:sp2}], resulting in approximately a 2x speed increase. However, even with these improvements, the decoder was still much slower compared to MATLAB's built-in LDPC decoder \cite{matlab-ldpc}. In addition, freely available OpenCL accelerated decoders \cite{openCL} can be used on a GPU (Graphics Processing Unit) which are even faster than MATLAB's implementation (See appendix [??] for the benchmark comparisons). In the subsequent sections simulating the memory model, the MATLAB built-in implementation of the LDPC decoder was used, allowing for substantially more blocks to be decoded in the same amount of time.
+One issue identified with the simulation program was the speed of the decoder. In the first version of the decoder program [Appendix A, codebox \ref{code:sp1}], there were a substantial number of `for' loops, which are generally slow in MATLAB. Subsequent versions of the decoder attempted to fix this by vectorising the code [Appendix A, codebox \ref{code:sp2}], resulting in approximately a 2x speed increase. However, even with these improvements, the decoder was still much slower compared to MATLAB's built-in LDPC decoder \cite{matlab-ldpc}. In addition, freely available OpenCL accelerated decoders \cite{openCL} can be used on a GPU (Graphics Processing Unit) which are even faster than MATLAB's implementation (See Appendix B for the benchmark comparisons). In the subsequent sections simulating the memory model, the MATLAB built-in implementation of the LDPC decoder was used, allowing for substantially more blocks to be decoded in the same amount of time.
 
 \section{Modelling a memory-specific noise channel} \label{section:memory}
 There are many similarities between modelling a communications system and flash memory. Both are binary channels, subject to some binary input, distortion by some noise source, and subsequent decoding. However, the major difference in flash memory is the storage of binary data in the device for a length of time, unlike a communications system where the data is `in transit'. When a bit is stored to a memory cell, the noise effect is cumulative over the lifetime of the stored bit. Therefore, two major parameters in modelling flash memory are time, and the number of read/write (or Program/Erase) cycles each cell is subject to.
@@ -526,13 +526,13 @@ The memory channel noise model is, however, not two symmetric Gaussians. As demo
 
 To use Hard decision decoding, it is only necessary to classify each symbol in the memory model as either a 0 or 1. To do this, the system needs to determine where the boundary between these regions should be. The main issue here is that as the number of program/erase cycles increases, both the shape and mean of the programmed distribution changes significantly. A static boundary between the two regions would therefore result in very poor performance. As an example, using figure \ref{fig:mem_channel_distribution}, setting a crossover voltage of 2 volts may seem somewhat reasonable even up to 50,000 cycles. But at 100,000 cycles this decision region would result in nearly half of all programmed 1's being decoded as 0's.
 
-The obvious solution is to have a variable decision boundary, that moves position dependent on the number of program/erase cycles the memory cell has undergone. Mathematically, this position should seek to ensure an equal probability of obtaining a 1 or 0 either side of the boundary. Or, the corollary of this is that the position of the boundary should ensure that the probability of \textit{incorrectly} decoding a 1 or 0 is the same. 
+The obvious solution is to have a variable decision boundary, that moves position dependent on the number of program/erase cycles the memory cell has undergone. Mathematically, this position should seek to ensure an equal probability of obtaining a 1 or 0 either side of the boundary. Or, the corollary of this is that the position of the boundary should ensure that the probability of \textit{incorrectly} decoding a 1 or 0 is the same. This is effectively Maximum Likelihood decoding.
 
 If we let $P(N,x)$ equal the probability density function of the programmed (1) state at $N$ cycles, and $E(N,x)$ be the density function of the erased (0) state at $N$ cycles, then
 \begin{equation}
 \int_0^x \mathrm{P}(N,x)\,\mathrm{d}x = \int_x^\infty \mathrm{E}(N,x)\,\mathrm{d}x
 \end{equation}
-which must be true in order to ensure equal probability decoding of 1's and 0's. This could be solved for $x$ to obtain the ideal boundary value for each value of $N$. However, it is not possible to immediately obtain the expressions for each density function, since in reality it is the combination of many different functions. To solve this problem more quickly, the solution can be obtained using an approximate numerical solution in MATLAB [Appendix ??]. 
+This could be solved for $x$ to obtain the ideal boundary value for each value of $N$. However, it is not possible to immediately obtain the expressions for each density function, since in reality it is the combination of many different functions. To solve this problem more quickly, the solution was obtained using numerical integration in MATLAB. 
 \begin{figure}[h]
 \centering
 \minipage{0.5\textwidth}
@@ -929,4 +929,6 @@ Full function (Convolution of Uniform, Laplacian \& Gaussian \cite{hachem}) & 2.
 -
 \end{center}
 Some \LaTeX\ code, used to format this report, obtained from: \url{http://en.wikibooks.org} (Licensed under CC BY-SA 3.0).
+
+\includepdf[pages={1,2},angle=90]{4yp_risk_assesment}
 \end{document}
