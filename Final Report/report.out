@@ -1,32 +1,31 @@
-\BOOKMARK [1][-]{section.1}{Executive Summary}{}% 1
-\BOOKMARK [1][-]{section.2}{Introduction}{}% 2
-\BOOKMARK [1][-]{section.3}{Overview of Flash Memory Technology}{}% 3
-\BOOKMARK [1][-]{section.4}{Overview of Linear Block Codes}{}% 4
-\BOOKMARK [2][-]{subsection.4.1}{Definitions for Linear Block Codes}{section.4}% 5
-\BOOKMARK [2][-]{subsection.4.2}{Hamming weight, distance, and error correction capability}{section.4}% 6
-\BOOKMARK [2][-]{subsection.4.3}{Channel Capacity}{section.4}% 7
-\BOOKMARK [2][-]{subsection.4.4}{Low Density Parity Check codes}{section.4}% 8
-\BOOKMARK [1][-]{section.5}{Decoding of LDPC Codes}{}% 9
-\BOOKMARK [2][-]{subsection.5.1}{Hard decision decoding}{section.5}% 10
-\BOOKMARK [2][-]{subsection.5.2}{The Log-likelihood ratio}{section.5}% 11
-\BOOKMARK [2][-]{subsection.5.3}{Soft decision decoding}{section.5}% 12
-\BOOKMARK [2][-]{subsection.5.4}{Min-Sum approximation}{section.5}% 13
-\BOOKMARK [1][-]{section.6}{The AWGN channel: Simulation \046 Results}{}% 14
-\BOOKMARK [2][-]{subsection.6.1}{Simulation model}{section.6}% 15
-\BOOKMARK [2][-]{subsection.6.2}{Simulation results}{section.6}% 16
-\BOOKMARK [2][-]{subsection.6.3}{Conclusion}{section.6}% 17
-\BOOKMARK [1][-]{section.7}{Modelling a memory-specific noise channel}{}% 18
-\BOOKMARK [2][-]{subsection.7.1}{Description of Noise Sources}{section.7}% 19
-\BOOKMARK [2][-]{subsection.7.2}{Channel Model}{section.7}% 20
-\BOOKMARK [1][-]{section.8}{Decoding for the memory model}{}% 21
-\BOOKMARK [2][-]{subsection.8.1}{Hard decision decoding: Variable boundary}{section.8}% 22
-\BOOKMARK [2][-]{subsection.8.2}{Soft decision decoding: Gaussian approximations \046 non-Gaussian functions}{section.8}% 23
-\BOOKMARK [3][-]{subsubsection.8.2.1}{Full convolution: Retention Noise + RTN}{subsection.8.2}% 24
-\BOOKMARK [3][-]{subsubsection.8.2.2}{Full convolution: Retention Noise only}{subsection.8.2}% 25
-\BOOKMARK [3][-]{subsubsection.8.2.3}{Matched Gaussians}{subsection.8.2}% 26
-\BOOKMARK [1][-]{section.9}{The memory channel: Simulation \046 Results}{}% 27
-\BOOKMARK [2][-]{subsection.9.1}{Simulation Model}{section.9}% 28
-\BOOKMARK [2][-]{subsection.9.2}{Simulation Results}{section.9}% 29
-\BOOKMARK [1][-]{section.10}{Conclusions}{}% 30
-\BOOKMARK [1][-]{section*.18}{Appendix A: MATLAB code}{}% 31
-\BOOKMARK [1][-]{section*.20}{Appendix B: Tables}{}% 32
+\BOOKMARK [1][-]{section.1}{Introduction}{}% 1
+\BOOKMARK [1][-]{section.2}{Overview of Flash Memory Technology}{}% 2
+\BOOKMARK [1][-]{section.3}{Overview of Linear Block Codes}{}% 3
+\BOOKMARK [2][-]{subsection.3.1}{Definitions for Linear Block Codes}{section.3}% 4
+\BOOKMARK [2][-]{subsection.3.2}{Hamming weight, distance, and error correction capability}{section.3}% 5
+\BOOKMARK [2][-]{subsection.3.3}{Channel Capacity}{section.3}% 6
+\BOOKMARK [2][-]{subsection.3.4}{Low Density Parity Check codes}{section.3}% 7
+\BOOKMARK [1][-]{section.4}{Decoding of LDPC Codes}{}% 8
+\BOOKMARK [2][-]{subsection.4.1}{Hard decision decoding}{section.4}% 9
+\BOOKMARK [2][-]{subsection.4.2}{The Log-likelihood ratio}{section.4}% 10
+\BOOKMARK [2][-]{subsection.4.3}{Soft decision decoding}{section.4}% 11
+\BOOKMARK [2][-]{subsection.4.4}{Min-Sum approximation}{section.4}% 12
+\BOOKMARK [1][-]{section.5}{The AWGN channel: Simulation \046 Results}{}% 13
+\BOOKMARK [2][-]{subsection.5.1}{Simulation model}{section.5}% 14
+\BOOKMARK [2][-]{subsection.5.2}{Simulation results}{section.5}% 15
+\BOOKMARK [2][-]{subsection.5.3}{Conclusion}{section.5}% 16
+\BOOKMARK [1][-]{section.6}{Modelling a memory-specific noise channel}{}% 17
+\BOOKMARK [2][-]{subsection.6.1}{Description of Noise Sources}{section.6}% 18
+\BOOKMARK [2][-]{subsection.6.2}{Channel Model}{section.6}% 19
+\BOOKMARK [1][-]{section.7}{Decoding for the memory model}{}% 20
+\BOOKMARK [2][-]{subsection.7.1}{Hard decision decoding: Variable boundary}{section.7}% 21
+\BOOKMARK [2][-]{subsection.7.2}{Soft decision decoding: Gaussian approximations \046 non-Gaussian functions}{section.7}% 22
+\BOOKMARK [3][-]{subsubsection.7.2.1}{Exact function: Retention Noise + RTN}{subsection.7.2}% 23
+\BOOKMARK [3][-]{subsubsection.7.2.2}{Approximation: Retention Noise only}{subsection.7.2}% 24
+\BOOKMARK [3][-]{subsubsection.7.2.3}{Approximation: Matched Gaussians}{subsection.7.2}% 25
+\BOOKMARK [1][-]{section.8}{The memory channel: Simulation \046 Results}{}% 26
+\BOOKMARK [2][-]{subsection.8.1}{Simulation Model}{section.8}% 27
+\BOOKMARK [2][-]{subsection.8.2}{Simulation Results}{section.8}% 28
+\BOOKMARK [1][-]{section.9}{Conclusions}{}% 29
+\BOOKMARK [1][-]{section*.18}{Appendix A: MATLAB code}{}% 30
+\BOOKMARK [1][-]{section*.20}{Appendix B: Tables}{}% 31

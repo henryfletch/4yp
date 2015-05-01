@@ -81,7 +81,7 @@ Henry \textsc{Fletcher} % Your name
 \begin{minipage}{0.4\textwidth}
 \begin{flushright} \large
 \emph{Supervisor:} \\
-Dr. Justin \textsc{Coon} % Supervisor's Name
+Professor Justin \textsc{Coon} % Supervisor's Name
 \end{flushright}
 \end{minipage}\\[13cm]
 
@@ -92,14 +92,7 @@ Dr. Justin \textsc{Coon} % Supervisor's Name
 \end{titlepage}
 \includepdf{authorship_dec.pdf}
 
-\section*{Acknowledgements}
-I would like to express my utmost gratitude towards my supervisor, Justin Coon, for all of the assistance he has provided over this past year, both for the project as well as in his related lecture series.
-
-I would also like to thank Mohamed Ismail and Toshiba Research Europe Ltd. for providing the use of compute resources for this project.
-
-Finally I wish to thank Hachem Yassine for his assistance in code debugging, and the discussions surrounding the project area.
-
-\section{Executive Summary}
+\section*{Abstract}
 
 Modern flash memory is reliant on error-correcting code to ensure error-free operation. Current flash memory architectures often use linear block codes for this purpose (e.g. Reed-Solomon, Hamming or BCH codes). However, the recent rediscovery of LDPC (Low Density Parity Check) codes, which can achieve superior performance close to the Shannon Limit, has generated much interest in the NAND memory industry. These codes could be used to further improve error correction capability in flash memory, thus allowing for more densely packed memory cells and thus larger capacity drives.
 
@@ -107,19 +100,28 @@ The general aim of this project was to produce a MATLAB simulation of how an err
 
 The results showed the importance of accurately modelling the underlying noise process, since by doing so increases the performance of any soft-decision decoder. However, even close approximations to the noise process result in improved performance over existing hard-decision schemes.
 
+\section*{Acknowledgements}
+I would like to express my utmost gratitude towards my supervisor, Justin Coon, for all of the assistance he has provided over this past year, both for the project as well as in his related lecture series.
+
+I would also like to thank Mohamed Ismail and Toshiba Research Europe Ltd. for providing the use of compute resources for this project.
+
+Finally I wish to thank Hachem Yassine for his assistance in code debugging, and the discussions surrounding the project area.
+
 \singlespacing
 \tableofcontents
 \doublespacing
 \section{Introduction}
 Flash Memory is a multi-billion dollar industry, and is almost certainly set to grow in the future \cite{dong2012estimating}. It is also a highly competitive one, with consumers eager for low cost yet high volume storage. Innovation in the industry therefore seeks to increase the capacity and performance of these drives whilst keeping manufacturing costs low. 
 
-An obvious way to achieve low cost per Gigabyte is to increase the number of stored bits per cell without increasing the number of physical memory cells. Indeed, most consumer high capacity solid-state drives use this approach, making use of MLC (Multi-level cell) or TLC technology where 2 or 3 bits of information are stored per cell \cite{dong2012estimating}. However this comes at the cost of reducing read/write speeds, as well as increasing the occurrence of bit-errors on the device. 
+An obvious way to achieve low cost per Gigabyte is to increase the number of stored bits per cell without increasing the number of physical memory cells. Indeed, most consumer high capacity solid-state drives use this approach, making use of MLC (Multi-level cell) or TLC (Triple-level cell) technology where 2 or 3 bits of information are stored per cell, respectively \cite{dong2012estimating}. However this comes at the cost of reducing read/write speeds, as well as increasing the occurrence of bit-errors on the device. 
 
 Current generation flash memory therefore makes extensive use of Error-Correcting Code, to offset the increased error rate caused by densely packed cells. However, recent advances in error-correction capability elsewhere have yet to be implemented in consumer flash memory devices. This project therefore aims to investigate the use of the latest generation error-correcting codes in flash memory. 
 
 Previous papers \cite{dong2012estimating,DBLP:journals/corr/abs-1210-0149} on this topic have investigated the use of more modern error-correcting codes, including a type known as Low Density Parity Check (LDPC) codes, and have shown performance improvements over existing coding schemes. In addition, these papers present a more accurate noise model for flash memory, that takes into account the program/erase nature of the memory cells. Previous work on LDPC codes is extensive \cite{mncisit,gallager1962low}, particularly by MacKay who rediscovered them. The decoding method for these codes, the Belief Propagation algorithm, is also widely used \cite{davey1998low,chen2002near}, and in addition methods for simplifying this decoding method through the use of approximations \cite{zhao2005implementation,chen2005reduced,islam2011optimized}.
 
 The majority of this project concerns the development of a MATLAB simulation, that includes both an error generation and error correction model. The flash memory error model, used to simulate the effects of noise and time-varying degradation in a memory cell, is mostly derived from existing work. So too are the methods for error correction, in the form of LDPC and the Belief Propagation algorithm. However, the novelty of this project is investigating how varying degrees of prior information provided to the decoder can alter error performance, through using approximations of the underlying noise assumptions. It also seeks to show the importance of modelling the noise correctly, since having an accurate noise model will result in superior system performance.
+
+Firstly, this report presents an overview of flash memory and error-correction, in the form of linear block codes. Then, the process of decoding these error-correcting codes is presented. Subsequently, the simulation of one type of channel model, the AWGN channel, is performed and the results compared to a known data set. Finally, the remainder of the report focuses on creating a specific `memory noise model', simulating it, and comparing the various decoding schemes used.
 
 \section{Overview of Flash Memory Technology} \label{section:memtech}
 A NAND flash memory cell is essentially just a floating gate transistor. The threshold voltage of each transistor can be individually programmed to determine what data is stored in that cell. A Single-Level Cell (SLC) has 2 states: Erased and Programmed. Whereas a Multi-Level Cell (MLC) often has 4 states (Erased and 3 different programmed levels), allowing it to store 2 bits of information.
@@ -241,14 +243,14 @@ e_{correctable} = \dfrac{w_{min} - 1}{2}
 
 \subsection{Channel Capacity}
 
-Channel capacity overview here. Will probably go before LDPC page(1 page). Lorem ipsum 1234567889012. Placeholder!!!!!
+Channel capacity overview here. Will probably go before LDPC page(1 page). Lorem ipsum  Placeholder!!!!!
 
 \subsection{Low Density Parity Check codes}
-A particular class of codes, known as ``Low Density Parity Check" (LDPC) codes, are of particular interest and relevance to this project. LDPC codes are generally considered to be some of the best performing linear block codes available, in terms of error performance, with some codes getting within a fraction of the Shannon Limit. Additionally, LDPC codes have no patent and hence no licensing costs, making them attractive for real world use.
+A particular class of codes, known as ``Low Density Parity Check" (LDPC) codes, are of particular interest and relevance to this project. LDPC codes are generally considered to be some of the best performing linear block codes available, in terms of error performance, with some codes getting within a fraction of the Shannon Limit. Additionally, LDPC codes have no core intellectual property restrictions \cite[p.90]{coon15}, making them attractive for real world use.
 
 LDPC codes were originally discovered by R.G. Gallager in 1962 \cite{gallager1962low}. Then known as ``Gallager codes", they were defined by a sparse parity check matrix with low column weights. Gallager also worked on a probabilty based decoding method for these codes, which proved to have promising performance. However for various reasons, these codes were essentially lost in favour of other more practical codes. It is possible that the decoding complexity for LDPC was, at the time, too great for the computational power then available.\footnote{Personal opinion. Even today, decoding LDPC using near-optimum belief propagation on a PC is computationally expensive, whilst on dedicated ASIC hardware consumes large amounts of power.}
 
-Modern LDPC codes were re-discovered by J.C. MacKay in 1996 \cite{mncisit}. MacKay demonstrated that LDPC codes could be decoded using probabilistic methods, even beyond the bound set by their minimum distance. Today, LDPC codes are seeing a resurgence in various applications. Most notably in the DVB-S2 standards for digital HD satellite broadcast, 10GBase-T Ethernet and as optional `add-ons' to the 802.11n/ac wi-fi standards.
+Modern LDPC codes were re-discovered by David MacKay in 1996 \cite{mncisit}. MacKay demonstrated that LDPC codes could be decoded using probabilistic methods, even beyond the bound set by their minimum distance. Today, LDPC codes are seeing a resurgence in various applications. Most notably in the DVB-S2 standards for digital HD satellite broadcast, 10GBase-T Ethernet and as optional `add-ons' to the 802.11n/ac wi-fi standards.
 
 Disadvantages of LDPC include the fact that there still exists a small (often in the region of $10^{-6}$ to $10^{-9}$) probability of error after decoding, known as the `error-floor' \cite{richardson2003error}. This can be avoided by using a second high rate, `inner' Error Correcting Code such as BCH or Reed-Solomon to remove the last few bit errors. Other issues include decoding complexity. Whilst decoding time is linear with block length, decoding using the belief propagation algorithm is still problematic, especially for low power mobile devices. Most applications of LDPC so far have been on mains-powered equipment.
 
@@ -258,7 +260,7 @@ A specific DVB-S2 code, with $n = 64800$ and $r = 0.9$, has a total of $194,399$
 
 
 \section{Decoding of LDPC Codes} \label{decoding}
-Using syndrome lookup decoding as described in section \ref{3.1:definitions} would be nearly impossible for longer block lengths. There is a much better, iterative decoding method that can be used for any linear block code, and which is linear in block length. It is called the belief propagation algorithm (also known as the sum-product algorithm or the message passing algorithm). 
+Using syndrome lookup decoding as described in section \ref{3.1:definitions} would be nearly impossible for longer block lengths. There are much better, iterative decoding methods that can be used for any linear block code, and which are linear in block length. These are called `belief propagation algorithms', and more specifically used here is the 'sum-product algorithm'. Other alternatives also include the `min-sum algorithm'.
 
 There are two distinct methods of belief propagation: Hard decision decoding and soft decision decoding. In hard decision decoding, the error correction algorithm only receives binary data (i.e. \{1,0\}). In soft decision decoding, the error correction algorithm receives a numerical likelihood of the data being either a 0 or 1. Soft decision decoding will therefore result in superior performance, since it is able to make use of the additional `soft' information that is otherwise discarded.
 
@@ -324,16 +326,16 @@ Whilst hard decision decoding is a good way to demonstrate how the iterative mes
 In soft decision decoding, the message nodes no longer represent binary 1's or 0's, but instead can take a continuous range of probability values. These probability values are initially calculated using two sources of information: The received voltage value of each bit, and the underlying probability distribution of the received bit. Before being able to describe the soft decision decoding algorithm, this information needs to be formed into a useful metric: the \textit{Log-likelihood ratio}.
 
 \begin{equation} \label{eq:LLR}
-\mathcal{L}(c|y) = log_e \left[ \dfrac{f(c=+1|y)}{f(c=-1|y)} \right]
+\mathcal{L}(c|y) = log_e \left[ \dfrac{Pr(c=+1|y)}{Pr(c=-1|y)} \right]
 \end{equation}
 
-\noindent The term $\mathcal{L}(c|y)$ \cite{cho2012analysis} is the likelihood of $c$ being transmitted given that $y$ was received. The log-ratio is able to tell us if $c=+1$ or $c=-1$ was the most likely transmitted symbol, given the received value $y$. A positive LLR indicates it is more likely that $c=+1$ was transmitted, and a negative LLR that $c=-1$ was transmitted. Additionally, the LLR has a range of $-\infty$ to $+\infty$, which provides the degree of certainty of a given symbol.
+\noindent The term $\mathcal{L}(c|y)$ \cite{cho2012analysis} is the likelihood of $c$ being transmitted given that $y$ was received. $Pr(c=+1|y)$ is the conditional probability of obtaining $c=+1$ given the received value $y$. Thus, the log-likelihood ratio is able to tell us what the most likely transmitted symbol was. A positive LLR indicates it is more likely that $c=+1$ was transmitted, and a negative LLR that $c=-1$ was transmitted. Additionally, the LLR has a range of $-\infty$ to $+\infty$, which provides the degree of certainty of a given symbol.
 
-To make use of the LLR, it is necessary to manipulate it into a more useful form. Using Bayes' rule\footnote{$P(A|B) = \dfrac{P(B|A) P(A)}{P(B)}$}, and the assumption that the transmitted bits are equiprobable\footnote{i.e. $f(c=+1) = f(c=-1)$},
+To make use of the LLR, it is necessary to manipulate it into a more useful form. Using Bayes' rule\footnote{$Pr(A|B) = \dfrac{Pr(B|A) Pr(A)}{Pr(B)}$}, and the assumption that the transmitted bits are equiprobable\footnote{i.e. $Pr(c=+1) = Pr(c=-1)$},
 
 \begin{equation}
 \begin{aligned}
-\mathcal{L}(c|y) &= log_e \left[ \dfrac{f(y|c=+1) \dfrac{f(c=+1)}{f(y)}}{f(y|c=-1) \dfrac{f(c=-1)}{f(y)}} \right] 
+\mathcal{L}(c|y) &= log_e \left[ \dfrac{Pr(y|c=+1) \dfrac{Pr(c=+1)}{Pr(y)}}{Pr(y|c=-1) \dfrac{Pr(c=-1)}{Pr(y)}} \right] 
 \\
 &= log_e \left[ \dfrac{f(y|c=+1)} {f(y|c=-1)} \right] 
 \\
@@ -341,7 +343,7 @@ To make use of the LLR, it is necessary to manipulate it into a more useful form
 \end{aligned}
 \end{equation}
 
-\noindent The LLR can now be calculated for each received value of $y$. Note that it is necessary to have the underlying density functions of the received symbols. By inserting the received value $y$ into each PDF, you obtain a numerical probability of $y$ representing either +1 or -1. The ratio of these 2 probabilities then gives us the likelihood ratio.
+\noindent where $f(y|c=+1)$ is now the Probability Density Function (PDF) of receiving $c=+1$. The LLR can now be calculated for each received value of $y$. Note that it is necessary to have the underlying density functions of the received symbols. By inserting the received value $y$ into each PDF, you obtain a numerical probability of $y$ representing either +1 or -1. The ratio of these 2 probabilities then gives us the LLR.
 
 The LLR method applies in general to all noisy channels, that is, the probability density functions can take any form. However when dealing with the AWGN channel, converting from a received symbol amplitude $y$ into the LLR is much simpler, since the probability density function in both cases is a gaussian, \cite{cho2012analysis},
 
@@ -450,7 +452,7 @@ Each instance of the block diagram in figure \ref{figure:awgn sim model} generat
 \label{figure:96_48_LDPC_graph}
 \end{figure}
 
-A short block length, rate $\dfrac{1}{2}$ LDPC code was used to produce the results in figure \ref{figure:96_48_LDPC_graph}, using the Sum-Product algorithm with soft decision decoding. The figure also displays the results obtained by MacKay using the same LDPC code and decoding method. There is a minor performance loss compared to MacKay, but otherwise the results are in agreement. Additionally, the dashed line indicates the expected bit error rate in the event that no error correction code was used. There is therefore a substantial coding gain in this system, for example to achieve a BER of $10^{-6}$ requires around $5.5$ dB with coding, and nearly $10$ dB without.
+A short block length, rate $\dfrac{1}{2}$ LDPC code was used to produce the results in figure \ref{figure:96_48_LDPC_graph}, using the Sum-Product algorithm with soft decision decoding. The figure also displays the results obtained by MacKay using the same LDPC code and decoding method. There is a minor performance loss compared to MacKay, but otherwise the results are in agreement. Additionally, the dashed line indicates the {theoretical} expected bit error rate in the event that no error correction code was used. There is therefore a substantial coding gain in this system, for example to achieve a BER of $10^{-6}$ requires around $5.5$ dB with coding, and nearly $10$ dB without.
 
 \begin{figure}[h]
 \centering
@@ -599,15 +601,15 @@ That is, the probability density function resulting from the sum of independent 
 
 Performing such a convolution analytically, whilst possible, results in a function with a large number of terms. For example, the resultant PDF of the programmed state contains 6 exponential and 6 error ($\erf$) functions. Whilst using the full density function within the Log-Likelihood ratio gives the overall best performance, there may be ways to achieve similar performance by using a simpler approximation. In terms of the simulation, a simplified approximation would be able to run quicker in MATLAB, whilst in a real device, might be easier to implement. 
 
-\subsubsection{Full convolution: Retention Noise + RTN} \label{section:fullFunc}
+\subsubsection{Exact function: Retention Noise + RTN} \label{section:fullFunc}
 The full convolution of the initial Uniform distribution with the retention noise and RTN density function, the result of which was obtained from \cite{hachem}, is shown below:
 \begin{dmath}[label={eq:full_func}]
 f_{prog}(\Delta V_{T}=x) = \frac{1}{4\Delta V_{pp}}e^{\frac{^{\sigma_{r}^{2}}}{2\lambda^{2}}}\left[e^{-\frac{x-Vp-\Delta V_{pp}-\mu_{r}}{\lambda}}\mathbf{\cdot erfc}\left(\frac{\sigma_{r}}{\sqrt{2}\lambda}-\frac{x-Vp-\Delta V_{pp}-\mu_{r}}{\sqrt{2}\sigma_{r}}\right)-e^{\frac{x-Vp-\Delta V_{pp}-\mu_{r}}{\lambda}}\mathbf{\cdot erfc}\left(\frac{\sigma_{r}}{\sqrt{2}\lambda}+\frac{x-Vp-\Delta V_{pp}-\mu_{r}}{\sqrt{2}\sigma_{r}}\right)\right]- \frac{1}{4\Delta V_{pp}}e^{\frac{\sigma_{r}^{2}}{2\lambda^{2}}}\left[e^{-\frac{x-Vp-\mu_{r}}{\lambda}}\mathbf{\cdot erfc}\left(\frac{\sigma_{r}}{\sqrt{2}\lambda}-\frac{x-Vp-\mu_{r}}{\sqrt{2}\sigma_{r}}\right)-e^{\frac{x-Vp-\mu_{r}}{\lambda}}\mathbf{\cdot erfc}\left(\frac{\sigma_{r}}{\sqrt{2}\lambda}+\frac{x-Vp-\mu_{r}}{\sqrt{2}\sigma_{r}}\right)\right]+\frac{1}{2\Delta V_{pp}}\mathbf{\cdot erfc}\left(\frac{x-Vp-\Delta V_{pp}-\mu_{r}}{\sqrt{2}\sigma_{r}}\right)- \frac{1}{2\Delta V_{pp}}\mathbf{\cdot erfc}\left(\frac{x-Vp-\mu_{r}}{\sqrt{2}\sigma_{r}}\right)
 \end{dmath}
 Equation \ref{eq:full_func} is the probability density function of the cell threshold voltage $V_{T}$ for the programmed state. $Vp$ is the initial programmed voltage, $\Delta V_{pp}$ is the programming step voltage, $\mu_{r}$ and $\sigma_{r}$ are the retention noise parameters from equation \ref{eq:retention}, and $\lambda$ is the parameter describing the RTN.
 
-\subsubsection{Full convolution: Retention Noise only}
-The magnitude of the RTN generated is substantially smaller than the magnitude of the retention noise. It therefore seems reasonable to ignore the effect of the RTN and perform the convolution of just the uniform and Gaussian distributions for the programmed state.
+\subsubsection{Approximation: Retention Noise only}
+The magnitude of the RTN generated is substantially smaller than the magnitude of the retention noise. It therefore seems reasonable to ignore the effect of the RTN and perform the convolution of just the Uniform and Gaussian distributions for the programmed state.
 Starting with the definitions of both the retention noise and initial programmed state PDF's:
 
 \begin{equation}
@@ -643,7 +645,7 @@ This result shows that by adding Gaussian noise to a Uniform distribution, you o
 \end{figure}
 Figure \ref{fig:retentionVsFull} shows that the convolution method, when excluding RTN, produces the correct shape of distribution for small N, but as N increases the difference between the distribution widens. This is because the RTN increases as N increases.
 
-\subsubsection{Matched Gaussians}
+\subsubsection{Approximation: Matched Gaussians}
 Another approach to obtain the distribution of the threshold voltage, is to use a reasonable approximation of the function, rather than trying to obtain it directly. Using a simplified approximation also turns out to be faster [Around 5x faster when generating the LLR's in MATLAB compared to the full function in section \ref{section:fullFunc}].
 
 An obvious choice would be to use a Gaussian. Whilst the distribution starts off as a Uniform distribution, adding noise causes it to quickly degrade into a gaussian-like shape. Since the memory noise model, as explained in equation \ref{eq:additive_memory_noise_model}, is addition of independent random variables, the mean and variance of each random variable can simply be added together to obtain the overall mean and variance of the distribution. These values can then be used to generate a `Matched Gaussian', which will have the same mean and variance as the actual underlying function, but just with a slightly different shape. 
@@ -963,16 +965,14 @@ $K_s$ & Retention noise parameter & 0.38 \\
 $K_d$ & Retention noise parameter & $4\times 10^{-4}$ \\
 $K_m$ & Retention noise parameter & $4\times 10^{-6}$ \\
 $t_0$ & Retention noise parameter & 3600 s\\
-$K_{rtn}$ & RTN constant ($\lambda_{rtn} = K \sqrt{N}$) & 0.00025 \\
+$K_{rtn}$ & RTN constant ($\lambda_{rtn} = K_{rtn} \sqrt{N}$) & 0.00025 \\
 \hline
 \end{tabular}
 \end{table}
+
 \doublespacing
 \printbibliography
-\begin{center}
--
-\end{center}
-Some \LaTeX\ code, used to format this report, obtained from: \url{http://en.wikibooks.org} (Licensed under CC BY-SA 3.0).
+%Some \LaTeX\ code, used to format this report, obtained from: \url{http://en.wikibooks.org} (Licensed under CC BY-SA 3.0).
 
 \includepdf[pages={1,2},angle=90]{4yp_risk_assesment}
 \end{document}
