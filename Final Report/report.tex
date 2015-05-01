@@ -36,6 +36,7 @@
 \newcommand{\sectionbreak}{\clearpage}
 \DeclareMathOperator\arctanh{arctanh}
 \DeclareMathOperator\erf{erf}
+\DeclareMathOperator{\sign}{sign}
 
 %% THIS BIT MAKES CLICKABLE PDF LINKS
 \usepackage{hyperref}
@@ -345,7 +346,7 @@ To make use of the LLR, it is necessary to manipulate it into a more useful form
 
 \noindent where $f(y|c=+1)$ is now the Probability Density Function (PDF) of receiving $c=+1$. The LLR can now be calculated for each received value of $y$. Note that it is necessary to have the underlying density functions of the received symbols. By inserting the received value $y$ into each PDF, you obtain a numerical probability of $y$ representing either +1 or -1. The ratio of these 2 probabilities then gives us the LLR.
 
-The LLR method applies in general to all noisy channels, that is, the probability density functions can take any form. However when dealing with the AWGN channel, converting from a received symbol amplitude $y$ into the LLR is much simpler, since the probability density function in both cases is a gaussian, \cite{cho2012analysis},
+The LLR method applies in general to all noisy channels, that is, the probability density functions can take any form. However when dealing with the AWGN channel, converting from a received symbol amplitude $y$ into the LLR is much simpler, since the probability density function in both cases is a gaussian \cite{cho2012analysis},
 
 \begin{equation} \label{eq:LLR_awgn}
 \begin{aligned}
@@ -362,9 +363,9 @@ The LLR method applies in general to all noisy channels, that is, the probabilit
 \noindent This result makes it very easy to take the output from the demodulator (the +1/-1 BPSK $y$ symbols) and generate the appropriate LLR's for the AWGN channel.
 
 \subsection{Soft decision decoding}
-The Belief Propagation algorithm for soft decision decoding follows a similar process to that of hard decision decoding. Messages are passed between check and variable nodes defined by the tanner graph. The main difference is what happens at each of the nodes, since now the messages are LLR's rather than binary bits. 
+The Sum-Product algorithm for soft decision decoding follows a similar process to that of hard decision decoding. Messages are passed between check and variable nodes defined by the tanner graph. The main difference is what happens at each of the nodes, since now the messages are LLR's rather than binary bits. 
 
-\cite{ldpc-tutorial1,mncisit,gallager1962low} have all proved the set of equations that are used at both the message nodes and check nodes. The belief propagation algorithm can be distilled into just 2 equations: The message node update equation, and the check node update equation. The reason why it is often called the `Sum-Product' algorithm, is since the message node update equation involves summing the LLR's, and the check node update equation involves taking their product.
+Previous work \cite{mncisit,gallager1962low,ldpc-tutorial1} has proved the set of equations that are used at both the message nodes and check nodes. The algorithm can be distilled into just 2 equations: The message node update equation, and the check node update equation. The reason why it is often called the `Sum-Product' algorithm, is since the message node update equation involves summing the LLR's, and the check node update equation involves taking their product.
 
 \begin{equation} \label{eq:msgNode}
 m_{ij}^{(l)} = L_i+\sum\limits_{j'\in C_i \ne j}m_{j'i}^{(l-1)}
@@ -390,10 +391,29 @@ Equation \ref{eq:chkNode} is the check node update equation. $m_{ji}^{(l)}$ is t
 
 \subsection{Min-Sum approximation}
 
-Min sum to go here (0.5 pages)
+The full sum-product algorithm is computationally expensive, with the check-node update equation requiring calculation of hyperbolic tangents. A simplified version of Belief Propagation, known as the ``min-sum" algorithm, reduces decoding complexity at the cost of slightly reduced performance \cite{chen2005reduced}.
 
-\section{The AWGN channel: Simulation \& Results}
-One of the most important noisy channels used in communications theory, and already mentioned previously, is the Additive White Gaussian Noise (AWGN) channel \cite{johnson2009iterative,tse2005fundamentals,proakis2001digital,haykin2008communication}. Whilst this noise channel is not really applicable to model Flash Memory, which is the aim of this project, it is however a useful benchmarking tool to ensure that the MATLAB decoder is working correctly. It is also a good method of demonstrating the power of LDPC, soft decision decoding, and error-correcting codes generally. This section presents the work done in modelling the encoder, AWGN channel, and decoder, and compares the results to known data sets.
+\begin{equation} \label{eq:minSum}
+m_{ji}^{(l)} = \alpha\times\left(\prod\limits_{i'\in V_j\ne i}\sign(m_{i'j}^{(l-1)})\right)\times\min_{i'\in V_j\ne i}\left|m_{i'j}^{(l-1)}\right|
+\end{equation} 
+
+Equation \ref{eq:minSum} is the check-node update equation for the min-sum approximation \cite{islam2011optimized}. The message-node update equation is the same as the full sum-product algorithm (eq. \ref{eq:msgNode}). Essentially, when a check node receives incoming messages, the return messages are just the minimum value of the received ones (bearing in mind, however, the extrinsic information rule still applies). An additional term, $0 < \alpha < 1$, is the normalisation constant, which helps to counter the fact that the check-node step in min-sum generally produces an over-estimate, and including it improves performance \cite{islam2011optimized}. 
+
+Min-sum is useful since implementation is meant to be less complex than the full sum-product algorithm, particularly on dedicated decoding hardware \cite{chen2005reduced}, such as ASIC devices. In addition, it has been shown that in cases where full soft information is unavailable, and quantisation error is introduced, min-sum can actually perform as well as the full sum-product algorithm \cite{zhao2005implementation}.
+
+Initial testing of using the min-sum approximation in {MATLAB} showed that it performed very closely to the full sum-product scheme (Figure \ref{figure:min_sum}; exact simulation method described in the subsequent section). However, this particular implementation of min-sum was actually slower in MATLAB compared to sum-product\footnote{MATLAB is able to calculate hyperbolic tangents in parallel very efficiently, whereas constructing the necessary matrices for min-sum was actually fairly slow}. Because of this, and the fact that its performance is so similar, all subsequent simulations in this project used the full sum-product algorithm.
+
+\begin{figure}[h]
+\centering
+\includegraphics[scale=0.65]{min_sum_graph}
+\caption{Bit Error Rate simulation comparing MS and SP algorithms}
+\label{figure:min_sum}
+\end{figure}
+
+It is noted, however, that further research into using min-sum in the context of flash memory might be interesting, particularly with the constraints requiring quantisation of the soft information into discrete bins. 
+
+\section{The AWGN channel: Simulation \& Results} \label{section:awgn_sim}
+One of the most important noisy channels used in communications theory, and already mentioned previously, is the Additive White Gaussian Noise (AWGN) channel \cite{tse2005fundamentals,proakis2001digital,haykin2008communication,johnson2009iterative}. Whilst this noise channel is not really applicable to model Flash Memory, which is the aim of this project, it is however a useful benchmarking tool to ensure that the MATLAB decoder is working correctly. It is also a good method of demonstrating the power of LDPC, soft decision decoding, and error-correcting codes generally. This section presents the work done in modelling the encoder, AWGN channel, and decoder, and compares the results to known data sets.
 
 \subsection{Simulation model}
 \begin{figure}[h]
@@ -452,7 +472,7 @@ Each instance of the block diagram in figure \ref{figure:awgn sim model} generat
 \label{figure:96_48_LDPC_graph}
 \end{figure}
 
-A short block length, rate $\dfrac{1}{2}$ LDPC code was used to produce the results in figure \ref{figure:96_48_LDPC_graph}, using the Sum-Product algorithm with soft decision decoding. The figure also displays the results obtained by MacKay using the same LDPC code and decoding method. There is a minor performance loss compared to MacKay, but otherwise the results are in agreement. Additionally, the dashed line indicates the {theoretical} expected bit error rate in the event that no error correction code was used. There is therefore a substantial coding gain in this system, for example to achieve a BER of $10^{-6}$ requires around $5.5$ dB with coding, and nearly $10$ dB without.
+A short block length, rate $\dfrac{1}{2}$ LDPC code was used to produce the results in figure \ref{figure:96_48_LDPC_graph}, using the Sum-Product algorithm with soft decision decoding. The figure also displays the results obtained by MacKay using the same LDPC code and decoding method. There is a minor performance loss compared to MacKay, but otherwise the results are in agreement. Additionally, the dashed line indicates the {theoretical} expected bit error rate in the event that no error correction code was used \cite{coon15}. There is therefore a substantial coding gain in this system, for example to achieve a BER of $10^{-6}$ requires around $5.5$ dB with coding, and nearly $10$ dB without.
 
 \begin{figure}[h]
 \centering
@@ -467,6 +487,8 @@ Longer block length codes generally achieve superior performance and greater `cu
 Simulating the AWGN channel, and then comparing the results to the known data published by MacKay, allows for some degree of verification of the MATLAB program. The AWGN channel is one of the common channels simulated when dealing with error correcting code, since it simulates the effect of random noise that often occurs in the environment. 
 
 One issue identified with the simulation program was the speed of the decoder. In the first version of the decoder program [Appendix A, codebox \ref{code:sp1}], there were a substantial number of `for' loops, which are generally slow in MATLAB. Subsequent versions of the decoder attempted to fix this by vectorising the code [Appendix A, codebox \ref{code:sp2}], resulting in approximately a 2x speed increase. However, even with these improvements, the decoder was still much slower compared to MATLAB's built-in LDPC decoder \cite{matlab-ldpc}. In addition, freely available OpenCL accelerated decoders \cite{openCL} can be used on a GPU (Graphics Processing Unit) which are even faster than MATLAB's implementation (See Appendix B for the benchmark comparisons). In the subsequent sections simulating the memory model, the MATLAB built-in implementation of the LDPC decoder was used, allowing for substantially more blocks to be decoded in the same amount of time.
+
+Whilst subsequent simulations made use of the built-in MATLAB decoder, the error performance of the original decoder was identical to that of MATLAB's. Additional testing of the original decoder against the built-in decoder on the memory model also produced identical results. The only reason we are making use of a library function, in this case, is for the massive speed improvements it offers.
 
 \section{Modelling a memory-specific noise channel} \label{section:memory}
 There are many similarities between modelling a communications system and flash memory. Both are binary channels, subject to some binary input, distortion by some noise source, and subsequent decoding. However, the major difference in flash memory is the storage of binary data in the device for a length of time, unlike a communications system where the data is `in transit'. When a bit is stored to a memory cell, the noise effect is cumulative over the lifetime of the stored bit. Therefore, two major parameters in modelling flash memory are time, and the number of read/write (or Program/Erase) cycles each cell is subject to.
