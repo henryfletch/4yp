@@ -36,7 +36,7 @@ L(y == 1) = -5;
 %L = llr_full_hachem(y,SystemParams.Verased,0.35,SystemParams);
 
 % Belief Propogation Stage
-receivedBits = decode(hDec, L');
+receivedBits = decode(hDec, L);
 receivedBits = +receivedBits;
 % Iterates on LLR, outputs binary 1,0
 
