@@ -16,8 +16,10 @@ y = memoryGetVoltage(encodedData',SystemParams);
 
 % HARD DECISION process on Cell Voltage
 % > vHardDecision, then binary 1, otherwise binary 0
-%y(y <= voltageHardDecision) = 0;
-%y(y > 0) = 1; 
+y(y <= voltageHardDecision) = 0;
+y(y > 0) = 1; 
+L(y == 0) = 5;
+L(y == 1) = -5;
 
 %%%% SOFT DECISION -> Generate a LLR using gaussian approximation
 %%%% L is the vector of log liklehood ratios
@@ -34,8 +36,8 @@ y = memoryGetVoltage(encodedData',SystemParams);
 %L = llr_full_hachem(y,SystemParams.Verased,0.35,SystemParams);
 
 % Belief Propogation Stage: MATLAB decoder
-%receivedBits = step(hDec, L);
-%receivedBits = +receivedBits;
+receivedBits = step(hDec, L');
+receivedBits = +receivedBits;
 % Iterates on LLR, outputs binary 1,0
 
 % Belief Propogation Stage: My decoder

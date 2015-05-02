@@ -57,7 +57,7 @@ hDec.OutputFormat = 'Whole codeword';
 hDec.NumIterations = 50;
 
 SystemParams.N = N;
-voltageHardDecision = 0;%decisionFunc(N);
+voltageHardDecision = decisionFunc(N);
 
 %for Loop
 for i = 1:mc_iters

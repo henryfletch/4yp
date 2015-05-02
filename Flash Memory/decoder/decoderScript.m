@@ -47,10 +47,10 @@ for N = 0:1000:45000
     tic;
     SystemParams.N = N;
     %SystemParams.tYrs = timeFunc(N,alpha);
-    voltageHardDecision = 0;%decisionFunc(N);
+    voltageHardDecision = decisionFunc(N);
     %Parfor Loop
     parfor_progress(mc_iters);
-    for i = 1:mc_iters
+    parfor i = 1:mc_iters
         errRatio(i) = ldpc_BER_memoryN_coded(Rc,Nc,hEnc,hDec,hError,SystemParams,voltageHardDecision,H,l);
         parfor_progress;
     end

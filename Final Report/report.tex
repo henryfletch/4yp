@@ -242,10 +242,6 @@ e_{detectable} = w_{min} - 1
 e_{correctable} = \dfrac{w_{min} - 1}{2}
 \end{equation}
 
-\subsection{Channel Capacity}
-
-Channel capacity overview here. Will probably go before LDPC page(1 page). Lorem ipsum  Placeholder!!!!!
-
 \subsection{Low Density Parity Check codes}
 A particular class of codes, known as ``Low Density Parity Check" (LDPC) codes, are of particular interest and relevance to this project. LDPC codes are generally considered to be some of the best performing linear block codes available, in terms of error performance, with some codes getting within a fraction of the Shannon Limit. Additionally, LDPC codes have no core intellectual property restrictions \cite[p.90]{coon15}, making them attractive for real world use.
 
@@ -735,7 +731,9 @@ Figure \ref{fig:memory_results_graph2} displays the same set of results for the 
 This particular graph construction is useful in comparing different systems, since it does not depend on the exact type of noise used. Instead, it allows us to easily compare what the error rate of the memory cell would be given a specific input error rate and coding scheme. For example, if the target bit error rate at the output of the system is to be $10^{-6}$, then an error rate of around $1\%$ in the memory cell is acceptable if using the Static Gaussian model. However, using the full PDF of the underlying noise in the decoder, an error rate of around $1.5\%$ is acceptable. Whilst this seems only a very small gain, by looking at figure \ref{fig:memory_results_graph} again, it actually results in the cell being able to endure an additional 10,000 cycles.
 
 \section{Conclusions}
-Placeholder
+It is clear that error-correcting code plays an important part in flash memory. Without it, modern multi-level cell devices would likely not be possible, or would have much tighter constraints on device lifetime. However, as said previously, current flash memory uses hard decision decoding. The difference between the hard-decision schemes currently used and the potential soft-decision schemes demonstrated in this project, as well as investigated in many other papers, are substantial. This is perhaps why there is a great deal of interest in this area by the memory manufacturers. 
+
+LDPC codes are widely known to achieve capacity approaching performance on the AWGN channel. However, it is clear that such a simplistic channel model is not appropriate when modelling a flash memory cell. This project has demonstrated the implementation of a soft-decision LDPC scheme in tandem with a more complex noise model. Admittedly, it is very hard to verify how accurate this model is compared to a real device, mainly since the data generated in industry is kept highly secretive. 
 
 \phantomsection
 \addcontentsline{toc}{section}{Appendix A: MATLAB code}
