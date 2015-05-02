@@ -22,7 +22,7 @@
 \renewcommand{\familydefault}{\sfdefault}
 \usepackage{listings,xcolor}
 \usepackage[numbered,framed]{matlab-prettifier}
-\renewcommand{\lstlistingname}{Codebox}% Listing -> Codebox
+\renewcommand{\lstlistingname}{Extract}% Listing -> Extract
 \usepackage{breqn}
 \usepackage{mathtools}
 
@@ -245,7 +245,7 @@ e_{correctable} = \dfrac{w_{min} - 1}{2}
 \subsection{Low Density Parity Check codes}
 A particular class of codes, known as ``Low Density Parity Check" (LDPC) codes, are of particular interest and relevance to this project. LDPC codes are generally considered to be some of the best performing linear block codes available, in terms of error performance, with some codes getting within a fraction of the Shannon Limit. Additionally, LDPC codes have no core intellectual property restrictions \cite[p.90]{coon15}, making them attractive for real world use.
 
-LDPC codes were originally discovered by R.G. Gallager in 1962 \cite{gallager1962low}. Then known as ``Gallager codes", they were defined by a sparse parity check matrix with low column weights. Gallager also worked on a probabilty based decoding method for these codes, which proved to have promising performance. However for various reasons, these codes were essentially lost in favour of other more practical codes. It is possible that the decoding complexity for LDPC was, at the time, too great for the computational power then available.\footnote{Personal opinion. Even today, decoding LDPC using near-optimum belief propagation on a PC is computationally expensive, whilst on dedicated ASIC hardware consumes large amounts of power.}
+LDPC codes were originally discovered by R.G. Gallager in 1962 \cite{gallager1962low}. Then known as ``Gallager codes", they were defined by a sparse parity check matrix with low column weights. Gallager also worked on a probability based decoding method for these codes, which proved to have promising performance. However for various reasons, these codes were essentially lost in favour of other more practical codes. It is possible that the decoding complexity for LDPC was, at the time, too great for the computational power then available.\footnote{Personal opinion. Even today, decoding LDPC using near-optimum belief propagation on a PC is computationally expensive, whilst on dedicated ASIC hardware consumes large amounts of power.}
 
 Modern LDPC codes were re-discovered by David MacKay in 1996 \cite{mncisit}. MacKay demonstrated that LDPC codes could be decoded using probabilistic methods, even beyond the bound set by their minimum distance. Today, LDPC codes are seeing a resurgence in various applications. Most notably in the DVB-S2 standards for digital HD satellite broadcast, 10GBase-T Ethernet and as optional `add-ons' to the 802.11n/ac wi-fi standards.
 
@@ -272,7 +272,7 @@ Figure \ref{figure:awgn probability graph} shows the typical probability distrib
 
 With hard decision decoding, the obvious boundary would be $x = 0$, half way between the +1 and -1 constellation symbols. Any value to the right side of this boundary would always be classified as binary 0, and anything to the left always binary 1. This means that a voltage value of 0.01 would be output as a binary 0, even though in practice it is almost equiprobable to be a binary 1. The fact that it could equally be a binary 0 or binary 1 is lost when making a hard decision, and the error correction decoder does not get that additional information.
 
-Soft decision decoding seeks to improve on hard decision decoding, by making use of the actual received voltage value, rather than discarding it. The messages are now the conditional \textit{probabilites} of being a 1 or 0, instead of being just binary values. This allows the error correction decoder to know the degree of certainty that the message sent was a 1 or a 0.
+Soft decision decoding seeks to improve on hard decision decoding, by making use of the actual received voltage value, rather than discarding it. The messages are now the conditional \textit{probabilities} of being a 1 or 0, instead of being just binary values. This allows the error correction decoder to know the degree of certainty that the message sent was a 1 or a 0.
 
 \subsection{Hard decision decoding}
 The message passing algorithm can be best understood with hard decision decoding. As an example, eq \ref{8,4 code} shows the parity check matrix $\mathbf{H}$ of an (8,4) code. This code can also be displayed, as in figure \ref{figure:tanner graph}, as a visual graph representation known as a tanner graph. \cite{leiner2005ldpc}
@@ -342,7 +342,7 @@ To make use of the LLR, it is necessary to manipulate it into a more useful form
 
 \noindent where $f(y|c=+1)$ is now the Probability Density Function (PDF) of receiving $c=+1$. The LLR can now be calculated for each received value of $y$. Note that it is necessary to have the underlying density functions of the received symbols. By inserting the received value $y$ into each PDF, you obtain a numerical probability of $y$ representing either +1 or -1. The ratio of these 2 probabilities then gives us the LLR.
 
-The LLR method applies in general to all noisy channels, that is, the probability density functions can take any form. However when dealing with the AWGN channel, converting from a received symbol amplitude $y$ into the LLR is much simpler, since the probability density function in both cases is a gaussian \cite{cho2012analysis},
+The LLR method applies in general to all noisy channels, that is, the probability density functions can take any form. However when dealing with the AWGN channel, converting from a received symbol amplitude $y$ into the LLR is much simpler, since the probability density function in both cases is a Gaussian \cite{cho2012analysis},
 
 \begin{equation} \label{eq:LLR_awgn}
 \begin{aligned}
@@ -393,7 +393,7 @@ The full sum-product algorithm is computationally expensive, with the check-node
 m_{ji}^{(l)} = \alpha\times\left(\prod\limits_{i'\in V_j\ne i}\sign(m_{i'j}^{(l-1)})\right)\times\min_{i'\in V_j\ne i}\left|m_{i'j}^{(l-1)}\right|
 \end{equation} 
 
-Equation \ref{eq:minSum} is the check-node update equation for the min-sum approximation \cite{islam2011optimized}. The message-node update equation is the same as the full sum-product algorithm (eq. \ref{eq:msgNode}). Essentially, when a check node receives incoming messages, the return messages are just the minimum value of the received ones (bearing in mind, however, the extrinsic information rule still applies). An additional term, $0 < \alpha < 1$, is the normalisation constant, which helps to counter the fact that the check-node step in min-sum generally produces an over-estimate, and including it improves performance \cite{islam2011optimized}. 
+Equation \ref{eq:minSum} is the check node update equation for the min-sum approximation \cite{islam2011optimized}. The message node update equation is the same as the full sum-product algorithm (eq. \ref{eq:msgNode}). Essentially, when a check node receives incoming messages, the return messages are just the minimum value of the received ones (bearing in mind, however, the extrinsic information rule still applies). An additional term, $0 < \alpha < 1$, is the normalisation constant, which helps to counter the fact that the check-node step in min-sum generally produces an over-estimate, and including it improves performance \cite{islam2011optimized}. 
 
 Min-sum is useful since implementation is meant to be less complex than the full sum-product algorithm, particularly on dedicated decoding hardware \cite{chen2005reduced}, such as ASIC devices. In addition, it has been shown that in cases where full soft information is unavailable, and quantisation error is introduced, min-sum can actually perform as well as the full sum-product algorithm \cite{zhao2005implementation}.
 
@@ -423,7 +423,7 @@ One of the most important noisy channels used in communications theory, and alre
 \item The random generator produces a vector of pseudo-random, uniformly distributed values from the set \{1,0\}, of length $k$.
 \item The channel encoder takes the length $k$ message, and encodes it using the generator matrix, into a block of length $n$.
 \item The modulator maps each binary bit, in this case using Binary Phase-Shift Keying (BPSK), onto a constellation symbol. These symbols represent a real voltage value.
-\item The channel is simulated by adding white gaussian noise onto each symbol. The output from the channel is $\mathbf{Y = X + N}$, where $\mathbf{X}$ is the input random variable (+/- 1), and $\mathbf{N}$ is the noise random variable ($\mathbf{N} \sim \mathcal{N}(0,\sigma^2)$)
+\item The channel is simulated by adding white Gaussian noise onto each symbol. The output from the channel is $\mathbf{Y = X + N}$, where $\mathbf{X}$ is the input random variable (+/- 1), and $\mathbf{N}$ is the noise random variable ($\mathbf{N} \sim \mathcal{N}(0,\sigma^2)$)
 \item The demodulator, for soft decision decoding, calculates the LLR of each received symbol. From equation \ref{eq:LLR_awgn}, $\mathcal{L} = \dfrac{2y}{\sigma^2}$, where $y$ is the received value from the output of the channel, and $\sigma^2$ is the AWGN channel noise variance. In a real system, this method therefore requires knowledge of the underlying noise parameters. For the simulation, the value is assumed to be known.
 \item Finally, the channel decoder performs error correction using the Belief Propagation algorithm, and outputs the corrected codeword (Note: The encoded message can be extracted from the codeword if a systematic generator matrix was used).
 \end{itemize}
@@ -482,7 +482,7 @@ Longer block length codes generally achieve superior performance and greater `cu
 \subsection{Conclusion}
 Simulating the AWGN channel, and then comparing the results to the known data published by MacKay, allows for some degree of verification of the MATLAB program. The AWGN channel is one of the common channels simulated when dealing with error correcting code, since it simulates the effect of random noise that often occurs in the environment. 
 
-One issue identified with the simulation program was the speed of the decoder. In the first version of the decoder program [Appendix A, codebox \ref{code:sp1}], there were a substantial number of `for' loops, which are generally slow in MATLAB. Subsequent versions of the decoder attempted to fix this by vectorising the code [Appendix A, codebox \ref{code:sp2}], resulting in approximately a 2x speed increase. However, even with these improvements, the decoder was still much slower compared to MATLAB's built-in LDPC decoder \cite{matlab-ldpc}. In addition, freely available OpenCL accelerated decoders \cite{openCL} can be used on a GPU (Graphics Processing Unit) which are even faster than MATLAB's implementation (See Appendix B for the benchmark comparisons). In the subsequent sections simulating the memory model, the MATLAB built-in implementation of the LDPC decoder was used, allowing for substantially more blocks to be decoded in the same amount of time.
+One issue identified with the simulation program was the speed of the decoder. In the first version of the decoder program [Appendix A, extract \ref{code:sp1}], there were a substantial number of `for' loops, which are generally slow in MATLAB. Subsequent versions of the decoder attempted to fix this by vectorising the code [Appendix A, extract \ref{code:sp2}], resulting in approximately a 2x speed increase. However, even with these improvements, the decoder was still much slower compared to MATLAB's built-in LDPC decoder \cite{matlab-ldpc}. In addition, freely available OpenCL accelerated decoders \cite{openCL} can be used on a GPU (Graphics Processing Unit) which are even faster than MATLAB's implementation (See Appendix B for the benchmark comparisons). In the subsequent sections simulating the memory model, the MATLAB built-in implementation of the LDPC decoder was used, allowing for substantially more blocks to be decoded in the same amount of time.
 
 Whilst subsequent simulations made use of the built-in MATLAB decoder, the error performance of the original decoder was identical to that of MATLAB's. Additional testing of the original decoder against the built-in decoder on the memory model also produced identical results. The only reason we are making use of a library function, in this case, is for the massive speed improvements it offers.
 
@@ -501,7 +501,7 @@ The first noise source in the memory channel, the random telegraph noise (RTN), 
 \begin{equation} \label{eq:RTN}
 p_{rtn}(x) = \dfrac{1}{2\lambda_{rtn}}e^{-\lvert x \rvert / \lambda_{rtn}}
 \end{equation}
-In equation \ref{eq:RTN}, $x$ is the value of the voltage fluctuation, and $\lambda_{rtn}$ scales with $N$, the P/E cycling number. In this project, $\lambda_{rtn} = K \sqrt{N}$ where $K$ is just a constant. Therefore as the memory cell is subject to more P/E cycles ($N$), the RTN distribution widens, as expected. Figure \ref{figure:RTN_graph} shows the probability density function of the distribution for different values of $N$. The distribution is centered about $x=0$, since the random effect of RTN can result in either an increase of decrease of the cell threshold voltage.
+In equation \ref{eq:RTN}, $x$ is the value of the voltage fluctuation, and $\lambda_{rtn}$ scales with $N$, the P/E cycling number. In this project, $\lambda_{rtn} = K \sqrt{N}$ where $K$ is just a constant. Therefore as the memory cell is subject to more P/E cycles ($N$), the RTN distribution widens, as expected. Figure \ref{figure:RTN_graph} shows the probability density function of the distribution for different values of $N$. The distribution is centred about $x=0$, since the random effect of RTN can result in either an increase of decrease of the cell threshold voltage.
 
 \begin{figure}[h]
 \centering
@@ -666,7 +666,7 @@ Figure \ref{fig:retentionVsFull} shows that the convolution method, when excludi
 \subsubsection{Approximation: Matched Gaussians}
 Another approach to obtain the distribution of the threshold voltage, is to use a reasonable approximation of the function, rather than trying to obtain it directly. Using a simplified approximation also turns out to be faster [Around 5x faster when generating the LLR's in MATLAB compared to the full function in section \ref{section:fullFunc}].
 
-An obvious choice would be to use a Gaussian. Whilst the distribution starts off as a Uniform distribution, adding noise causes it to quickly degrade into a gaussian-like shape. Since the memory noise model, as explained in equation \ref{eq:additive_memory_noise_model}, is addition of independent random variables, the mean and variance of each random variable can simply be added together to obtain the overall mean and variance of the distribution. These values can then be used to generate a `Matched Gaussian', which will have the same mean and variance as the actual underlying function, but just with a slightly different shape. 
+An obvious choice would be to use a Gaussian. Whilst the distribution starts off as a Uniform distribution, adding noise causes it to quickly degrade into a Gaussian-like shape. Since the memory noise model, as explained in equation \ref{eq:additive_memory_noise_model}, is addition of independent random variables, the mean and variance of each random variable can simply be added together to obtain the overall mean and variance of the distribution. These values can then be used to generate a `Matched Gaussian', which will have the same mean and variance as the actual underlying function, but just with a slightly different shape. 
 \begin{equation} \label{eq:matchedGaussians}
 \begin{aligned}
 \mu_p &= \mu_{p_0} + \mu_{rtn} + \mu_{retention} = \dfrac{2 V_p + \Delta V_{pp}}{2} + 0 +\mu_r \\
@@ -720,7 +720,7 @@ In this particular model, there are 2 independent variables that can be chosen: 
 
 Monte-Carlo simulations were run on a remote cluster computer for each of the different decoding schemes explained in section \ref{section:memoryDecoding}. The results are shown in both figures \ref{fig:memory_results_graph} and \ref{fig:memory_results_graph2}.
 
-Figure \ref{fig:memory_results_graph} shows the bit-error rate against a given `N', the number of cell program/erase cycles. The solid lines all represent soft-decision decoding, each using a different approach when forming the LLR that is fed to the decoder. The `Static Gaussian', whilst not explicitly declared earlier, uses a Gaussian centered about $V_{p_0}$, the initial programmed voltage. It is static since both the mean and variance of this Gaussian don't vary as N increases. This was the first attempt at performing soft-decision decoding for the system, and is essentially similar to the method of obtaining the LLR's for the AWGN channel (2 static Gaussian distributions).
+Figure \ref{fig:memory_results_graph} shows the bit-error rate against a given `N', the number of cell program/erase cycles. The solid lines all represent soft-decision decoding, each using a different approach when forming the LLR that is fed to the decoder. The `Static Gaussian', whilst not explicitly declared earlier, uses a Gaussian centred about $V_{p_0}$, the initial programmed voltage. It is static since both the mean and variance of this Gaussian don't vary as N increases. This was the first attempt at performing soft-decision decoding for the system, and is essentially similar to the method of obtaining the LLR's for the AWGN channel (2 static Gaussian distributions).
 
 The two matched Gaussians, one including the Random Telegraph Noise and one without, are the next best performing curves. It is clear that by adding the variance of the RTN to the Gaussian, it substantially improves performance of the decoder. However, the two functions obtained through the convolution of the various PDF's have the best overall performance. The green line, which is effectively making use of the exact underlying function in order to generate the LLR's, is therefore the upper bound on the performance of this system. 
 
@@ -733,7 +733,17 @@ This particular graph construction is useful in comparing different systems, sin
 \section{Conclusions}
 It is clear that error-correcting code plays an important part in flash memory. Without it, modern multi-level cell devices would likely not be possible, or would have much tighter constraints on device lifetime. However, as said previously, current flash memory uses hard decision decoding. The difference between the hard-decision schemes currently used and the potential soft-decision schemes demonstrated in this project, as well as investigated in many other papers, are substantial. This is perhaps why there is a great deal of interest in this area by the memory manufacturers. 
 
-LDPC codes are widely known to achieve capacity approaching performance on the AWGN channel. However, it is clear that such a simplistic channel model is not appropriate when modelling a flash memory cell. This project has demonstrated the implementation of a soft-decision LDPC scheme in tandem with a more complex noise model. Admittedly, it is very hard to verify how accurate this model is compared to a real device, mainly since the data generated in industry is kept highly secretive. 
+LDPC codes are widely known to achieve capacity approaching performance on the AWGN channel. However, it is clear that such a simplistic channel model is not appropriate when modelling a flash memory cell. This project has demonstrated the implementation of a soft-decision LDPC scheme in tandem with a more complex noise model. Admittedly, it is very hard to verify how accurate this model is compared to a real device, mainly since the data generated in industry is kept highly secretive. However, the importance of accurately modelling the underlying noise process is shown to be especially critical when dealing with soft-decision decoding. Even the most minor variations in the probability density functions can result in fairly large differences. So, whilst it wasn't possible to verify that the noise model is accurate compared to a real device, the project has shown the importance of matching the decoder to the assumed noise process.
+
+Soft-decision decoding with the AWGN channel assumes that the received symbols generate Gaussian distributions, centred about the transmitted mean. However, this project has shown that the `Static Gaussian' approach to decoding is not suitable when dealing with flash memory: the mean of the cell threshold voltage varies with the program/erase cycle number. The logical extension was to continue using a Gaussian for the decoding, but matching the mean and variance with the underlying noise process. The `Matched Gaussians' had substantially improved performance over the static case, whilst being computationally inexpensive to implement (Appendix B, table 2).
+
+In order to achieve the best soft-decision decoding performance, the exact probability density function of the cell threshold voltage for all values of `N' is required. This was demonstrated by taking the two additive noise sources in the memory model, and producing the required PDF through the convolution operation. Whilst this process results in the best performance, it does so at a cost to both the complexity of the decoder as well as the work required to obtain the PDF in the first place. Since the actual real-world noise process is assumed to be unknown, or at least unverified, using this method seems redundant unless the model is shown to be very accurate compared to an actual device. 
+
+An important, but so far completely ignored reality, is that full unlimited precision soft-information is impossible to obtain from a memory cell. The sense-amp comparator used in memory cells today generates at most 3-bits of information, in the case of triple-level cell memory. All of the simulations in this project have assumed double floating point precision, which is effectively 64 bits of information. Work is ongoing in investigating the effect of quantisation in soft-decision decoding of LDPC codes \cite{zhao2005implementation}, as well as more specifically in the number of comparator reads required to achieve near-optimum levels of soft information in a flash memory cell \cite{DBLP:journals/corr/abs-1210-0149}. Both have shown that even with limited precision soft information, the decoder retains the majority of its performance. For example, \cite{zhao2005implementation} shows that around 6 bits of soft information is required in the AWGN case to achieve near identical performance to the unlimited precision case. 
+
+As well as looking at the effect of quantisation, future work in this area would almost certainly involve looking at code construction. This project made use of a specific LDPC code designed for digital video broadcast - not at all related to flash memory. It is known that ``the optimal code for a given set of channel conditions may not resemble the optimal code for another" \cite[p. 369]{golomb1994basic}, that is,  codes perform differently dependent on application. What works for the AWGN channel may not work for any future memory channel, and the codes that perform well with unlimited soft information may not be the ones that perform well in the limited precision case.
+
+This project only looked at modelling SLC memory (1 bit per cell), whereas in reality modern cells either store 2 or 3 bits of information. As the cell threshold voltages get closer and closer to each other, the importance of error correction will only increase in the future. One solution presented here is to make use of soft information in the cell, which results in substantial improvement over the hard-decision scheme. It was also shown that accurate modelling is vitally important to the error correcting performance. Future developments in flash memory will likely include QLC (Quad-level cell) \cite{eetimes} technology for solid-state drives. Modern error correction schemes, such as the ones presented here, will almost certainly be one of many areas of research in the wider semiconductor industry, with the goal of increasing storage capacity, whilst reducing device costs. 
 
 \phantomsection
 \addcontentsline{toc}{section}{Appendix A: MATLAB code}
@@ -755,7 +765,7 @@ seed = fread(fid, 1, 'uint32');
 RandStream.setDefaultStream(RandStream('mt19937ar','seed',seed));
 \end{lstlisting}
 
-The commands in codebox \ref{code:rng} were used to seed the random number generator every time a new MATLAB process was created \cite{randomblog}. On UNIX machines, there is a system random number source \mbox{`/dev/random'}, which ``gathers environmental noise from device drivers and other sources into an entropy pool [and] from this entropy pool random numbers are created" \cite{devrandom}. The numbers generated by this process originate from physical random processes such as hardware noise, and so it is assumed that when calling the function on a different machine, a different random number will be generated every time. These random numbers are then used to seed the pseudo-random stream in MATLAB.
+The commands in extract \ref{code:rng} were used to seed the random number generator every time a new MATLAB process was created \cite{randomblog}. On UNIX machines, there is a system random number source \mbox{`/dev/random'}, which ``gathers environmental noise from device drivers and other sources into an entropy pool [and] from this entropy pool random numbers are created" \cite{devrandom}. The numbers generated by this process originate from physical random processes such as hardware noise, and so it is assumed that when calling the function on a different machine, a different random number will be generated every time. These random numbers are then used to seed the pseudo-random stream in MATLAB.
 
 \subsection*{Sum-Product decoders}
 \singlespacing
@@ -929,7 +939,7 @@ for N = 0:1000:45000
 end
 \end{lstlisting}
 \doublespacing
-Codebox \ref{code:mem_simulator} shows the top level script when running locally. When submitting to a compute cluster, the code was changed slightly (e.g. to include the Random Number Generation setup).
+Extract \ref{code:mem_simulator} shows the top level script when running locally. When submitting to a compute cluster, the code was changed slightly (e.g. to include the Random Number Generation setup).
 
 \phantomsection
 \addcontentsline{toc}{section}{Appendix B: Tables}
@@ -992,7 +1002,8 @@ $K_{rtn}$ & RTN constant ($\lambda_{rtn} = K_{rtn} \sqrt{N}$) & 0.00025 \\
 
 \doublespacing
 \printbibliography
-%Some \LaTeX\ code, used to format this report, obtained from: \url{http://en.wikibooks.org} (Licensed under CC BY-SA 3.0).
+\medskip
+\noindent Some \LaTeX\ code, used to format this report, obtained from: \url{http://en.wikibooks.org/wiki/LaTeX} (Licensed under CC BY-SA 3.0).
 
 \includepdf[pages={1,2},angle=90]{4yp_risk_assesment}
 \end{document}

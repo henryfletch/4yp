@@ -584,6 +584,54 @@
   \field{title}{Convolution of Uniform, Gaussian and Laplacian distributions}
 \endentry
 
+\entry{golomb1994basic}{book}{}
+  \name{author}{3}{}{%
+    {{}%
+     {Golomb}{G.}%
+     {S.W.}{S.}%
+     {}{}%
+     {}{}}%
+    {{}%
+     {Peile}{P.}%
+     {R.E.}{R.}%
+     {}{}%
+     {}{}}%
+    {{}%
+     {Scholtz}{S.}%
+     {R.A.}{R.}%
+     {}{}%
+     {}{}}%
+  }
+  \list{publisher}{1}{%
+    {Springer}%
+  }
+  \strng{namehash}{GSPRSR1}
+  \strng{fullhash}{GSPRSR1}
+  \field{series}{Applications of Communications Theory}
+  \field{title}{Basic Concepts in Information Theory and Coding: The Adventures
+  of Secret Agent 00111}
+  \field{year}{1994}
+\endentry
+
+\entry{eetimes}{online}{}
+  \name{author}{1}{}{%
+    {{}%
+     {Choi}{C.}%
+     {Young}{Y.}%
+     {}{}%
+     {}{}}%
+  }
+  \strng{namehash}{CY1}
+  \strng{fullhash}{CY1}
+  \field{title}{Under the Hood: NAND flash preps for 4 bits per cell}
+  \verb{url}
+  \verb http://www.eetimes.com/document.asp?doc_id=1167325
+  \endverb
+  \field{urlday}{02}
+  \field{urlmonth}{05}
+  \field{urlyear}{2015}
+\endentry
+
 \entry{matlab-rng}{online}{}
   \name{author}{1}{}{%
     {{}%
