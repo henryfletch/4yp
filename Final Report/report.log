@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.15 (TeX Live 2014/W32TeX) (preloaded format=pdflatex 2015.1.26)  2 MAY 2015 16:37
+This is pdfTeX, Version 3.14159265-2.6-1.40.15 (TeX Live 2014/W32TeX) (preloaded format=pdflatex 2015.1.26)  4 MAY 2015 13:13
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -1515,25 +1515,30 @@ File: retention_time_graph-eps-converted-to.pdf Graphic file (type pdf)
 Package pdftex.def Info: retention_time_graph-eps-converted-to.pdf used on inpu
 t line 702.
 (pdftex.def)             Requested size: 235.77869pt x 194.6755pt.
-Package epstopdf Info: Source file: <codedBER_NCycles.eps>
-(epstopdf)                    date: 2015-04-25 16:26:59
-(epstopdf)                    size: 105187 bytes
-(epstopdf)             Output file: <codedBER_NCycles-eps-converted-to.pdf>
-(epstopdf)                    date: 2015-04-25 16:32:15
-(epstopdf)                    size: 15011 bytes
-(epstopdf)             Command: <repstopdf --outfile=codedBER_NCycles-eps-conve
-rted-to.pdf codedBER_NCycles.eps>
+Package epstopdf Info: Source file: <codedBER_NCycles2.eps>
+(epstopdf)                    date: 2015-05-04 13:13:48
+(epstopdf)                    size: 112844 bytes
+(epstopdf)             Output file: <codedBER_NCycles2-eps-converted-to.pdf>
+(epstopdf)                    date: 2015-05-04 13:13:54
+(epstopdf)                    size: 12428 bytes
+(epstopdf)             Command: <repstopdf --outfile=codedBER_NCycles2-eps-conv
+erted-to.pdf codedBER_NCycles2.eps>
 (epstopdf)             \includegraphics on input line 710.
 Package epstopdf Info: Output file is already uptodate.
 
-<codedBER_NCycles-eps-converted-to.pdf, id=822, 837.1275pt x 622.325pt>
-File: codedBER_NCycles-eps-converted-to.pdf Graphic file (type pdf)
+<codedBER_NCycles2-eps-converted-to.pdf, id=822, 1219.55624pt x 890.32625pt>
+File: codedBER_NCycles2-eps-converted-to.pdf Graphic file (type pdf)
 
-<use codedBER_NCycles-eps-converted-to.pdf>
-Package pdftex.def Info: codedBER_NCycles-eps-converted-to.pdf used on input li
-ne 710.
-(pdftex.def)             Requested size: 435.3088pt x 323.61086pt.
- [36
+<use codedBER_NCycles2-eps-converted-to.pdf>
+Package pdftex.def Info: codedBER_NCycles2-eps-converted-to.pdf used on input l
+ine 710.
+(pdftex.def)             Requested size: 609.77663pt x 445.16203pt.
+
+Overfull \hbox (109.29263pt too wide) in paragraph at lines 710--711
+ [][] 
+ []
+
+[36
 
  <./memory_channel_model.pdf>]
 Package epstopdf Info: Source file: <cber_uber_memory.eps>
@@ -1554,8 +1559,8 @@ File: cber_uber_memory-eps-converted-to.pdf Graphic file (type pdf)
 Package pdftex.def Info: cber_uber_memory-eps-converted-to.pdf used on input li
 ne 716.
 (pdftex.def)             Requested size: 469.00104pt x 343.28166pt.
- [37 <./retention_time_graph-eps-converted-to.pdf>] [38 <./codedBER_NCycles-eps
--converted-to.pdf>] [39 <./cber_uber_memory-eps-converted-to.pdf>] [40
+ [37 <./retention_time_graph-eps-converted-to.pdf>] [38 <./codedBER_NCycles2-ep
+s-converted-to.pdf>] [39 <./cber_uber_memory-eps-converted-to.pdf>] [40
 
 ] [41]
 LaTeX Font Info:    Try loading font information for OT1+pcr on input line 760.
@@ -1576,7 +1581,7 @@ File: ts1pcr.fd 2001/06/04 font definitions for TS1/pcr.
 
 ] [48
 
-] [49] <4yp_risk_assesment.pdf, id=1173, 794.97pt x 614.295pt>
+] [49] <4yp_risk_assesment.pdf, id=1170, 794.97pt x 614.295pt>
 File: 4yp_risk_assesment.pdf Graphic file (type pdf)
 
 <use 4yp_risk_assesment.pdf>
@@ -1592,7 +1597,7 @@ File: 4yp_risk_assesment.pdf Graphic file (type pdf)
 Package pdftex.def Info: 4yp_risk_assesment.pdf used on input line 1008.
 (pdftex.def)             Requested size: 794.96806pt x 614.29349pt.
  [50]
-<4yp_risk_assesment.pdf, id=1184, page=1, 794.97pt x 614.295pt>
+<4yp_risk_assesment.pdf, id=1181, page=1, 794.97pt x 614.295pt>
 File: 4yp_risk_assesment.pdf Graphic file (type pdf)
 
 <use 4yp_risk_assesment.pdf, page 1>
@@ -1622,7 +1627,7 @@ Package pdftex.def Info: 4yp_risk_assesment.pdf, page1 used on input line 1008.
 
 (pdftex.def)             Requested size: 794.96806pt x 614.29349pt.
  [51 <./4yp_risk_assesment.pdf>]
-<4yp_risk_assesment.pdf, id=1216, page=2, 794.97pt x 614.295pt>
+<4yp_risk_assesment.pdf, id=1213, page=2, 794.97pt x 614.295pt>
 File: 4yp_risk_assesment.pdf Graphic file (type pdf)
 
 <use 4yp_risk_assesment.pdf, page 2>
@@ -1656,7 +1661,7 @@ Package logreq Info: Writing requests to 'report.run.xml'.
  ) 
 Here is how much of TeX's memory you used:
  23361 strings out of 493109
- 390341 string characters out of 6138587
+ 390346 string characters out of 6138587
  710978 words of memory out of 5000000
  26162 multiletter control sequences out of 15000+600000
  46384 words of font info for 92 fonts, out of 8000000 for 9000
@@ -1681,10 +1686,10 @@ live/2014/texmf-dist/fonts/type1/public/amsfonts/symbols/msam10.pfb><c:/texlive
 /fonts/type1/urw/helvetic/uhvb8a.pfb><c:/texlive/2014/texmf-dist/fonts/type1/ur
 w/helvetic/uhvr8a.pfb><c:/texlive/2014/texmf-dist/fonts/type1/urw/helvetic/uhvr
 o8a.pfb>
-Output written on report.pdf (53 pages, 1298534 bytes).
+Output written on report.pdf (53 pages, 1296592 bytes).
 PDF statistics:
- 1372 PDF objects out of 1440 (max. 8388607)
- 1128 compressed objects within 12 object streams
+ 1369 PDF objects out of 1440 (max. 8388607)
+ 1126 compressed objects within 12 object streams
  337 named destinations out of 1000 (max. 500000)
  391 words of extra memory for PDF output out of 10000 (max. 10000000)
 

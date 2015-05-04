@@ -6,6 +6,11 @@ textString = the name of the file output. e.g saved as: /output_files/textString
 	#Blocks = 1000
 	Matlab Decoder
 
+-mem_hard_decision(N,textString)
+	Hard decision decoding, uses variable exp window (New May 2015 version)
+	#Blocks = 1000
+	Matlab Decoder
+
 -mem_soft_full(N,textString)
 	Soft decision decoding, uses retention as full function
 	#Blocks = 1000
