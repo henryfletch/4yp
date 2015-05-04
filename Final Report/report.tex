@@ -707,7 +707,7 @@ In this particular model, there are 2 independent variables that can be chosen: 
 \subsection{Simulation Results}
 \begin{figure}[ht]
 \centering
-\includegraphics[scale=0.5]{codedBER_NCycles2}
+\includegraphics[scale=0.56]{codedBER_NCycles2}
 \caption{Graph of bit-error rate vs N for different decoding and LLR schemes}
 \label{fig:memory_results_graph}
 \end{figure}
@@ -724,7 +724,7 @@ Figure \ref{fig:memory_results_graph} shows the bit-error rate against a given `
 
 The two matched Gaussians, one including the Random Telegraph Noise and one without, are the next best performing curves. It is clear that by adding the variance of the RTN to the Gaussian, it substantially improves performance of the decoder. However, the two functions obtained through the convolution of the various PDF's have the best overall performance. The green line, which is effectively making use of the exact underlying function in order to generate the LLR's, is therefore the upper bound on the performance of this system. 
 
-Finally, the dotted line shows the performance of hard decision decoding. It is substantially worse performing than any of the soft decision methods, and only improves error performance against the uncoded case (the blue dashed line) by a relatively small margin, and only up to 20,000 cycles. Beyond this point, introducing error correction actually worsens the error performance of the system. 
+Finally, the dotted line shows the performance of hard decision decoding. It is substantially worse performing than any of the soft decision methods, and only improves error performance against the uncoded case (the blue dashed line) by a relatively small margin, and only up to 25+,000 cycles. Beyond this point, introducing error correction actually worsens the error performance of the system. 
 
 Figure \ref{fig:memory_results_graph2} displays the same set of results for the soft decision schemes, but in a different format. The Coded vs Uncoded graph is a standard method used in industry to compare relative performance of error correction schemes. Essentially, given an uncoded system's bit error rate, it is possible to determine what the BER would be if an error correcting scheme is used. The uncoded BER in this case is taken from the hard decision, variable boundary method (the blue dashed line in the previous graph).
 

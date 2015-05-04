@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.15 (TeX Live 2014/W32TeX) (preloaded format=pdflatex 2015.1.26)  4 MAY 2015 13:13
+This is pdfTeX, Version 3.14159265-2.6-1.40.15 (TeX Live 2014/W32TeX) (preloaded format=pdflatex 2015.1.26)  4 MAY 2015 14:08
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -1516,29 +1516,24 @@ Package pdftex.def Info: retention_time_graph-eps-converted-to.pdf used on inpu
 t line 702.
 (pdftex.def)             Requested size: 235.77869pt x 194.6755pt.
 Package epstopdf Info: Source file: <codedBER_NCycles2.eps>
-(epstopdf)                    date: 2015-05-04 13:13:48
-(epstopdf)                    size: 112844 bytes
+(epstopdf)                    date: 2015-05-04 13:22:07
+(epstopdf)                    size: 104459 bytes
 (epstopdf)             Output file: <codedBER_NCycles2-eps-converted-to.pdf>
-(epstopdf)                    date: 2015-05-04 13:13:54
-(epstopdf)                    size: 12428 bytes
+(epstopdf)                    date: 2015-05-04 13:22:28
+(epstopdf)                    size: 11917 bytes
 (epstopdf)             Command: <repstopdf --outfile=codedBER_NCycles2-eps-conv
 erted-to.pdf codedBER_NCycles2.eps>
 (epstopdf)             \includegraphics on input line 710.
 Package epstopdf Info: Output file is already uptodate.
 
-<codedBER_NCycles2-eps-converted-to.pdf, id=822, 1219.55624pt x 890.32625pt>
+<codedBER_NCycles2-eps-converted-to.pdf, id=822, 885.3075pt x 651.43375pt>
 File: codedBER_NCycles2-eps-converted-to.pdf Graphic file (type pdf)
 
 <use codedBER_NCycles2-eps-converted-to.pdf>
 Package pdftex.def Info: codedBER_NCycles2-eps-converted-to.pdf used on input l
 ine 710.
-(pdftex.def)             Requested size: 609.77663pt x 445.16203pt.
-
-Overfull \hbox (109.29263pt too wide) in paragraph at lines 710--711
- [][] 
- []
-
-[36
+(pdftex.def)             Requested size: 495.76881pt x 364.8004pt.
+ [36
 
  <./memory_channel_model.pdf>]
 Package epstopdf Info: Source file: <cber_uber_memory.eps>
@@ -1686,7 +1681,7 @@ live/2014/texmf-dist/fonts/type1/public/amsfonts/symbols/msam10.pfb><c:/texlive
 /fonts/type1/urw/helvetic/uhvb8a.pfb><c:/texlive/2014/texmf-dist/fonts/type1/ur
 w/helvetic/uhvr8a.pfb><c:/texlive/2014/texmf-dist/fonts/type1/urw/helvetic/uhvr
 o8a.pfb>
-Output written on report.pdf (53 pages, 1296592 bytes).
+Output written on report.pdf (53 pages, 1295977 bytes).
 PDF statistics:
  1369 PDF objects out of 1440 (max. 8388607)
  1126 compressed objects within 12 object streams
