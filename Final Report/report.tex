@@ -62,7 +62,7 @@
 %----------------------------------------------------------------------------------------
 %	HEADING SECTIONS
 \textsc{\LARGE University of Oxford}\\[1.5cm] 
-\textsc{\Large Honour School of Engineering Science (Part C)}\\[0.5cm]
+\textsc{\Large Honour School of Engineering Science (Part C)}\\[1.5cm]
 \textsc{\large 4\textsuperscript{th} Year Project Report}\\[0.5cm]
 %----------------------------------------------------------------------------------------
 %	TITLE SECTION
@@ -84,9 +84,9 @@ Henry \textsc{Fletcher} % Your name
 \emph{Supervisor:} \\
 Professor Justin \textsc{Coon} % Supervisor's Name
 \end{flushright}
-\end{minipage}\\[13cm]
+\end{minipage}\\[12cm]
 
-{\large \today}\\[1cm]
+{\large May 2015}\\[1cm]
 
 \vfill 
 
@@ -95,7 +95,7 @@ Professor Justin \textsc{Coon} % Supervisor's Name
 
 \section*{Abstract}
 
-Modern flash memory is reliant on error-correcting code to ensure error-free operation. Current flash memory architectures often use linear block codes for this purpose (e.g. Reed-Solomon, Hamming or BCH codes). However, the recent rediscovery of LDPC (Low Density Parity Check) codes, which can achieve superior performance close to the Shannon Limit, has generated much interest in the NAND memory industry. These codes could be used to further improve error correction capability in flash memory, thus allowing for more densely packed memory cells and thus larger capacity drives.
+Modern flash memory is reliant on error-correcting code to ensure error-free operation. Current flash memory architectures often use linear block codes for this purpose (e.g. Reed-Solomon, Hamming or BCH codes). However the recent rediscovery of LDPC (Low Density Parity Check) codes, which can achieve superior performance close to the Shannon Limit, has generated much interest in the flash memory industry. These codes could be used to further improve error correction capability in flash memory, thus allowing for more densely packed memory cells and thus larger capacity drives.
 
 The general aim of this project was to produce a MATLAB simulation of how an error correction system using LDPC codes works for flash memory.  By combining both an error generation and an error correction model, it was possible to benchmark these rediscovered codes against current coding schemes.
 
@@ -118,14 +118,14 @@ An obvious way to achieve low cost per Gigabyte is to increase the number of sto
 
 Current generation flash memory therefore makes extensive use of Error-Correcting Code, to offset the increased error rate caused by densely packed cells. However, recent advances in error-correction capability elsewhere have yet to be implemented in consumer flash memory devices. This project therefore aims to investigate the use of the latest generation error-correcting codes in flash memory. 
 
-Previous papers \cite{dong2012estimating,DBLP:journals/corr/abs-1210-0149} on this topic have investigated the use of more modern error-correcting codes, including a type known as Low Density Parity Check (LDPC) codes, and have shown performance improvements over existing coding schemes. In addition, these papers present a more accurate noise model for flash memory, that takes into account the program/erase nature of the memory cells. Previous work on LDPC codes is extensive \cite{mncisit,gallager1962low}, particularly by MacKay who rediscovered them. The decoding method for these codes, the Belief Propagation algorithm, is also widely used \cite{davey1998low,chen2002near}, and in addition methods for simplifying this decoding method through the use of approximations \cite{zhao2005implementation,chen2005reduced,islam2011optimized}.
+Previous papers \cite{dong2012estimating,DBLP:journals/corr/abs-1210-0149} on this topic have investigated the use of more modern error-correcting codes, including a type known as Low Density Parity Check (LDPC) codes and have shown performance improvements over existing coding schemes. In addition, these papers present a more accurate noise model for flash memory that takes into account the program/erase nature of the memory cells. Previous work on LDPC codes is extensive \cite{mncisit,gallager1962low}, particularly by MacKay who rediscovered them. The decoding method for these codes, the Belief Propagation algorithm, is also widely used \cite{davey1998low,chen2002near}, and in addition methods for simplifying this decoding method through the use of approximations \cite{zhao2005implementation,chen2005reduced,islam2011optimized}.
 
 The majority of this project concerns the development of a MATLAB simulation, that includes both an error generation and error correction model. The flash memory error model, used to simulate the effects of noise and time-varying degradation in a memory cell, is mostly derived from existing work. So too are the methods for error correction, in the form of LDPC and the Belief Propagation algorithm. However, the novelty of this project is investigating how varying degrees of prior information provided to the decoder can alter error performance, through using approximations of the underlying noise assumptions. It also seeks to show the importance of modelling the noise correctly, since having an accurate noise model will result in superior system performance.
 
-Firstly, this report presents an overview of flash memory and error-correction, in the form of linear block codes. Then, the process of decoding these error-correcting codes is presented. Subsequently, the simulation of one type of channel model, the AWGN channel, is performed and the results compared to a known data set. Finally, the remainder of the report focuses on creating a specific `memory noise model', simulating it, and comparing the various decoding schemes used.
+Firstly, this report presents an overview of flash memory and error-correction, in the form of linear block codes. The, the process of decoding these error-correcting codes is presented. Subsequently, the simulation of one type of channel model, the Additive White Gaussian Noise (AWGN) channel, is performed and the results compared to a known data set. Finally, the remainder of the report focuses on creating a specific `memory noise model', simulating it, and comparing the various decoding schemes used.
 
 \section{Overview of Flash Memory Technology} \label{section:memtech}
-A NAND flash memory cell is essentially just a floating gate transistor. The threshold voltage of each transistor can be individually programmed to determine what data is stored in that cell. A Single-Level Cell (SLC) has 2 states: erased and programmed. Whereas a Multi-Level Cell (MLC) often has 4 states (1 erased and 3 different programmed levels), allowing it to store 2 bits of information.
+A flash memory cell is essentially just a floating gate transistor. The threshold voltage of each transistor can be individually programmed to determine what data is stored in that cell. A Single-Level Cell (SLC) has 2 states: erased and programmed. Whereas a Multi-Level Cell (MLC) often has 4 states (1 erased and 3 different programmed levels), allowing it to store 2 bits of information.
 \begin{figure}[h]
 \centering
 \includegraphics[scale=0.65]{floating_gate_transistor}
@@ -178,7 +178,7 @@ At the receiver, a similar operation is performed:
 \begin{equation}
 \mathbf{s = c H}^\top
 \end{equation}
-where $\mathbf{s}$ is known as the \textit{syndrome}. If the syndrome is the all zero vector, then error free transmission has occurred. Conversely, if any bit of the syndrome is 1, then this represents a particular error pattern. For small block lengths, these error pattern's can be pre-calculated and saved as a table, allowing for syndrome lookup decoding. The table identifies the exact location of a bit error in the codeword, which can then be `flipped' in order to perform error correction.
+where $\mathbf{s}$ is known as the \textit{syndrome}. If the syndrome is the all zero vector, then error free transmission has occurred. Conversely, if any bit of the syndrome is 1, then this represents a particular error pattern. For small block lengths, these error patterns can be pre-calculated and saved as a table, allowing for syndrome lookup decoding. The table identifies the exact location of a bit error in the codeword, which can then be `flipped' in order to perform error correction.
 
 An example of a \textit{systematic} generator matrix, in this case a matrix known as the \textit{Hamming(7,4) code}, takes the form:
 \begin{equation}
@@ -393,7 +393,7 @@ The full sum-product algorithm is computationally expensive, with the check-node
 m_{ji}^{(l)} = \alpha\times\left(\prod\limits_{i'\in V_j\ne i}\sign(m_{i'j}^{(l-1)})\right)\times\min_{i'\in V_j\ne i}\left|m_{i'j}^{(l-1)}\right|
 \end{equation} 
 
-Equation \ref{eq:minSum} is the check node update equation for the min-sum approximation \cite{islam2011optimized}. The message node update equation is the same as the full sum-product algorithm (eq. \ref{eq:msgNode}). Essentially, when a check node receives incoming messages, the return messages are just the minimum value of the received ones (bearing in mind, however, the extrinsic information rule still applies). An additional term, $0 < \alpha < 1$, is the normalisation constant, which helps to counter the fact that the check node step in min-sum generally produces an over-estimate, and including it improves performance \cite{islam2011optimized}. 
+Equation \ref{eq:minSum} is the check node update equation for the min-sum approximation \cite{islam2011optimized}. The message node update equation is the same as the full sum-product algorithm (eq. \ref{eq:msgNode}). Essentially, when a check node receives incoming messages, the return messages are just the minimum value of the received ones (bearing in mind however, the extrinsic information rule still applies). An additional term, $0 < \alpha < 1$, is the normalisation constant, which helps to counter the fact that the check node step in min-sum generally produces an over-estimate, and including it improves performance \cite{islam2011optimized}. 
 
 Min-sum is useful since implementation is meant to be less complex than the full sum-product algorithm, particularly on dedicated decoding hardware \cite{chen2005reduced}, such as ASIC devices. In addition, it has been shown that in cases where full soft information is unavailable, and quantisation error is introduced, min-sum can actually perform as well as the full sum-product algorithm \cite{zhao2005implementation}.
 
@@ -739,7 +739,7 @@ Soft-decision decoding with the AWGN channel assumes that the received symbols g
 
 In order to achieve the best soft-decision decoding performance, the exact probability density function of the cell threshold voltage for all values of `N' is required. This was demonstrated by taking the two additive noise sources in the memory model, and producing the required PDF through the convolution operation. Whilst this process results in the best performance, it does so at a cost to both the complexity of the decoder as well as the work required to obtain the PDF in the first place. Since the actual real-world noise process is assumed to be unknown, or at least unverified, using this method seems redundant unless the model is shown to be very accurate compared to an actual device. 
 
-An important, but so far completely ignored reality, is that full unlimited precision soft-information is impossible to obtain from a memory cell. The sense-amp comparator used in memory cells today generates at most 3-bits of information, in the case of triple-level cell memory. All of the simulations in this project have assumed double floating point precision, which is effectively 64 bits of information. Work is ongoing in investigating the effect of quantisation in soft-decision decoding of LDPC codes \cite{zhao2005implementation}, as well as more specifically in the number of comparator reads required to achieve near-optimum levels of soft information in a flash memory cell \cite{DBLP:journals/corr/abs-1210-0149}. Both have shown that even with limited precision soft information, the decoder retains the majority of its performance. For example, \cite{zhao2005implementation} shows that around 6 bits of soft information is required in the AWGN case to achieve near identical performance to the unlimited precision case. 
+An important, but so far completely ignored reality, is that full unlimited precision soft-information is impossible to obtain from a memory cell. The sense-amp comparator used in memory cells today generates at most 3-bits of information, in the case of triple-level cell memory. All of the simulations in this project have assumed double floating point precision, which is effectively 64 bits of information. Work is ongoing in investigating the effect of quantisation in soft-decision decoding of LDPC codes \cite{zhao2005implementation}, as well as more specifically in the number of comparator reads required to achieve near-optimum levels of soft information in a flash memory cell \cite{DBLP:journals/corr/abs-1210-0149}. Both have shown that even with limited precision soft information, the decoder retains the majority of its performance. For example, \cite{zhao2005implementation} shows that around 6 bits of soft information is required in the AWGN case to achieve near identical performance to the unlimited precision case. For the memory model, figure [??] demonstrates the effect of simple 2-bit and 3-bit quantisation when using the exact convolution PDF. It shows reasonable performance considering the reduction in precision. An area of future research would likely be investigating exactly how to create the optimum quantisation regions.
 
 As well as looking at the effect of quantisation, future work in this area would almost certainly involve looking at code construction. This project made use of a specific LDPC code designed for digital video broadcast - not at all related to flash memory. It is known that ``the optimal code for a given set of channel conditions may not resemble the optimal code for another" \cite[p. 369]{golomb1994basic}, that is,  codes perform differently dependent on application. What works for the AWGN channel may not work for any future memory channel, and the codes that perform well with unlimited soft information may not be the ones that perform well in the limited precision case.
 

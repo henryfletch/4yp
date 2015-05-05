@@ -23,20 +23,20 @@ y = memoryGetVoltage(encodedData',SystemParams);
 
 % Quantisation test
 % 8 Read Quantiser:
-y(y>2.4) = 2.4;
-y((2.3 < y)&(y < 2.4)) = 2.35;
-y((2.2 < y)&(y < 2.3)) = 2.25;
-y((2.1 < y)&(y < 2.2)) = 2.15;
-y((2.0 < y)&(y < 2.1)) = 2.05;
-y((1.9 < y)&(y < 2.0)) = 1.95;
-y((1.8 < y)&(y < 1.9)) = 1.85;
-y(y<1.8) = 1.8;
+% y(y>2.4) = 2.4;
+% y((2.3 < y)&(y < 2.4)) = 2.35;
+% y((2.2 < y)&(y < 2.3)) = 2.25;
+% y((2.1 < y)&(y < 2.2)) = 2.15;
+% y((2.0 < y)&(y < 2.1)) = 2.05;
+% y((1.9 < y)&(y < 2.0)) = 1.95;
+% y((1.8 < y)&(y < 1.9)) = 1.85;
+% y(y<1.8) = 1.8;
 
 %4 Read Quantiser:
-% y(y>2.6) = 2.6;
-% y((2.2 < y)&(y < 2.6)) = 2.4;
-% y((1.8 < y)&(y < 2.2)) = 2.0;
-% y(y<1.8) = 1.8;
+y(y>2.6) = 2.6;
+y((2.2 < y)&(y < 2.6)) = 2.4;
+y((1.8 < y)&(y < 2.2)) = 2.0;
+y(y<1.8) = 1.8;
 
 %%%% SOFT DECISION -> Generate a LLR using gaussian approximation
 %%%% L is the vector of log liklehood ratios
