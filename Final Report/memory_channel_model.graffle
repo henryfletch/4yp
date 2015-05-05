@@ -63,8 +63,8 @@
 			<integer>29</integer>
 			<key>Points</key>
 			<array>
-				<string>{160.96783373200802, 138.14595349211692}</string>
-				<string>{194.5511764940606, 138.31210821993528}</string>
+				<string>{160.967833732006, 138.14595071776125}</string>
+				<string>{194.55117649392579, 138.31210228720073}</string>
 			</array>
 			<key>Style</key>
 			<dict>
@@ -318,8 +318,8 @@
 			<integer>13</integer>
 			<key>Points</key>
 			<array>
-				<string>{443.1344992411664, 137.99998434186315}</string>
-				<string>{476.71784717912601, 137.99998434186315}</string>
+				<string>{443.13449924116628, 137.99998434186315}</string>
+				<string>{476.71784717912192, 137.99998434186315}</string>
 			</array>
 			<key>Style</key>
 			<dict>
@@ -351,8 +351,8 @@
 			<integer>12</integer>
 			<key>Points</key>
 			<array>
-				<string>{337.88449428908405, 138.32864341763744}</string>
-				<string>{371.46784074476545, 138.17024586008827}</string>
+				<string>{337.88449428825072, 138.32823661648948}</string>
+				<string>{371.46784068795807, 138.16964843019838}</string>
 			</array>
 			<key>Style</key>
 			<dict>
@@ -384,8 +384,8 @@
 			<integer>9</integer>
 			<key>Points</key>
 			<array>
-				<string>{68.384504313637336, 137.99999999999991}</string>
-				<string>{101.96783988113719, 137.99999999999991}</string>
+				<string>{68.384504313641301, 137.99999999999991}</string>
+				<string>{101.96783988140676, 137.99999999999991}</string>
 			</array>
 			<key>Style</key>
 			<dict>
@@ -463,7 +463,7 @@
 \pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\pardirnatural\qc
 
 \f0\fs20 \cf0 Flash Memory Noise Model\
-(Section 7.2)}</string>
+(Section 6.2)}</string>
 			</dict>
 		</dict>
 		<dict>
@@ -554,7 +554,7 @@
 	<key>MasterSheets</key>
 	<array/>
 	<key>ModificationDate</key>
-	<string>2015-04-25 14:12:35 +0000</string>
+	<string>2015-05-05 14:45:35 +0000</string>
 	<key>Modifier</key>
 	<string>Henry Fletcher</string>
 	<key>NotesVisible</key>
