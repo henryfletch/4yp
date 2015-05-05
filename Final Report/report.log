@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.15 (TeX Live 2014/W32TeX) (preloaded format=pdflatex 2015.1.26)  4 MAY 2015 14:08
+This is pdfTeX, Version 3.14159265-2.6-1.40.15 (TeX Live 2014/W32TeX) (preloaded format=pdflatex 2015.1.26)  5 MAY 2015 15:44
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -1482,7 +1482,7 @@ rted-to.pdf matched_gaussian.eps>
 (epstopdf)             \includegraphics on input line 679.
 Package epstopdf Info: Output file is already uptodate.
 
-<matched_gaussian-eps-converted-to.pdf, id=800, 592.2125pt x 477.785pt>
+<matched_gaussian-eps-converted-to.pdf, id=801, 592.2125pt x 477.785pt>
 File: matched_gaussian-eps-converted-to.pdf Graphic file (type pdf)
 
 <use matched_gaussian-eps-converted-to.pdf>
@@ -1490,7 +1490,7 @@ Package pdftex.def Info: matched_gaussian-eps-converted-to.pdf used on input li
 ne 679.
 (pdftex.def)             Requested size: 414.54591pt x 334.44722pt.
  [34] [35 <./matched_gaussian-eps-converted-to.pdf>] <memory_channel_model.pdf,
- id=817, 570.13pt x 80.3pt>
+ id=819, 570.13pt x 80.3pt>
 File: memory_channel_model.pdf Graphic file (type pdf)
 
 <use memory_channel_model.pdf>
@@ -1508,7 +1508,7 @@ onverted-to.pdf retention_time_graph.eps>
 (epstopdf)             \includegraphics on input line 702.
 Package epstopdf Info: Output file is already uptodate.
 
-<retention_time_graph-eps-converted-to.pdf, id=821, 523.9575pt x 432.61626pt>
+<retention_time_graph-eps-converted-to.pdf, id=823, 523.9575pt x 432.61626pt>
 File: retention_time_graph-eps-converted-to.pdf Graphic file (type pdf)
 
 <use retention_time_graph-eps-converted-to.pdf>
@@ -1526,7 +1526,7 @@ erted-to.pdf codedBER_NCycles2.eps>
 (epstopdf)             \includegraphics on input line 710.
 Package epstopdf Info: Output file is already uptodate.
 
-<codedBER_NCycles2-eps-converted-to.pdf, id=822, 885.3075pt x 651.43375pt>
+<codedBER_NCycles2-eps-converted-to.pdf, id=824, 885.3075pt x 651.43375pt>
 File: codedBER_NCycles2-eps-converted-to.pdf Graphic file (type pdf)
 
 <use codedBER_NCycles2-eps-converted-to.pdf>
@@ -1547,7 +1547,7 @@ rted-to.pdf cber_uber_memory.eps>
 (epstopdf)             \includegraphics on input line 716.
 Package epstopdf Info: Output file is already uptodate.
 
-<cber_uber_memory-eps-converted-to.pdf, id=876, 625.33624pt x 457.71pt>
+<cber_uber_memory-eps-converted-to.pdf, id=878, 625.33624pt x 457.71pt>
 File: cber_uber_memory-eps-converted-to.pdf Graphic file (type pdf)
 
 <use cber_uber_memory-eps-converted-to.pdf>
@@ -1576,7 +1576,7 @@ File: ts1pcr.fd 2001/06/04 font definitions for TS1/pcr.
 
 ] [48
 
-] [49] <4yp_risk_assesment.pdf, id=1170, 794.97pt x 614.295pt>
+] [49] <4yp_risk_assesment.pdf, id=1172, 794.97pt x 614.295pt>
 File: 4yp_risk_assesment.pdf Graphic file (type pdf)
 
 <use 4yp_risk_assesment.pdf>
@@ -1592,7 +1592,7 @@ File: 4yp_risk_assesment.pdf Graphic file (type pdf)
 Package pdftex.def Info: 4yp_risk_assesment.pdf used on input line 1008.
 (pdftex.def)             Requested size: 794.96806pt x 614.29349pt.
  [50]
-<4yp_risk_assesment.pdf, id=1181, page=1, 794.97pt x 614.295pt>
+<4yp_risk_assesment.pdf, id=1183, page=1, 794.97pt x 614.295pt>
 File: 4yp_risk_assesment.pdf Graphic file (type pdf)
 
 <use 4yp_risk_assesment.pdf, page 1>
@@ -1622,7 +1622,7 @@ Package pdftex.def Info: 4yp_risk_assesment.pdf, page1 used on input line 1008.
 
 (pdftex.def)             Requested size: 794.96806pt x 614.29349pt.
  [51 <./4yp_risk_assesment.pdf>]
-<4yp_risk_assesment.pdf, id=1213, page=2, 794.97pt x 614.295pt>
+<4yp_risk_assesment.pdf, id=1215, page=2, 794.97pt x 614.295pt>
 File: 4yp_risk_assesment.pdf Graphic file (type pdf)
 
 <use 4yp_risk_assesment.pdf, page 2>
@@ -1655,8 +1655,8 @@ Package logreq Info: Writing requests to 'report.run.xml'.
 
  ) 
 Here is how much of TeX's memory you used:
- 23361 strings out of 493109
- 390346 string characters out of 6138587
+ 23362 strings out of 493109
+ 390357 string characters out of 6138587
  710978 words of memory out of 5000000
  26162 multiletter control sequences out of 15000+600000
  46384 words of font info for 92 fonts, out of 8000000 for 9000
@@ -1681,10 +1681,10 @@ live/2014/texmf-dist/fonts/type1/public/amsfonts/symbols/msam10.pfb><c:/texlive
 /fonts/type1/urw/helvetic/uhvb8a.pfb><c:/texlive/2014/texmf-dist/fonts/type1/ur
 w/helvetic/uhvr8a.pfb><c:/texlive/2014/texmf-dist/fonts/type1/urw/helvetic/uhvr
 o8a.pfb>
-Output written on report.pdf (53 pages, 1295977 bytes).
+Output written on report.pdf (53 pages, 1296365 bytes).
 PDF statistics:
- 1369 PDF objects out of 1440 (max. 8388607)
- 1126 compressed objects within 12 object streams
- 337 named destinations out of 1000 (max. 500000)
+ 1371 PDF objects out of 1440 (max. 8388607)
+ 1128 compressed objects within 12 object streams
+ 338 named destinations out of 1000 (max. 500000)
  391 words of extra memory for PDF output out of 10000 (max. 10000000)
 

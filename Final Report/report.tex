@@ -125,7 +125,7 @@ The majority of this project concerns the development of a MATLAB simulation, th
 Firstly, this report presents an overview of flash memory and error-correction, in the form of linear block codes. Then, the process of decoding these error-correcting codes is presented. Subsequently, the simulation of one type of channel model, the AWGN channel, is performed and the results compared to a known data set. Finally, the remainder of the report focuses on creating a specific `memory noise model', simulating it, and comparing the various decoding schemes used.
 
 \section{Overview of Flash Memory Technology} \label{section:memtech}
-A NAND flash memory cell is essentially just a floating gate transistor. The threshold voltage of each transistor can be individually programmed to determine what data is stored in that cell. A Single-Level Cell (SLC) has 2 states: Erased and Programmed. Whereas a Multi-Level Cell (MLC) often has 4 states (Erased and 3 different programmed levels), allowing it to store 2 bits of information.
+A NAND flash memory cell is essentially just a floating gate transistor. The threshold voltage of each transistor can be individually programmed to determine what data is stored in that cell. A Single-Level Cell (SLC) has 2 states: erased and programmed. Whereas a Multi-Level Cell (MLC) often has 4 states (1 erased and 3 different programmed levels), allowing it to store 2 bits of information.
 \begin{figure}[h]
 \centering
 \includegraphics[scale=0.65]{floating_gate_transistor}
@@ -428,10 +428,10 @@ One of the most important noisy channels used in communications theory, and alre
 \item Finally, the channel decoder performs error correction using the Belief Propagation algorithm, and outputs the corrected codeword (Note: The encoded message can be extracted from the codeword if a systematic generator matrix was used).
 \end{itemize}
 
-To simulate the error correction performance of this system \cite{gilley2003bit}, and compare it to other results, there needs to be a standardised quantity to describe the error rate and the channel noise. Whilst the noise variance is one such quantity, it doesn't take into account the relative difference between signal power and noise power. A far more useful metric would be Signal-to-noise ratio (SNR), or more specifically in this case $\dfrac{E_b}{N_0}$ (energy per bit/noise power). Like SNR, this is usually given in decibels\footnote{For the conversion calculations, $\dfrac{E_b}{N_0}$ must be a linear, not logarithmic, value. i.e: $\dfrac{E_b}{N_0}(\text{dB}) = 10\log_{10}\left[\dfrac{E_b}{N_0}(\text{lin})\right]$}. 
+To simulate the error correction performance of this system, and compare it to other results, there needs to be a standardised quantity to describe the error rate and the channel noise. Whilst the noise variance is one such quantity, it doesn't take into account the relative difference between signal power and noise power. A far more useful metric would be Signal-to-noise ratio (SNR), or more specifically in this case $\dfrac{E_b}{N_0}$ (energy per bit/noise power). Like SNR, this is usually given in decibels\footnote{For the conversion calculations, $\dfrac{E_b}{N_0}$ must be a linear, not logarithmic, value. i.e: $\dfrac{E_b}{N_0}(\text{dB}) = 10\log_{10}\left[\dfrac{E_b}{N_0}(\text{lin})\right]$}. 
 \vspace{3mm} \\
 \noindent
-Converting between $\sigma^2$ and $\dfrac{E_b}{N_0}$ is relatively trivial:
+Converting between $\sigma^2$ and $\dfrac{E_b}{N_0}$ is relatively trivial \cite{gilley2003bit}:
 \vspace{3mm} \\
 \noindent
 \begin{tabular}{lcl}
@@ -487,11 +487,11 @@ One issue identified with the simulation program was the speed of the decoder. I
 Whilst subsequent simulations made use of the built-in MATLAB decoder, the error performance of the original decoder was identical to that of MATLAB's. Additional testing of the original decoder against the built-in decoder on the memory model also produced identical results. The only reason we are making use of a library function, in this case, is for the massive speed improvements it offers.
 
 \section{Modelling a memory-specific noise channel} \label{section:memory}
-There are many similarities between modelling a communications system and flash memory. Both are binary channels, subject to some binary input, distortion by some noise source, and subsequent decoding. However, the major difference in flash memory is the storage of binary data in the device for a length of time, unlike a communications system where the data is `in transit'. When a bit is stored to a memory cell, the noise effect is cumulative over the lifetime of the stored bit. Therefore, two major parameters in modelling flash memory are time, and the number of read/write (or Program/Erase) cycles each cell is subject to.
+There are many similarities between modelling a communications system and flash memory. Both are binary channels, subject to some binary input, distortion by some noise source, and subsequent decoding. However, the major difference in flash memory is the storage of binary data in the device for a length of time, unlike a communications system where the data is `in transit'. When a bit is stored to a memory cell, the noise effect is cumulative over the lifetime of the stored bit. Therefore, two major parameters in modelling flash memory are time, and the number of read/write (or program/erase) cycles each cell is subject to.
 
 As stated previously in section \ref{section:memtech}, it is the threshold voltage of each gate that defines the binary value of the memory cell. In this project, the flash memory is assumed to be of SLC design, that is 1 bit per cell. It is also assumed that a low gate threshold voltage corresponds to a binary 0, whilst a higher threshold voltage corresponds to a binary 1. 
 
-The primary noise source, which is caused by repeated P/E cycling, can be split into two physical phenomena \cite{dong2012estimating}: Electron capture and emission events, which result in a random variation of the threshold voltage, and interface trap recovery and electron de-trapping, which gradually reduces the gate threshold voltage over time. The former is known as `Random Telegraph Noise' (RTN), whilst the latter is often called the `Retention Noise', since it sets a time limit on how long data can be stored in a cell until the threshold voltage becomes too low.
+The primary noise source, which is caused by repeated P/E (program/erase) cycling, can be split into two physical phenomena \cite{dong2012estimating}: Electron capture and emission events, which result in a random variation of the threshold voltage, and interface trap recovery and electron de-trapping, which gradually reduces the gate threshold voltage over time. The former is known as `Random Telegraph Noise' (RTN), whilst the latter is often called the `Retention Noise', since it sets a time limit on how long data can be stored in a cell until the threshold voltage becomes too low.
 
 Another noise source, known as `Cell-to-cell interference', which as the name implies is the result of neighbouring memory cells interfering with each other. This dependence between neighbouring cells adds additional complexity when modelling the system, since it is no longer possible to model one cell at a time. As a result, it was decided for this project not to include this noise source, instead focusing on an individual memory cell.
 
@@ -588,14 +588,14 @@ This could be solved for $x$ to obtain the ideal boundary value for each value o
 \minipage{0.5\textwidth}
 \centering
 \includegraphics[scale=0.6]{variable_boundary_example}
-\caption{Example showing both erased and programmed distributions and the decision boundary (dotted line) between them}
+\caption{Example showing erased (red line) and programmed (blue line) distributions and the decision boundary (dotted line)}
 \label{fig:hard_decision_variable_example}
 \endminipage
 \end{figure}
 
 Figure \ref{fig:hard_decision_variable_boundary} shows the results of the numerical integration, in order to obtain the optimal decision boundary for hard decision decoding. The boundary voltage, V, is the same as $x$ for the analytic case. The results appear slightly jagged since the data was taken from histograms of each distribution, which themselves were created from random sampling. In order to make use of the data from the integration, in a closed form solution, a simple exponential fit was plotted over the results. 
 
-Figure \ref{fig:hard_decision_variable_example} is an example of both the erased and programmed distributions for a specific P/E cycle number, $N=20,000$. The dotted black line shows the optimal decision boundary, taken from the approximate exponential fit in figure \ref{fig:hard_decision_variable_boundary} ($V \approx 2.31$).
+Figure \ref{fig:hard_decision_variable_example} is an example of both the erased and programmed distributions for a specific P/E cycle number, $N=20,000$. The dotted black line shows the optimal decision boundary, taken from the approximate exponential fit in figure \ref{fig:hard_decision_variable_boundary} ($V \approx 2.31$). This boundary results in Maximum Likelihood decoding for both programmed and erased states.
 
 \subsection{Soft decision decoding: Gaussian approximations \& non-Gaussian functions}
 As shown previously, soft decision decoding makes use of additional `soft' information in order to improve the decoding performance. The main premise with SDD is to introduce probabilities into the decoding process, harnessing the \textit{a priori} probabilities of the underlying distributions, in order to construct a probabilistic decoder.
@@ -603,7 +603,7 @@ As shown previously, soft decision decoding makes use of additional `soft' infor
 Simply obtaining the exact threshold voltage of the memory cell is not sufficient to perform SDD. As with the AWGN model, some prior information (in that case the noise variance) is required in order to convert the received raw data into a likelihood value. Once a likelihood \textit{ratio} of the received data has been calculated, exactly the same Sum-Product algorithm can be used as before. The difficulty in the memory model case, is obtaining this likelihood ratio.
 
 \begin{equation} \label{eq:llr_memory}
-\mathcal{L}(c|y) \sim log_e \left[ \dfrac{\text{\textit{``Probability density function of E(x)"}}}{\text{\textit{``Probability density function of P(x)"}}} \right]
+\mathcal{L}(c|y) \sim log_e \left[ \dfrac{\text{\textit{``Probability density function of erased state, E(x)"}}}{\text{\textit{``Probability density function of programmed state, P(x)"}}} \right]
 \end{equation}
 
 Equation \ref{eq:llr_memory}, which results from the earlier work in section \ref{section:LLR}, gives us the Log-Likelihood ratio that is required in order to perform soft decision decoding on the memory channel. It is clear that the necessary \textit{a priori} information in this case is the entire Probability Density Function for both the erased and programmed states. Once the PDF's are known, the voltage value for the cell can be inputted and the requisite LLR obtained.
@@ -624,7 +624,7 @@ The full convolution of the initial Uniform distribution with the retention nois
 \begin{dmath}[label={eq:full_func}]
 f_{prog}(\Delta V_{T}=x) = \frac{1}{4\Delta V_{pp}}e^{\frac{^{\sigma_{r}^{2}}}{2\lambda^{2}}}\left[e^{-\frac{x-Vp-\Delta V_{pp}-\mu_{r}}{\lambda}}\mathbf{\cdot erfc}\left(\frac{\sigma_{r}}{\sqrt{2}\lambda}-\frac{x-Vp-\Delta V_{pp}-\mu_{r}}{\sqrt{2}\sigma_{r}}\right)-e^{\frac{x-Vp-\Delta V_{pp}-\mu_{r}}{\lambda}}\mathbf{\cdot erfc}\left(\frac{\sigma_{r}}{\sqrt{2}\lambda}+\frac{x-Vp-\Delta V_{pp}-\mu_{r}}{\sqrt{2}\sigma_{r}}\right)\right]- \frac{1}{4\Delta V_{pp}}e^{\frac{\sigma_{r}^{2}}{2\lambda^{2}}}\left[e^{-\frac{x-Vp-\mu_{r}}{\lambda}}\mathbf{\cdot erfc}\left(\frac{\sigma_{r}}{\sqrt{2}\lambda}-\frac{x-Vp-\mu_{r}}{\sqrt{2}\sigma_{r}}\right)-e^{\frac{x-Vp-\mu_{r}}{\lambda}}\mathbf{\cdot erfc}\left(\frac{\sigma_{r}}{\sqrt{2}\lambda}+\frac{x-Vp-\mu_{r}}{\sqrt{2}\sigma_{r}}\right)\right]+\frac{1}{2\Delta V_{pp}}\mathbf{\cdot erfc}\left(\frac{x-Vp-\Delta V_{pp}-\mu_{r}}{\sqrt{2}\sigma_{r}}\right)- \frac{1}{2\Delta V_{pp}}\mathbf{\cdot erfc}\left(\frac{x-Vp-\mu_{r}}{\sqrt{2}\sigma_{r}}\right)
 \end{dmath}
-Equation \ref{eq:full_func} is the probability density function of the cell threshold voltage $V_{T}$ for the programmed state. $Vp$ is the initial programmed voltage, $\Delta V_{pp}$ is the programming step voltage, $\mu_{r}$ and $\sigma_{r}$ are the retention noise parameters from equation \ref{eq:retention}, and $\lambda$ is the parameter describing the RTN.
+Equation \ref{eq:full_func} is the probability density function of the cell threshold voltage $V_{T}$ for the programmed state. $V_p$ is the initial programmed voltage, $\Delta V_{pp}$ is the programming step voltage, $\mu_{r}$ and $\sigma_{r}$ are the retention noise parameters from equation \ref{eq:retention}, and $\lambda$ is the parameter describing the RTN.
 
 \subsubsection{Approximation: Retention Noise only}
 The magnitude of the RTN generated is substantially smaller than the magnitude of the retention noise. It therefore seems reasonable to ignore the effect of the RTN and perform the convolution of just the Uniform and Gaussian distributions for the programmed state.
@@ -664,7 +664,7 @@ This result shows that by adding Gaussian noise to a Uniform distribution, you o
 Figure \ref{fig:retentionVsFull} shows that the convolution method, when excluding RTN, produces the correct shape of distribution for small N, but as N increases the difference between the distribution widens. This is because the RTN increases as N increases.
 
 \subsubsection{Approximation: Matched Gaussians}
-Another approach to obtain the distribution of the threshold voltage, is to use a reasonable approximation of the function, rather than trying to obtain it directly. Using a simplified approximation also turns out to be faster [Around 5x faster when generating the LLR's in MATLAB compared to the full function in section \ref{section:fullFunc}].
+Another approach to obtain the distribution of the threshold voltage, is to use a reasonable approximation of the function, rather than trying to obtain it directly. Using a simplified approximation also turns out to be faster\footnote{Appendix B, table 2: LLR's are generated 5x faster in MATLAB compared to the full function in section \ref{section:fullFunc}}.
 
 An obvious choice would be to use a Gaussian. Whilst the distribution starts off as a Uniform distribution, adding noise causes it to quickly degrade into a Gaussian-like shape. Since the memory noise model, as explained in equation \ref{eq:additive_memory_noise_model}, is addition of independent random variables, the mean and variance of each random variable can simply be added together to obtain the overall mean and variance of the distribution. These values can then be used to generate a `Matched Gaussian', which will have the same mean and variance as the actual underlying function, but just with a slightly different shape. 
 \begin{equation} \label{eq:matchedGaussians}
