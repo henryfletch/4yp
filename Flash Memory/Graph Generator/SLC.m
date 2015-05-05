@@ -4,7 +4,7 @@ clear all
 close all
 I = [];
 x = -5:0.0001:5;
-NVector = [];
+NVector = [30000];
 Verased = 1.4;
 Vp = 2.8;
 deltaVp = 0.25;
