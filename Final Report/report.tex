@@ -739,11 +739,19 @@ Soft-decision decoding with the AWGN channel assumes that the received symbols g
 
 In order to achieve the best soft-decision decoding performance, the exact probability density function of the cell threshold voltage for all values of `N' is required. This was demonstrated by taking the two additive noise sources in the memory model, and producing the required PDF through the convolution operation. Whilst this process results in the best performance, it does so at a cost to both the complexity of the decoder as well as the work required to obtain the PDF in the first place. Since the actual real-world noise process is assumed to be unknown, or at least unverified, using this method seems redundant unless the model is shown to be very accurate compared to an actual device. 
 
-An important, but so far completely ignored reality, is that full unlimited precision soft-information is impossible to obtain from a memory cell. The sense-amp comparator used in memory cells today generates at most 3-bits of information, in the case of triple-level cell memory. All of the simulations in this project have assumed double floating point precision, which is effectively 64 bits of information. Work is ongoing in investigating the effect of quantisation in soft-decision decoding of LDPC codes \cite{zhao2005implementation}, as well as more specifically in the number of comparator reads required to achieve near-optimum levels of soft information in a flash memory cell \cite{DBLP:journals/corr/abs-1210-0149}. Both have shown that even with limited precision soft information, the decoder retains the majority of its performance. For example, \cite{zhao2005implementation} shows that around 6 bits of soft information is required in the AWGN case to achieve near identical performance to the unlimited precision case. For the memory model, figure [??] demonstrates the effect of simple 2-bit and 3-bit quantisation when using the exact convolution PDF. It shows reasonable performance considering the reduction in precision. An area of future research would likely be investigating exactly how to create the optimum quantisation regions.
+An important, but so far completely ignored reality, is that full unlimited precision soft-information is impossible to obtain from a memory cell. The sense-amp comparator used in memory cells today generates at most 3-bits of information, in the case of triple-level cell memory. All of the simulations in this project have assumed double floating point precision, which is effectively 64 bits of information. Work is ongoing in investigating the effect of quantisation in soft-decision decoding of LDPC codes \cite{zhao2005implementation}, as well as more specifically in the number of comparator reads required to achieve near-optimum levels of soft information in a flash memory cell \cite{DBLP:journals/corr/abs-1210-0149}. Both have shown that even with limited precision soft information, the decoder retains the majority of its performance. For example, \cite{zhao2005implementation} shows that around 6 bits of soft information is required in the AWGN case to achieve near identical performance to the unlimited precision case. For the memory model, figure \ref{fig:quantisation} demonstrates the effect of simple 2-bit and 3-bit quantisation when using the exact convolution PDF. It shows reasonable performance considering the reduction in precision. An area of future research would likely be investigating exactly how to create the optimum quantisation regions.
+
+\begin{figure}[h]
+\centering
+\includegraphics[scale=0.58]{quantisation}
+\caption{Graph showing the effect of quantisation on soft decision decoding. With just 8 reads of the cell voltage, performance is close to the unlimited precision case.}
+\label{fig:quantisation}
+\end{figure}
 
 As well as looking at the effect of quantisation, future work in this area would almost certainly involve looking at code construction. This project made use of a specific LDPC code designed for digital video broadcast - not at all related to flash memory. It is known that ``the optimal code for a given set of channel conditions may not resemble the optimal code for another" \cite[p. 369]{golomb1994basic}, that is,  codes perform differently dependent on application. What works for the AWGN channel may not work for any future memory channel, and the codes that perform well with unlimited soft information may not be the ones that perform well in the limited precision case.
 
 This project only looked at modelling SLC memory (1 bit per cell), whereas in reality modern cells either store 2 or 3 bits of information. As the cell threshold voltages get closer and closer to each other, the importance of error correction will only increase in the future. One solution presented here is to make use of soft information in the cell, which results in substantial improvement over the hard-decision scheme. It was also shown that accurate modelling is vitally important to the error correcting performance. Future developments in flash memory will likely include QLC (Quad-level cell) \cite{eetimes} technology for solid-state drives. Modern error correction schemes, such as the ones presented here, will almost certainly be one of many areas of research in the wider semiconductor industry, with the goal of increasing storage capacity, whilst reducing device costs. 
+
 
 \phantomsection
 \addcontentsline{toc}{section}{Appendix A: MATLAB code}
@@ -768,7 +776,7 @@ RandStream.setDefaultStream(RandStream('mt19937ar','seed',seed));
 The commands in extract \ref{code:rng} were used to seed the random number generator every time a new MATLAB process was created \cite{randomblog}. On UNIX machines, there is a system random number source \mbox{`/dev/random'}, which ``gathers environmental noise from device drivers and other sources into an entropy pool [and] from this entropy pool random numbers are created" \cite{devrandom}. The numbers generated by this process originate from physical random processes such as hardware noise, and so it is assumed that when calling the function on a different machine, a different random number will be generated every time. These random numbers are then used to seed the pseudo-random stream in MATLAB.
 
 \subsection*{Sum-Product decoders}
-Extract \ref{code:sp1} and extract \ref{code:sp2} show the code generated in MATLAB to construct the sum-product decoders. The former is the first iteration of the program, that was un-vectorised, whilst the latter is a fully vectorised version.
+Extract \ref{code:sp1} and extract \ref{code:sp2} show the code generated in MATLAB to construct the sum-product decoders. The former is the first iteration of the program that was un-vectorised, whilst the latter is a fully vectorised version.
 \begin{lstlisting}[style=Matlab-editor,caption = {Sum-Product decoder, first version},label=code:sp1,lineskip={-1.5pt}]
 function [y,iterations] = BP_iterate(x,H,l)
 iterations = l;
@@ -836,7 +844,7 @@ for iter = 0:l
 end
 end
 \end{lstlisting}
-
+\clearpage
 \begin{lstlisting}[style=Matlab-editor,caption = {Sum-Product decoder, second version (Vectorised)},label=code:sp2,lineskip={-1.5pt}]
 function [y,iterations] = BP_iterate(x,H,l)
 iterations = l;
@@ -858,7 +866,6 @@ for iter = 0:l
         b = bsxfun(@times,a,H);
         m_IJ = b - m_JI;
     end
-    
     m_IJ_2 = m_IJ'./2; %Transpose: Memory access is then much quicker!
     
     %All check nodes:
@@ -876,7 +883,6 @@ for iter = 0:l
     % Clipping function
     m_JI((m_JI) > 1000)=999;
     m_JI((m_JI) < -1000)=-999;
-    
     %Get current variable node values
     sumVector = sum(m_JI);
     y = x + sumVector;
@@ -885,14 +891,12 @@ for iter = 0:l
     %Hard Decision:
     y2(y>0) = 0;
     y2(y<0) = 1;
-    
     %Parity Check:
     test = sum(mod(y2*H_,2));
     if test == 0
         iterations = iter;
         return
     end
-end
 end
 \end{lstlisting}
 \clearpage
